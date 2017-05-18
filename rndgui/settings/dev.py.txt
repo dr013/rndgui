@@ -1,0 +1,5 @@
+import settings
+
+settings.INSTALLED_APPS += [
+    "debug_toolbar",
+]

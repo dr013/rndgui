@@ -1,0 +1,115 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>R&D Tools{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Evgeny Kryukov<krukov@bpcbt.com>">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" >
+    <link rel="stylesheet" href="{% static "css/dashboard.css" %}">
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message|safe }}</div>
+{% endfor %}
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">R&D tools</a>
+        </div>
+ {% if user.is_authenticated %}
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                <li><a href="{% url 'start' %}">{% trans "Logged in as " %}{{ user.username }}</a></li>
+                <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <form class="navbar-form navbar-right" method="post" action="{% url "login" %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" placeholder="BPC Login" class="form-control" name="username">
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="BPC Password" class="form-control" name="password">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+            {% endif %}
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                {% for rec in ACM_SECTION %}
+                    {% if rec.1 %}
+                        <li><a href="{% url rec.1 %}">{{ rec.0 }}</a></li>
+                    {% else %}
+                        <li class="nav-header disabled"><a>{{ rec.0 }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="page-header">{% block header %}Dashboard{% endblock %}</h2>
+            <div class="row">
+                {% block content %}
+                    Your text
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="blockquote-footer">
+    <div class="container">
+        <hr>
+        <p class="muted credit">
+            <span class="text-muted">BPC R&D DevOps Team 2012-{% now "Y" %} Current version: 1.6</span>
+        </p>
+    </div>
+</footer>
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            $("jira_task").tooltip();
+            $.fn.wait = function (time, type) {
+                time = time || 1000;
+                type = type || "fx";
+                return this.queue(type, function () {
+                    var self = this;
+                    setTimeout(function () {
+                        $(self).dequeue();
+                    }, time);
+                });
+            };
+            function runIt() {
+                $("blink").wait()
+                        .animate({"opacity": 0.1}, 2000)
+                        .wait()
+                        .animate({"opacity": 1}, 1500, runIt);
+            }
+
+            runIt();
+        });
+    </script>
+    {% block js %}{% endblock %}
+</body>
+</html>
+
