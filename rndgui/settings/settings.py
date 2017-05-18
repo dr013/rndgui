@@ -123,3 +123,5 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_URL = ''
+
+JIRA_BROWSE_URL = 'http://jira.bpc.in:8080/'

@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import json
 import urllib
+# noinspection PyCompatibility
 import urllib2
 
 import datetime
@@ -34,10 +35,13 @@ def login_view(request):
         # fail LDAP
         messages.add_message(request, messages.ERROR, 'Wrong username/password!')
         return redirect('start')
+    else:
+        request.session["secret"] = password
 
     user = authenticate(request, username=username, password=password)
 
     if user is not None:
+        update_user(user, user_arr)
         login(request, user)
     else:
         # create user from LDAP
@@ -66,6 +70,22 @@ def check_ldap(username, password):
         content = urllib2.urlopen(url=settings.AUTH_URL, data=data)
         user = json.load(content)
         return user
+
+
+def update_user(user, user_arr):
+    u = user
+    changed = False
+
+    if not u.first_name:
+        u.first_name = user_arr["first_name"]
+        changed = True
+
+    if not u.last_name:
+        u.last_name = user_arr["last_name"]
+        changed = True
+
+    if changed:
+        u.save()
 
 
 def tofirstdayinisoweek(year, week):
