@@ -22,6 +22,7 @@ from acm.views import start, logout_view, login_view
 
 urlpatterns = [
     url(r'^$', start, name='start'),
+    url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^login/', login_view, name='login'),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^admin/', admin.site.urls),

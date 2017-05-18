@@ -1,3 +1,5 @@
 cx-Oracle==5.3
 Django==1.11
 psycopg2==2.7
+django-admin-tools
+feedparser

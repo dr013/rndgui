@@ -22,3 +22,5 @@ class Membership(models.Model):
     date_joined = models.DateField(auto_now_add=True)
     is_head = models.BooleanField(default=False)
 
+    def __str__(self):  # __unicode__ on Python 2
+        return '{user}::{group}'.format(user=self.user.username, group=self.group)

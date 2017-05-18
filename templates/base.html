@@ -29,10 +29,43 @@
             </button>
             <a class="navbar-brand" href="#">R&D tools</a>
         </div>
+
+     <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Products <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Add new product</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Product</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Internal projects</li>
+                        <li><a href="#">CI/CD</a></li>
+                        <li><a href="#">AUTO testing</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Services <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">NewProduct</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+                {% if user.is_staff %}
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                {% endif %}
+            </ul>
  {% if user.is_authenticated %}
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
-                <li><a href="{% url 'start' %}">{% trans "Logged in as " %}{{ user.username }}</a></li>
+                <li><a href="{% url 'start' %}">{% trans "Logged in as " %}{{ user.get_full_name }}</a></li>
                 <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
             </div>
@@ -48,6 +81,7 @@
             <button type="submit" class="btn btn-success">Sign in</button>
             </form>
             {% endif %}
+     </div>
     </div>
 </div>
 
