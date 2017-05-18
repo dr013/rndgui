@@ -1,5 +1,15 @@
-import settings
+from settings import *
 
-settings.INSTALLED_APPS += [
+DEBUG = True
+
+INSTALLED_APPS += [
     "debug_toolbar",
 ]
+
+MIDDLEWARE += [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = ["127.0.0.1", '10.7.32.91']
+
+AUTH_URL = "http://sv2-web.bt.bpc.in/auth/"
