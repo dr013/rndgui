@@ -12,12 +12,16 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
 
+from prd.models import Product
+
 
 def start(request):
     # get timesheet
     if request.user.is_authenticated():
         username = request.user.username
+        prd_list = Product.objects.all()
         jira_url = settings.JIRA_BROWSE_URL
+
     return render(request, 'start.html', locals())
 
 

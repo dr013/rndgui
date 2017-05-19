@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import models
 from acm.models import Institution
@@ -37,6 +37,9 @@ class Release(models.Model):
     def __str__(self):
         return "{rel} - {prd}".format(rel=self.name, prd=self.product)
 
+    def get_absolute_url(self):
+        return reverse('release-detail', kwargs={'pk': self.pk})
+
 
 class Build(models.Model):
     name = models.CharField("Build number", max_length=20)
@@ -51,6 +54,9 @@ class Build(models.Model):
 
     def __str__(self):
         return "{prd} {rel}.{build}".format(rel=self.release.name, prd=self.release.product, build=self.name)
+
+    def get_absolute_url(self):
+        return reverse('build-detail', kwargs={'pk': self.pk})
 
 
 class HotFix(models.Model):
