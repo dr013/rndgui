@@ -26,11 +26,11 @@ class Product(models.Model):
 class Release(models.Model):
     name = models.CharField(_("Release number"), max_length=20)
     product = models.ForeignKey(Product)
-    jira = models.CharField(_("Jira task for release"), max_length=20)
+    jira = models.CharField(_("Jira task for release"), max_length=20, blank=True, null=True)
     is_active = models.BooleanField(_("Is active"), default=True)
     released = models.BooleanField(_("Is released"), default=False)
     author = models.ForeignKey(User)
-    date_released = models.DateField(_("Release date"))
+    date_released = models.DateField(_("Release date"), null=True, blank=True)
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
 
@@ -45,7 +45,7 @@ class Build(models.Model):
     is_active = models.BooleanField(_("Is active"), default=True)
     released = models.BooleanField(_("Is released"), default=False)
     author = models.ForeignKey(User)
-    date_released = models.DateField(_("Build date"))
+    date_released = models.DateField(_("Build date"), null=True, blank=True)
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
 

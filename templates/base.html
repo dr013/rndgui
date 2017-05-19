@@ -85,29 +85,29 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                {% for rec in ACM_SECTION %}
-                    {% if rec.1 %}
-                        <li><a href="{% url rec.1 %}">{{ rec.0 }}</a></li>
-                    {% else %}
-                        <li class="nav-header disabled"><a>{{ rec.0 }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h2 class="page-header">{% block header %}Dashboard{% endblock %}</h2>
-            <div class="row">
-                {% block content %}
-                    Your text
-                {% endblock %}
-            </div>
-        </div>
-    </div>
-</div>
+{#<div class="container-fluid">#}
+{#    <div class="row">#}
+{#        <div class="col-sm-3 col-md-2 sidebar">#}
+{#            <ul class="nav nav-sidebar">#}
+{#                {% for rec in ACM_SECTION %}#}
+{#                    {% if rec.1 %}#}
+{#                        <li><a href="{% url rec.1 %}">{{ rec.0 }}</a></li>#}
+{#                    {% else %}#}
+{#                        <li class="nav-header disabled"><a>{{ rec.0 }}</a></li>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        </div>#}
+{#        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">#}
+{#            <h2 class="page-header">{% block header %}Dashboard{% endblock %}</h2>#}
+{#            <div class="row">#}
+{#                {% block content %}#}
+{#                    Your text#}
+{#                {% endblock %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 <footer class="blockquote-footer">
     <div class="container">
         <hr>
