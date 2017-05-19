@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -24,3 +24,10 @@ class Membership(models.Model):
 
     def __str__(self):  # __unicode__ on Python 2
         return '{user}::{group}'.format(user=self.user.username, group=self.group)
+
+
+class Role(Group):
+    class Meta:
+        proxy = True
+        app_label = 'auth'
+        verbose_name = _('Role')

@@ -8,7 +8,7 @@ from prd.models import Product
 
 
 class ProductAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"name": ("title",)}
+    prepopulated_fields = {"name": ("jira",)}
 
 
 admin.site.register(Product, ProductAdmin)

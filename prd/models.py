@@ -4,14 +4,15 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 from acm.models import Institution
+from django.utils.translation import ugettext_lazy as _
 
 
 class Product(models.Model):
-    name = models.SlugField("product_name")
     title = models.CharField("Product title", max_length=200)
     desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
     wiki_url = models.URLField("Wiki/Confluence URL")
-    jira = models.CharField("Jira project code", max_length=20) # TODO add choices
+    jira = models.CharField("Jira project code", max_length=20)  # TODO add choices
+    name = models.SlugField("product_name")
     inst = models.ForeignKey(Institution)
     owner = models.ForeignKey(User)
     is_internal = models.BooleanField("Is internal", default=False)
@@ -20,3 +21,46 @@ class Product(models.Model):
 
     def __str__(self):
         return "{title}: {inst}".format(title=self.title, inst=self.inst)
+
+
+class Release(models.Model):
+    name = models.CharField(_("Release number"), max_length=20)
+    product = models.ForeignKey(Product)
+    jira = models.CharField(_("Jira task for release"), max_length=20)
+    is_active = models.BooleanField(_("Is active"), default=True)
+    released = models.BooleanField(_("Is released"), default=False)
+    author = models.ForeignKey(User)
+    date_released = models.DateField(_("Release date"))
+    created = models.DateField(_("Created"), auto_now_add=True)
+    updated = models.DateField(_("Updated"), auto_now=True)
+
+    def __str__(self):
+        return "{rel} - {prd}".format(rel=self.name, prd=self.product)
+
+
+class Build(models.Model):
+    name = models.CharField("Build number", max_length=20)
+    release = models.ForeignKey(Release)
+    jira = models.CharField(_("Jira subtask for build"), max_length=20)
+    is_active = models.BooleanField(_("Is active"), default=True)
+    released = models.BooleanField(_("Is released"), default=False)
+    author = models.ForeignKey(User)
+    date_released = models.DateField(_("Build date"))
+    created = models.DateField(_("Created"), auto_now_add=True)
+    updated = models.DateField(_("Updated"), auto_now=True)
+
+    def __str__(self):
+        return "{prd} {rel}.{build}".format(rel=self.release.name, prd=self.release.product, build=self.name)
+
+
+class HotFix(models.Model):
+    name = models.CharField("HotFix number", max_length=20)
+    build = models.ForeignKey(Build)
+    jira = models.CharField(_("Jira task for hotfix"), max_length=20)
+    author = models.ForeignKey(User)
+    date_released = models.DateField(_("HotFix date"))
+    created = models.DateField(_("Created"), auto_now_add=True)
+    updated = models.DateField(_("Updated"), auto_now=True)
+
+    def __str__(self):
+        return "{build}.{hotfix}".format(build=self.build, hotfix=self.name)

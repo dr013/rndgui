@@ -4,7 +4,6 @@ import json
 import urllib
 # noinspection PyCompatibility
 import urllib2
-
 import datetime
 from django.conf import settings
 from django.contrib import messages

@@ -6,3 +6,5 @@ from django.apps import AppConfig
 
 class PrdConfig(AppConfig):
     name = 'prd'
+    verbose_name = "Product management"
+
