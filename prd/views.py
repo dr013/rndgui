@@ -9,9 +9,8 @@ from django.views.generic import ListView
 @login_required
 @permission_required('prd.add_build')
 def create_build(request):
-    if request.user.is_authenticated():
-        username = request.user.username
-        prd_list = Product.objects.all()
+    username = request.user.username
+    prd_list = Product.objects.all()
 
     return render(request, 'create_build.html', locals())
 

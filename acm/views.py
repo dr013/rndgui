@@ -31,6 +31,7 @@ def logout_view(request):
 
 
 def login_view(request):
+
     username = request.POST["username"]
     password = request.POST["password"]
     user_arr = check_ldap(username, password)
