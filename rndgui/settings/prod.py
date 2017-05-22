@@ -16,3 +16,4 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+ALLOWED_HOSTS = ["sv2-web.bt.bpc.in", " 10.7.33.73"]
