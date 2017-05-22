@@ -37,40 +37,52 @@ def login_view(request):
     if request.method == 'POST':
 
         form = LoginForm(request.POST)
+
         if form.is_valid():
+
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
-            user_arr = check_ldap(username, password)
-            if not user_arr:
-                # fail LDAP
-                messages.add_message(request, messages.ERROR, 'Wrong username/password!')
-                return render(request, 'login.html')
+
+            if form.cleaned_data['is_ldap']:
+                user_arr = check_ldap(username, password)
+                if not user_arr:
+                    # fail LDAP
+                    messages.add_message(request, messages.ERROR, 'Wrong username/password!')
+                    return render(request, 'login.html', locals())
+                else:
+                    request.session["secret"] = password
+
+                user = authenticate(request, username=username, password=password)
+
+                if user is not None:
+                    update_user(user, user_arr)
+                    login(request, user)
+                else:
+                    # create user from LDAP
+                    user = User.objects.create_user(username=user_arr['username'], email=user_arr['email'],
+                                                    password=user_arr["password"])
+                    user.first_name = user_arr["first_name"]
+                    user.last_name = user_arr["last_name"]
+                    user.save()
+
+                    messages.add_message(request, messages.SUCCESS, _('New user {} was created.'.format(user.username)))
+                    login(request, user)
+                return redirect('start')
             else:
-                request.session["secret"] = password
-
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
-                update_user(user, user_arr)
-                login(request, user)
-            else:
-                # create user from LDAP
-                user = User.objects.create_user(username=user_arr['username'], email=user_arr['email'],
-                                                password=user_arr["password"])
-                user.first_name = user_arr["first_name"]
-                user.last_name = user_arr["last_name"]
-                user.save()
-
-                messages.add_message(request, messages.SUCCESS, _('New user {} was created.'.format(user.username)))
-                login(request, user)
-            return redirect('start')
+                # without LDAP
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('start')
+                else:
+                    return render(request, 'login.html', locals())
         else:
-            return render(request, 'login.html')
+            return render(request, 'login.html', locals())
 
     else:
-        form1 = LoginForm()
-        form2 = LoginForm(initial={'is_ldap': False})
-        return render(request, 'login.html',  {'form1': form1, 'form2': form2})
+        form = LoginForm()
+
+        return render(request, 'login.html', locals())
 
 
 def create_user(username, password, email, first_name, last_name):
@@ -118,7 +130,6 @@ def tofirstdayinisoweek(year, week):
     if datetime.date(year, 1, 4).isoweekday() > 4:
         ret -= datetime.timedelta(days=7)
     return ret, week
-
 
 # def timesheet_week(username, start_date=datetime.date.today()):
 #     return get_user_week_timesheet(username, start_date)

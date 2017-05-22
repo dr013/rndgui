@@ -21,32 +21,32 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
-
 <body>
+
+<div class="container">
 {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">{{ message|safe }}</div>
 {% endfor %}
-<div class="container">
-    <form action="{% url 'login' %}" method="post" class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
+ <form class="form-signin" action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <label class="sr-only" for="username">BPC LOGIN</label>
-        <input type="text" id="username" name="username" class="form-control" placeholder="BPC Login" required autofocus>
-
-        <label for="password" class="sr-only">BPC Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="BPC Password" required>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="BPC username" required autofocus name="username">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="BPC Password" required  name="password">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="1" name="is_ldap" checked> LDAP
+          </label>
+        </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
-</div> <!-- /container -->
+      </form>
 
+</div>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+
 </body>
 </html>
 
