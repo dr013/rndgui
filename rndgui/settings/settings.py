@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'rndgui.context_processors.category',
             ],
             'loaders': [
                 # insert your TEMPLATE_LOADERS here
@@ -78,19 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rndgui.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gui',
-        'USER': 'gui',
-        'PASSWORD': 'gui1',
-        'HOST': 'rnd-pg.bt.bpc.in',
-        'PORT': '5432',
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
