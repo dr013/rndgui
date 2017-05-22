@@ -16,18 +16,19 @@ def production1():
     env.hosts = ["sv2-web.bt.bpc.in:22"]
     env.user = 'uwsgi'
     env.path = '/srv/rndgui'
-    env.db_host = 'sv2.bpc.in'
-    env.activate = 'source /srv/auth/venv/bin/activate'
+    env.db_host = 'rnd-pg.bt.bpc.in'
+    env.activate = 'source /srv/rndgui/venv/bin/activate'
 
 
 def production2():
     # здесь данные об удаленном сервере с сайтом
     env.environment = "production"
-    env.hosts = ["sv2-web.bt.bpc.in:22"]
+    env.hosts = ["sv2-web2.bt.bpc.in:22"]
     env.user = 'uwsgi'
     env.path = '/srv/rndgui'
-    env.db_host = 'sv2.bpc.in'
-    env.activate = 'source /srv/auth/venv/bin/activate'
+    env.db_host = 'rnd-pg.bt.bpc.in'
+    env.activate = 'source /srv/rndgui/venv/bin/activate'
+
 
 @_contextmanager
 def virtualenv():
@@ -40,7 +41,7 @@ def deploy():
     """
     In the current version fabfile no initial database creation and configure the virtual server host.
     """
-    require('environment', provided_by=[production])
+    require('environment', provided_by=[production1, production2])
     print(red("Beginning Deploy:"))
 
     if env.environment == 'production':
@@ -52,7 +53,7 @@ def deploy():
 
 
 def install_requirements():
-    require('environment', provided_by=[production])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
     print(green(" * install the necessary applications..."))
     with virtualenv():
         requirements_file = env.path + '/requirements/prod.txt'
@@ -64,7 +65,7 @@ def install_requirements():
 
 
 def update_from_git():
-    require('environment', provided_by=[production])
+    require('environment', provided_by=[production1, production2])
     print(green('* update from git'))
     with cd(env.path):
         print(green('run checkout master'))
@@ -75,13 +76,13 @@ def update_from_git():
 
 
 def touch_reload():
-    require('environment', provided_by=[production])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
     print(green('touch reload uwsgi'))
     with cd(env.path):
         run("git show > uwsgi")
 
 
 def stop_webserver():
-    require('environment', provided_by=[production])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
     print(green('Stop uwsgi'))
     sudo("/etc/init.d/uwsgi stop")
