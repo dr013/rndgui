@@ -11,16 +11,19 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.decorators import login_required, permission_required
 
+from acm.forms import LoginForm
 from prd.models import Product
 
 
+@login_required
 def start(request):
     # get timesheet
-    if request.user.is_authenticated():
-        username = request.user.username
-        prd_list = Product.objects.all()
-        jira_url = settings.JIRA_BROWSE_URL
+
+    username = request.user.username
+    prd_list = Product.objects.all()
+    jira_url = settings.JIRA_BROWSE_URL
 
     return render(request, 'start.html', locals())
 
@@ -31,33 +34,43 @@ def logout_view(request):
 
 
 def login_view(request):
+    if request.method == 'POST':
 
-    username = request.POST["username"]
-    password = request.POST["password"]
-    user_arr = check_ldap(username, password)
-    if not user_arr:
-        # fail LDAP
-        messages.add_message(request, messages.ERROR, 'Wrong username/password!')
-        return redirect('start')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            user_arr = check_ldap(username, password)
+            if not user_arr:
+                # fail LDAP
+                messages.add_message(request, messages.ERROR, 'Wrong username/password!')
+                return render(request, 'login.html')
+            else:
+                request.session["secret"] = password
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                update_user(user, user_arr)
+                login(request, user)
+            else:
+                # create user from LDAP
+                user = User.objects.create_user(username=user_arr['username'], email=user_arr['email'],
+                                                password=user_arr["password"])
+                user.first_name = user_arr["first_name"]
+                user.last_name = user_arr["last_name"]
+                user.save()
+
+                messages.add_message(request, messages.SUCCESS, _('New user {} was created.'.format(user.username)))
+                login(request, user)
+            return redirect('start')
+        else:
+            return render(request, 'login.html')
+
     else:
-        request.session["secret"] = password
-
-    user = authenticate(request, username=username, password=password)
-
-    if user is not None:
-        update_user(user, user_arr)
-        login(request, user)
-    else:
-        # create user from LDAP
-        user = User.objects.create_user(username=user_arr['username'], email=user_arr['email'],
-                                        password=user_arr["password"])
-        user.first_name = user_arr["first_name"]
-        user.last_name = user_arr["last_name"]
-        user.save()
-
-        messages.add_message(request, messages.SUCCESS, _('New user {} was created.'.format(user.username)))
-        login(request, user)
-    return render(request, 'start.html')
+        form1 = LoginForm()
+        form2 = LoginForm(initial={'is_ldap': False})
+        return render(request, 'login.html',  {'form1': form1, 'form2': form2})
 
 
 def create_user(username, password, email, first_name, last_name):

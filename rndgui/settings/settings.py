@@ -65,10 +65,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'rndgui.context_processors.category',
+                'rndgui.context_processors.get_version',
             ],
             'loaders': [
-                # insert your TEMPLATE_LOADERS here
                 'admin_tools.template_loaders.Loader',
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader'
