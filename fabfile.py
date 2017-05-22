@@ -48,6 +48,8 @@ def deploy():
         # stop_webserver()
         update_from_git()
         install_requirements()
+        migrate()
+        collect_static()
         # start_webserver()
         touch_reload()
 
@@ -80,6 +82,20 @@ def touch_reload():
     print(green('touch reload uwsgi'))
     with cd(env.path):
         run("git show > uwsgi")
+
+
+def migrate():
+    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
+    print(green('Migrate database'))
+    with virtualenv():
+        run("python manage.py migrate")
+
+
+def collect_static():
+    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
+    print(green('Collect static'))
+    with virtualenv():
+        run("python manage.py collecstatic")
 
 
 def stop_webserver():
