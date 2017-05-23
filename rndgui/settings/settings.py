@@ -123,4 +123,4 @@ LOGIN_URL = '/login/'
 JIRA_BROWSE_URL = 'http://jira.bpc.in:8080/'
 
 # service discovery
-PRODUCT_URL = 'http://sv2-web.bt.bpc.in/restful/product'
+PRODUCT_URL = 'http://sv2-web.bt.bpc.in:9090/restful/product'
