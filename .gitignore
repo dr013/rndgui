@@ -140,3 +140,5 @@ ENV/
 .ropeproject
 .idea/
 rndgui/settings/dev.py
+rndgui/static/admin
+rndgui/static/admin_tools
