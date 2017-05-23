@@ -17,3 +17,5 @@ DATABASES = {
     }
 }
 ALLOWED_HOSTS = ["sv2-web.bt.bpc.in", " 10.7.33.73"]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
