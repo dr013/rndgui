@@ -1,0 +1,21 @@
+stages:
+    - test
+    - deploy
+nose_test:
+    stage: test
+    script:
+        - test/init.sh
+    tags:
+        - rnd
+    except:
+        - master
+deploy to production:
+    environment: production
+    stage: deploy
+    script:
+        - fab production1 deploy
+        - curl http://sv2-web.bt.bpc.in
+    only:
+        - master
+    tags:
+        - rnd

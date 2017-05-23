@@ -51,7 +51,7 @@ def deploy():
         migrate()
         collect_static()
         # start_webserver()
-        touch_reload()
+        # touch_reload()
 
 
 def install_requirements():
@@ -95,7 +95,7 @@ def collect_static():
     require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
     print(green('Collect static'))
     with virtualenv():
-        run("python manage.py collectstatic -l")
+        run("python manage.py collectstatic -l --noinput")
 
 
 def stop_webserver():
