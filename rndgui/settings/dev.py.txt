@@ -12,4 +12,5 @@ MIDDLEWARE += [
 
 INTERNAL_IPS = ["127.0.0.1", '10.7.32.91']
 
-AUTH_URL = "http://sv2-web.bt.bpc.in/auth/"
+AUTH_URL = "http://sv2-web.bt.bpc.in:9090/auth/"
+

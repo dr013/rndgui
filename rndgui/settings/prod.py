@@ -1,7 +1,7 @@
 from settings import *
 
 DEBUG = False
-AUTH_URL = "http://sv2-web.bt.bpc.in/auth/"
+AUTH_URL = "http://sv2-web.bt.bpc.in:9090/auth/"
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
