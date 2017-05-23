@@ -4,7 +4,7 @@ stages:
 nose_test:
     stage: test
     script:
-        - test/init.sh
+        - bash test/init.sh
     tags:
         - rnd
     except:
