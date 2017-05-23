@@ -156,7 +156,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['sentry'],
+            'handlers': ['sentry', 'console'],
             'level': 'WARNING',
             'propagate': True,
         },

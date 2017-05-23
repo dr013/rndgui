@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import json
 import urllib
+import logging
 # noinspection PyCompatibility
 import urllib2
 import datetime
@@ -15,6 +16,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from acm.forms import LoginForm
 from prd.models import Product
+logger = logging.getLogger('sentry')
 
 
 @login_required
@@ -34,7 +36,6 @@ def logout_view(request):
 
 
 def login_view(request):
-
     if request.method == 'POST':
         form = LoginForm(request.POST)
 
@@ -72,9 +73,12 @@ def login_view(request):
                 # without LDAP
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
+                    logger.info('login for user {} without LDAP'.format(user.username))
                     login(request, user)
                     return redirect('start')
                 else:
+                    logger.error('Fail login for user {} (without LDAP)'.format(username))
+                    messages.add_message(request, messages.ERROR, 'Wrong username/password!')
                     return render(request, 'login.html', locals())
         else:
             return render(request, 'login.html', locals())
