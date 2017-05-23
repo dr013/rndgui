@@ -1,6 +1,9 @@
 
 
-def get_version(request):
+def set_version(request):
+    return {"version": get_version()}
+
+
+def get_version():
     with open('VERSION') as f:
-        version = f.read().strip()
-    return {"version": version}
+        return f.read().strip()

@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from rndgui.context_processors import get_version
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'acm.apps.AcmConfig',
     'prd.apps.PrdConfig',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'rndgui.context_processors.get_version',
+                'rndgui.context_processors.set_version',
             ],
             'loaders': [
                 'admin_tools.template_loaders.Loader',
@@ -77,7 +81,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rndgui.wsgi.application'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -117,10 +120,19 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-
 LOGIN_URL = '/login/'
 
 JIRA_BROWSE_URL = 'http://jira.bpc.in:8080/'
 
 # service discovery
 PRODUCT_URL = 'http://sv2-web.bt.bpc.in:9090/restful/product'
+
+# Raven settings
+
+
+RAVEN_CONFIG = {
+    'dsn': 'http://f823ca859c9d49ae91de2e2d3a6bec99:e89d8698d6e949929c4bb0c503191da4@sv2-web.bt.bpc.in:9000/9',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': get_version(),
+}
