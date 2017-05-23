@@ -12,7 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class ReleaseAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('product',)
 
 
 class BuildAdmin(admin.ModelAdmin):

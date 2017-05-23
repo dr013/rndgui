@@ -10,7 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 class Product(models.Model):
     title = models.CharField("Product title", max_length=200)
     desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
-    wiki_url = models.URLField("Wiki/Confluence URL")
+    wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
     jira = models.CharField("Jira project code", max_length=20)  # TODO add choices
     name = models.SlugField("product_name")
     inst = models.ForeignKey(Institution)
