@@ -13,8 +13,8 @@ deploy_dev:
     environment: production
     stage: deploy
     script:
-        - fab production1 deploy
-        - curl http://sv2-web.bt.bpc.in
+        - fab dev deploy
+        - curl http://sv2.bpc.in:8000
     only:
         - develop
     tags:
