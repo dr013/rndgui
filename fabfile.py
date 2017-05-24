@@ -67,7 +67,7 @@ def deploy():
 
 
 def install_requirements():
-    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green(" * install the necessary applications..."))
     with virtualenv():
         requirements_file = env.path + '/requirements/prod.txt'
@@ -79,7 +79,7 @@ def install_requirements():
 
 
 def update_from_git():
-    require('environment', provided_by=[production1, production2])
+    require('environment', provided_by=[production1, production2, dev])
     print(green('* update from git'))
     with cd(env.path):
         print(green('run checkout master'))
@@ -90,28 +90,28 @@ def update_from_git():
 
 
 def touch_reload():
-    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green('touch reload uwsgi'))
     with cd(env.path):
         run("git show > uwsgi")
 
 
 def migrate():
-    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green('Migrate database'))
     with virtualenv():
         run("python manage.py migrate")
 
 
 def collect_static():
-    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green('Collect static'))
     with virtualenv():
         run("python manage.py collectstatic -l --noinput")
 
 
 def stop_webserver():
-    require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green('Stop uwsgi'))
     sudo("/etc/init.d/uwsgi stop")
 

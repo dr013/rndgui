@@ -3,3 +3,4 @@ psycopg2==2.7
 django-admin-tools
 feedparser
 raven
+pip

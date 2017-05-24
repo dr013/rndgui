@@ -12,7 +12,7 @@ nose_test:
     except:
         - master
 deploy_dev:
-    environment: production
+    environment: develop
     stage: deploy
     script:
         - fab dev deploy
