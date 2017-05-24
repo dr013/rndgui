@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">R&D tools</a>
+            <a class="navbar-brand" href="{% url 'start' %}">R&D tools</a>
         </div>
 
      <div id="navbar" class="navbar-collapse collapse">
@@ -37,12 +37,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Products <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Add new product</a></li>
+                        {% if perms.prd.can_add_product %}
+                        <li><a href="{% url 'create-product' %}">Add new product</a></li>
+                        {% endif %}
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'product-list' %}">Products</a></li>
-                        <li><a href="{% url 'release-list' %}">Releases</a></li>
-                        <li><a href="{% url 'build-list' %}">Builds</a></li>
-                        <li><a href="{% url 'hotfix-list' %}">HotFixes</a></li>
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">Internal projects</li>
                         <li><a href="#">CI/CD</a></li>
@@ -66,25 +65,12 @@
                 <li><a href="{% url 'admin:index' %}">Admin</a></li>
                 {% endif %}
             </ul>
- {% if user.is_authenticated %}
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
                 <li><a href="{% url 'start' %}">{% trans "Logged in as " %}{{ user.get_full_name }}</a></li>
                 <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
             </div>
-            {% else %}
-            <form class="navbar-form navbar-right" method="post" action="{% url "login" %}">
-            {% csrf_token %}
-            <div class="form-group">
-                <input type="text" placeholder="BPC Login" class="form-control" name="username">
-            </div>
-            <div class="form-group">
-                <input type="password" placeholder="BPC Password" class="form-control" name="password">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-            {% endif %}
      </div>
     </div>
 </div>

@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}:Product list{% endblock %}
+{% block header %}Product list{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
-            <h2>Product list</h2>
+            {% if perms.prd.can_add_product %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="{% url 'create-product' %}" class="btn btn-success active" role="button">Add new product</a>
+                    </div>
+                </div>
+            {% endif %}
             <div class="table-responsive">
                 {% for rec in object_list %}
                     {% if forloop.first %}
@@ -19,14 +26,16 @@
                         </tr>
                     {% endif %}
                 <tr {% if rec.is_active %}class="success"{% endif %}>
-                    <td>{{ rec.title }}</td>
+                    <td>{% if perms.prd.can_modify_product %}<a href="#"> Edit</a>{% endif %}{{ rec.title }}</td>
                     <td>{% if rec.desc %}{{ rec.desc }}{% else %} {% endif %}</td>
-                    <td>{% if rec.wiki_url %}<a href="{{ rec.wiki_url }}">{{ rec.wiki_url }}</a>{% endif %}</td>
-                    <td>{% if rec.jira %}<a href="{{ jira_url }}projects/{{ rec.jira }}">{{ rec.jira }}</a>
+                    <td>{% if rec.wiki_url %}
+                        <a href="{{ rec.wiki_url }}" target="_blank">{{ rec.wiki_url }}</a>{% endif %}</td>
+                    <td>{% if rec.jira %}
+                        <a href="{{ jira_url }}projects/{{ rec.jira }}" target="_blank">{{ rec.jira }}</a>
                     {% else %} {% endif %}</td>
                     <td>{{ rec.inst }}</td>
-                    <td>{{ rec.owner }}</td>
-                    <td><a href="{% url 'release-list' %}">Release list</a></td>
+                    <td>{{ rec.owner.get_full_name }}</td>
+                    <td><a href="{% url 'release-list-by-product' rec.name %}">Release list</a></td>
                 </tr>
                 {% if forloop.last %}
                     </table>

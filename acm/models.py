@@ -15,6 +15,10 @@ class Institution(models.Model):
     def __str__(self):  # __unicode__ on Python 2
         return self.inst_name
 
+    class Meta:
+        verbose_name = u'Group'
+        verbose_name_plural = u'Groups'
+
 
 class Membership(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

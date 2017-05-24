@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}:Release list{% endblock %}
+{% block header %}Release list{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
-            <h2>Release list</h2>
             <div class="table-responsive">
                 {% for release in object_list %}
 
@@ -14,13 +14,15 @@
                             <th>Product</th>
                             <th>Jira</th>
                             <th>Release Date</th>
+                            <th>Build List</th>
                         </tr>
                     {% endif %}
                 <tr {% if release.is_active %}class="success"{% endif %}>
                     <td>{{ release.name }}</td>
                     <td>{{ release.product }}</td>
                     <td>{{ release.jira }} </td>
-                    <td>{{ release.release_date| date }}</td>
+                    <td>{{ release.release_date|date:"SHORT_DATE_FORMAT" }}</td>
+                    <td><a href="{% url 'build-list-by-release' release.pk %}">Builds list</a></td>
                 </tr>
                 {% if forloop.last %}
                     </table>

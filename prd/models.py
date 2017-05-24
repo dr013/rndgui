@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from acm.models import Institution
 from django.utils.translation import ugettext_lazy as _
+from django.template.defaultfilters import slugify
 
 
 class Product(models.Model):
@@ -12,7 +13,6 @@ class Product(models.Model):
     desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
     wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
     jira = models.CharField("Jira project code", max_length=20)  # TODO add choices
-    name = models.SlugField("product_name")
     inst = models.ForeignKey(Institution)
     owner = models.ForeignKey(User)
     is_internal = models.BooleanField("Is internal", default=False)
@@ -21,6 +21,12 @@ class Product(models.Model):
 
     def __str__(self):
         return "{title}: {inst}".format(title=self.title, inst=self.inst)
+
+    def get_absolute_url(self):
+        return reverse('product-detail', kwargs={'pk': self.pk})
+
+    def name(self):
+        return self.jira.lower()
 
 
 class Release(models.Model):
@@ -70,3 +76,6 @@ class HotFix(models.Model):
 
     def __str__(self):
         return "{build}.{hotfix}".format(build=self.build, hotfix=self.name)
+
+    def get_absolute_url(self):
+        return reverse('hotfix-detail', kwargs={'pk': self.pk})

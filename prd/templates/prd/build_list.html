@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}:Build list{% endblock %}
+{% block header %}Build list{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
-            <h2>Build list</h2>
             <div class="table-responsive">
                 {% for rec in object_list %}
-
                     {% if forloop.first %}
                         <table class="table table-bordered">
                         <tr>
@@ -23,8 +22,8 @@
                     <td>{{ rec.release }}</td>
                     <td>{{ rec.release.product }}</td>
                     <td>{{ rec.jira }} </td>
-                    <td>{{ rec.date_released| date }}</td>
-                    <td>{{ rec.author }}</td>
+                    <td>{{ rec.date_released|date }}</td>
+                    <td>{{ rec.author.get_full_name }}</td>
                 </tr>
                 {% if forloop.last %}
                     </table>

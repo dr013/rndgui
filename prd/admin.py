@@ -8,7 +8,7 @@ from prd.models import Product, Release, Build, HotFix
 
 
 class ProductAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"name": ("jira",)}
+    list_filter = ('inst',)
 
 
 class ReleaseAdmin(admin.ModelAdmin):
