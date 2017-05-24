@@ -39,7 +39,7 @@ class HotFixList(ListView):
 class ProductReleaseList(ListView):
 
     def get_queryset(self):
-        self.product = get_object_or_404(Product, name=self.args[0])
+        self.product = get_object_or_404(Product, jira=self.args[0].upper())
         return Release.objects.filter(product=self.product).order_by('-date_released')
 
 

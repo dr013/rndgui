@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'acm.apps.AcmConfig',
     'prd.apps.PrdConfig',
     'raven.contrib.django.raven_compat',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

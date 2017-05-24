@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}:Create product{% endblock %}
-{% block header %}Create new product{% endblock %}
+{% load bootstrap3 %}
+{% block title %}:Product management{% endblock %}
+{% block header %}Product management{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
-            <form action="" method="post">{% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Save"/>
+         <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product list</a>
+                    </div>
+                </div>
+            <form action="" method="post" class="form">{% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "star" %} Submit
+                    </button>
+                {% endbuttons %}
             </form>
         </div>
     </div>
