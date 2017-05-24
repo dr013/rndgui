@@ -61,7 +61,7 @@ def login_view(request):
                 else:
                     # create user from LDAP
                     user = User.objects.create_user(username=user_arr['username'], email=user_arr['email'],
-                                                    password=user_arr["password"])
+                                                    password=password)
                     user.first_name = user_arr["first_name"]
                     user.last_name = user_arr["last_name"]
                     user.save()
