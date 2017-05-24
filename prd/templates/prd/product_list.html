@@ -7,7 +7,7 @@
             {% if perms.prd.can_add_product %}
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <a href="{% url 'create-product' %}" class="btn btn-success active" role="button">Add new product</a>
+                        <a href="{% url 'product-create' %}" class="btn btn-success active" role="button">Add new product</a>
                     </div>
                 </div>
             {% endif %}
@@ -26,7 +26,7 @@
                         </tr>
                     {% endif %}
                 <tr {% if rec.is_active %}class="success"{% endif %}>
-                    <td>{% if perms.prd.can_modify_product %}<a href="#"> Edit</a>{% endif %}{{ rec.title }}</td>
+                    <td>{% if perms.prd.can_modify_product %}<a href="{% url 'product-update' rec.pk %}"> Edit</a>{% endif %}{{ rec.title }}</td>
                     <td>{% if rec.desc %}{{ rec.desc }}{% else %} {% endif %}</td>
                     <td>{% if rec.wiki_url %}
                         <a href="{{ rec.wiki_url }}" target="_blank">{{ rec.wiki_url }}</a>{% endif %}</td>

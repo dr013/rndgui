@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required, permission_required
+from django.urls import reverse_lazy
+
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -50,15 +52,22 @@ class ReleaseBuildList(ListView):
 
 class CreateProduct(CreateView):
     model = Product
-    fields = ['title', 'desc', 'name', 'wiki_url', 'jira', 'inst', 'owner']
-    # title = models.CharField("Product title", max_length=200)
-    # desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
-    # desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
-    # wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
-    # jira = models.CharField("Jira project code", max_length=20)  # TODO add choices
-    # name = models.SlugField("product_name")
-    # inst = models.ForeignKey(Institution)
+    fields = ['title', 'desc', 'wiki_url', 'jira', 'inst', 'owner']
+
+
+class UpdateProduct(UpdateView):
+    model = Product
+    fields = ['title', 'desc', 'wiki_url', 'jira', 'inst', 'owner']
+
+
+class DeleteProduct(DeleteView):
+    model = Product
+    success_url = reverse_lazy('product-list')
 
 
 class ProductDetail(DetailView):
     model = Product
+
+
+class ReleaseDetail(DetailView):
+    model = Release
