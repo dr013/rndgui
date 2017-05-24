@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}:Product list{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h2>Product list</h2>
+            <div class="table-responsive">
+                {% for rec in object_list %}
+                    {% if forloop.first %}
+                        <table class="table table-bordered">
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Wiki</th>
+                            <th>Jira Project</th>
+                            <th>Group</th>
+                            <th>Owner</th>
+                            <th>Releases</th>
+                        </tr>
+                    {% endif %}
+                <tr {% if rec.is_active %}class="success"{% endif %}>
+                    <td>{{ rec.title }}</td>
+                    <td>{% if rec.desc %}{{ rec.desc }}{% else %} {% endif %}</td>
+                    <td>{% if rec.wiki_url %}<a href="{{ rec.wiki_url }}">{{ rec.wiki_url }}</a>{% endif %}</td>
+                    <td>{% if rec.jira %}<a href="{{ jira_url }}projects/{{ rec.jira }}">{{ rec.jira }}</a>
+                    {% else %} {% endif %}</td>
+                    <td>{{ rec.inst }}</td>
+                    <td>{{ rec.owner }}</td>
+                    <td><a href="{% url 'release-list' %}">Release list</a></td>
+                </tr>
+                {% if forloop.last %}
+                    </table>
+                {% endif %}
+                {% empty %}
+                    <p>No releases yet.</p>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}

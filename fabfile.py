@@ -30,6 +30,16 @@ def production2():
     env.activate = 'source /srv/rndgui/venv/bin/activate'
 
 
+def dev():
+    # здесь данные об удаленном сервере с сайтом
+    env.environment = "develop"
+    env.hosts = ["sv2.bpc.in:22"]
+    env.user = 'master'
+    env.path = '/srv/rndgui'
+    env.db_host = 'rnd-pg.bt.bpc.in'
+    env.activate = 'source /srv/rndgui/venv/bin/activate'
+
+
 @_contextmanager
 def virtualenv():
     with cd(env.path):
@@ -41,17 +51,19 @@ def deploy():
     """
     In the current version fabfile no initial database creation and configure the virtual server host.
     """
-    require('environment', provided_by=[production1, production2])
+    require('environment', provided_by=[production1, production2, dev])
     print(red("Beginning Deploy:"))
-
+    update_from_git()
+    install_requirements()
+    migrate()
     if env.environment == 'production':
         # stop_webserver()
-        update_from_git()
-        install_requirements()
-        migrate()
         collect_static()
         # start_webserver()
         # touch_reload()
+    elif 'develop' in env.environment:
+        set_dev_config()
+        run_dev_server()
 
 
 def install_requirements():
@@ -102,3 +114,15 @@ def stop_webserver():
     require('environment', provided_by=[production1, production2])  # дописать по желанию dev и stage
     print(green('Stop uwsgi'))
     sudo("/etc/init.d/uwsgi stop")
+
+
+def set_dev_config():
+    print (red('Copy settings/dev'))
+    with cd(env.path):
+        run('cp rndgui/settings/dev.py.txt rndgui/settings/dev.py')
+
+
+def run_dev_server():
+    print (green('Run dev server'))
+    with cd(env.path):
+        run('python manage.py runserver sv2.bpc.in:8000')

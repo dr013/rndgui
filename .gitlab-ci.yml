@@ -9,7 +9,19 @@ nose_test:
         - rnd
     except:
         - master
-deploy to production:
+deploy_dev:
+    environment: production
+    stage: deploy
+    script:
+        - fab production1 deploy
+        - curl http://sv2-web.bt.bpc.in
+    only:
+        - develop
+    tags:
+        - rnd
+
+
+deploy_production:
     environment: production
     stage: deploy
     script:

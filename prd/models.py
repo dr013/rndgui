@@ -44,7 +44,7 @@ class Release(models.Model):
 class Build(models.Model):
     name = models.CharField("Build number", max_length=20)
     release = models.ForeignKey(Release)
-    jira = models.CharField(_("Jira subtask for build"), max_length=20)
+    jira = models.CharField(_("Jira subtask for build"), max_length=20, null=True, blank=True)
     is_active = models.BooleanField(_("Is active"), default=True)
     released = models.BooleanField(_("Is released"), default=False)
     author = models.ForeignKey(User)
@@ -62,7 +62,7 @@ class Build(models.Model):
 class HotFix(models.Model):
     name = models.CharField("HotFix number", max_length=20)
     build = models.ForeignKey(Build)
-    jira = models.CharField(_("Jira task for hotfix"), max_length=20)
+    jira = models.CharField(_("Jira task for hotfix"), max_length=20, null=True, blank=True)
     author = models.ForeignKey(User)
     date_released = models.DateField(_("HotFix date"))
     created = models.DateField(_("Created"), auto_now_add=True)

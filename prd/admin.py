@@ -16,7 +16,7 @@ class ReleaseAdmin(admin.ModelAdmin):
 
 
 class BuildAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('release__product',)
 
 
 class HotFixAdmin(admin.ModelAdmin):
