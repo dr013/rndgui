@@ -20,7 +20,6 @@ deploy_dev:
     tags:
         - rnd
 
-
 deploy_production:
     environment: production
     stage: deploy
