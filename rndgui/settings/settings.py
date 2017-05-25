@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'prd.apps.PrdConfig',
     'raven.contrib.django.raven_compat',
     'bootstrap3',
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'rndgui.urls'
@@ -83,24 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rndgui.wsgi.application'
 
-# Password validation
-# https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -121,7 +105,7 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
 
-JIRA_BROWSE_URL = 'http://jira.bpc.in:8080/'
+JIRA_URL = 'http://jira.bpc.in:8080'
 
 # service discovery
 PRODUCT_URL = 'http://sv2-web.bt.bpc.in:9090/restful/product'

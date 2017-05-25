@@ -3,9 +3,10 @@ from __future__ import unicode_literals
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db import models
+from simple_history.models import HistoricalRecords
 from acm.models import Institution
 from django.utils.translation import ugettext_lazy as _
-
+from django.conf import settings
 from prd.api import GitLab
 
 
@@ -32,6 +33,7 @@ class Product(models.Model):
     specification_repo = models.IntegerField(_("Specifications repository"), null=True, blank=True,
                                              help_text="Gitlab repostitory ID for product specifications",
                                              choices=gilab_project_list())
+    history = HistoricalRecords()
 
     def __str__(self):
         return "{title}: {inst}".format(title=self.title, inst=self.inst)
@@ -54,12 +56,22 @@ class Release(models.Model):
     date_released = models.DateField(_("Release date"), null=True, blank=True)
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return "{rel} - {prd}".format(rel=self.name, prd=self.product)
 
     def get_absolute_url(self):
         return reverse('release-detail', kwargs={'pk': self.pk})
+
+    @property
+    def get_jira_url(self):
+        if self.jira:
+            res = '<a href="{url}/browse/{task}" target"_blank">{task}</a>'\
+                .format(url=settings.JIRA_URL, task=self.jira)
+        else:
+            res = ''
+        return res
 
 
 class Build(models.Model):
@@ -72,6 +84,7 @@ class Build(models.Model):
     date_released = models.DateField(_("Build date"), null=True, blank=True)
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return "{prd} {rel}.{build}".format(rel=self.release.name, prd=self.release.product, build=self.name)
@@ -88,6 +101,7 @@ class HotFix(models.Model):
     date_released = models.DateField(_("HotFix date"))
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return "{build}.{hotfix}".format(build=self.build, hotfix=self.name)
@@ -105,6 +119,7 @@ class ReleasePart(models.Model):
     gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=CHOICES)
     one_module = models.BooleanField(_("One module"), default=True,
                                      help_text="Product have only one module(Product=Module)")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name

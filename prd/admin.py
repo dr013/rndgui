@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.contrib import admin
-
-# Register your models here.
 from prd.models import Product, Release, Build, HotFix, ReleasePart
+from simple_history.admin import SimpleHistoryAdmin
 
 
 class ProductAdmin(admin.ModelAdmin):
     list_filter = ('inst',)
 
 
-class ReleaseAdmin(admin.ModelAdmin):
+class ReleaseAdmin(SimpleHistoryAdmin):
     list_filter = ('product',)
 
 
@@ -29,5 +27,5 @@ class ReleasePartAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Release, ReleaseAdmin)
 admin.site.register(Build, BuildAdmin)
-admin.site.register(HotFix, HotFixAdmin)
+admin.site.register(HotFix, SimpleHistoryAdmin)
 admin.site.register(ReleasePart, ReleasePartAdmin)

@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+import datetime
 import json
-import urllib
 import logging
+import urllib
 # noinspection PyCompatibility
 import urllib2
-import datetime
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.decorators import login_required, permission_required
 
 from acm.forms import LoginForm
 from prd.models import Product
+
 logger = logging.getLogger('sentry')
 
 
@@ -25,7 +28,6 @@ def start(request):
 
     username = request.user.username
     prd_list = Product.objects.all()
-    jira_url = settings.JIRA_BROWSE_URL
 
     return render(request, 'start.html', locals())
 
