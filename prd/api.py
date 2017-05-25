@@ -15,3 +15,7 @@ class GitLab:
 
     def project_list(self):
         return self.gl.projects.list()
+
+    def project(self, pid):
+        obj = self.gl.projects.get(pid)
+        return obj

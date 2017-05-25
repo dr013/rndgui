@@ -11,4 +11,4 @@ def get_version():
 
 
 def set_jira(request):
-    return {"jira_url": settings.JIRA_BROWSE_URL}
+    return {"jira_url": settings.JIRA_URL}

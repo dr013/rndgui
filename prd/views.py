@@ -68,6 +68,11 @@ class DeleteProduct(DeleteView):
 class ProductDetail(DetailView):
     model = Product
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        context['release_part'] = ReleasePart.objects.filter(product=self.object.pk, release__isnull=True)
+        return context
+
 
 class ReleaseDetail(DetailView):
     model = Release

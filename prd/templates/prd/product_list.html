@@ -9,7 +9,8 @@
                 <div class="panel panel-default">
                     <div class="panel-footer">
                         {% buttons %}
-                        <a href="{% url 'product-create' %}" class="btn btn-primary" role="button">{% bootstrap_icon 'plus' %}Add new product</a>
+                            <a href="{% url 'product-create' %}" class="btn btn-primary"
+                               role="button">{% bootstrap_icon 'plus' %}Add new product</a>
                         {% endbuttons %}
                     </div>
                 </div>
@@ -30,7 +31,7 @@
                         </tr>
                     {% endif %}
                 <tr {% if rec.is_active %}class="success"{% endif %}>
-                    <td>{{ rec.title }}</td>
+                    <td><a href="{% url 'release-list-by-product' rec.name %}">{{ rec.title }}</a></td>
                     <td>{% if rec.desc %}{{ rec.desc }}{% else %} {% endif %}</td>
                     <td>{% if rec.wiki_url %}
                         <a href="{{ rec.wiki_url }}" target="_blank">{{ rec.wiki_url }}</a>{% endif %}</td>
@@ -41,11 +42,15 @@
                     <td>{{ rec.owner.get_full_name }}</td>
                     <td><a href="{% url 'release-list-by-product' rec.name %}">Release list</a></td>
                     <td>{% if perms.prd.can_modify_product %}
-                            {% buttons %}<a href="{% url 'product-update' rec.pk %}" class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}Edit</a>{% endbuttons %}
+                        {% buttons %}<a href="{% url 'product-update' rec.pk %}"
+                                        class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}Edit</a>
+                        {% endbuttons %}
 
-                        {% endif %}
-                    {% if perms.prd.can_delete_product %}
-                            {% buttons %}<a href="{% url 'product-delete' rec.pk %}" class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}Delete</a>{% endbuttons %}
+                    {% endif %}
+                        {% if perms.prd.can_delete_product %}
+                            {% buttons %}<a href="{% url 'product-delete' rec.pk %}"
+                                            class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}Delete</a>
+                            {% endbuttons %}
 
                         {% endif %}
                     </td>

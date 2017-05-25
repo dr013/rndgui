@@ -14,7 +14,6 @@
     <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %}"/>
     {% block css %}{% endblock %}
 </head>
-
 <body>
 {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">{{ message|safe }}</div>
@@ -43,27 +42,10 @@
                         {% endif %}
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'product-list' %}">Products</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Internal projects</li>
-                        <li><a href="#">CI/CD</a></li>
-                        <li><a href="#">AUTO testing</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Services <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">NewProduct</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
                     </ul>
                 </li>
                 {% if user.is_staff %}
-                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                <li><a href="{% url 'admin:index' %}">Administration</a></li>
                 {% endif %}
             </ul>
             <div class="navbar-right">

@@ -18,10 +18,11 @@
                         </tr>
                     {% endif %}
                 <tr {% if release.is_active %}class="success"{% endif %}>
-                    <td>{{ release.name }}</td>
+                    <td><a href="{% url 'build-list-by-release' release.pk %}" title="Build list">{{ release.name }}</a>
+                    </td>
                     <td>{{ release.product }}</td>
                     <td>{{ release.get_jira_url|safe }} </td>
-                    <td>{{ release.release_date|date:"SHORT_DATE_FORMAT" }}</td>
+                    <td>{{ release.date_released|date }}</td>
                     <td><a href="{% url 'build-list-by-release' release.pk %}">Builds list</a></td>
                 </tr>
                 {% if forloop.last %}

@@ -20,6 +20,14 @@ def gilab_project_list():
     return sorted(short_list, key=getkey)
 
 
+def gitlab_project(pid):
+    obj = GitLab().project(pid)
+    if obj:
+        return obj
+    else:
+        return None
+
+
 class Product(models.Model):
     title = models.CharField("Product title", max_length=200)
     desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
@@ -45,6 +53,14 @@ class Product(models.Model):
     def name(self):
         return self.jira.lower()
 
+    @property
+    def wiki_url_link(self):
+        if self.wiki_url:
+            res = '<a href="{url}" targer="_blank">{url}</a>'.format(url=self.wiki_url)
+        else:
+            res = ''
+        return res
+
 
 class Release(models.Model):
     name = models.CharField(_("Release number"), max_length=20)
@@ -67,7 +83,7 @@ class Release(models.Model):
     @property
     def get_jira_url(self):
         if self.jira:
-            res = '<a href="{url}/browse/{task}" target"_blank">{task}</a>'\
+            res = '<a href="{url}/browse/{task}" target"_blank">{task}</a>' \
                 .format(url=settings.JIRA_URL, task=self.jira)
         else:
             res = ''
@@ -92,6 +108,28 @@ class Build(models.Model):
     def get_absolute_url(self):
         return reverse('build-detail', kwargs={'pk': self.pk})
 
+    @property
+    def full_name(self):
+        return '{rel}.{bld}'.format(rel=self.release.name, bld=self.name)
+
+    @property
+    def git_name(self):
+        return 'v' + self.full_name
+
+    @property
+    def get_jira_url(self):
+        if self.jira:
+            res = '<a href="{url}/browse/{task}" target"_blank">{task}</a>' \
+                .format(url=settings.JIRA_URL, task=self.jira)
+        else:
+            res = ''
+        return res
+
+    def hotfix_list(self):
+        """Returns the queryset of hotfix for build"""
+        hotfix_list = HotFix.objects.filter(build=self.pk).order_by('-date_released')
+        return hotfix_list
+
 
 class HotFix(models.Model):
     name = models.CharField("HotFix number", max_length=20)
@@ -109,18 +147,54 @@ class HotFix(models.Model):
     def get_absolute_url(self):
         return reverse('hotfix-detail', kwargs={'pk': self.pk})
 
+    @property
+    def full_name(self):
+        return '{bld}.{hf}'.format(bld=self.build.full_name, hf=self.name)
+
+    @property
+    def git_name(self):
+        return 'v' + self.full_name
+
+    @property
+    def get_jira_url(self):
+        if self.jira:
+            res = '<a href="{url}/browse/{task}" target"_blank">{task}</a>' \
+                .format(url=settings.JIRA_URL, task=self.jira)
+        else:
+            res = ''
+        return res
+
 
 class ReleasePart(models.Model):
-    CHOICES = gilab_project_list()
-
+    """ Release part  - product modules configuration"""
     name = models.CharField(_("Module name"), max_length=200)
     product = models.ForeignKey(Product)
     release = models.ForeignKey(to=Release, null=True, blank=True)
-    gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=CHOICES)
+    gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gilab_project_list())
     one_module = models.BooleanField(_("One module"), default=True,
                                      help_text="Product have only one module(Product=Module)")
     history = HistoricalRecords()
 
     def __str__(self):
-        return self.name
+        return '{product}::{name}'.format(product=self.product.name, name=self.name)
+
+    @property
+    def gitlab_project_url(self):
+        return gitlab_project(self.gitlab_id).web_url
+
+    @property
+    def gitlab_project_name(self):
+        return gitlab_project(self.gitlab_id).name_with_namespace
+
+    @property
+    def gitlab_repo_ssh(self):
+        return gitlab_project(self.gitlab_id).ssh_url_to_repo
+
+    @property
+    def gitlab_repo_html(self):
+        return gitlab_project(self.gitlab_id).http_url_to_repo
+
+    @property
+    def gitlab_project_desc(self):
+        return gitlab_project(self.gitlab_id).description
 

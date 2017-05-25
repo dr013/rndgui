@@ -7,7 +7,8 @@
             <div class="table-responsive">
                 {% for rec in object_list %}
                     {% if forloop.first %}
-                        <table class="table table-bordered">
+                        <table class="table">
+                        <thead>
                         <tr>
                             <th>Name</th>
                             <th>Release</th>
@@ -16,15 +17,41 @@
                             <th>Release Date</th>
                             <th>Author</th>
                         </tr>
+                        </thead>
                     {% endif %}
                 <tr {% if rec.is_active %}class="success"{% endif %}>
-                    <td>{{ rec.name }}</td>
+                    <td>{{ rec.full_name }}</td>
                     <td>{{ rec.release }}</td>
                     <td>{{ rec.release.product }}</td>
-                    <td>{{ rec.jira }} </td>
+                    <td>{{ rec.get_jira_url|safe }} </td>
                     <td>{{ rec.date_released|date }}</td>
                     <td>{{ rec.author.get_full_name }}</td>
                 </tr>
+                {% if rec.hotfix_list %}
+                    {% for hotfix in rec.hotfix_list %}
+                        {% if forloop.first %}
+                            <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Hotfix</th>
+                                <th>Author</th>
+                                <th>Jira HotFix task</th>
+                                <th>Release Date</th>
+                                <th>Module Revisions</th>
+                            </tr>
+                            </thead>
+                        {% endif %}
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>{{ hotfix.full_name }}</td>
+                            <td>{{ hotfix.author.get_full_name }}</td>
+                            <td>{{ hotfix.get_jira_url|safe }}</td>
+                            <td>{{ hotfix.date_released|date }}
+                            <td> </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+
                 {% if forloop.last %}
                     </table>
                 {% endif %}
