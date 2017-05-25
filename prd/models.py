@@ -9,10 +9,14 @@ from django.utils.translation import ugettext_lazy as _
 from prd.api import GitLab
 
 
+def getkey(item):
+    return item[1]
+
+
 def gilab_project_list():
-    project_list = GitLab.project_list()
-    short_list = ((x.id, x.name) for x in project_list)
-    return short_list
+    project_list = GitLab().project_list()
+    short_list = ((x.id, x.name_with_namespace) for x in project_list)
+    return sorted(short_list, key=getkey)
 
 
 class Product(models.Model):
