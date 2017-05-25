@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 # Register your models here.
-from prd.models import Product, Release, Build, HotFix
+from prd.models import Product, Release, Build, HotFix, ReleasePart
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -23,7 +23,11 @@ class HotFixAdmin(admin.ModelAdmin):
     pass
 
 
+class ReleasePartAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Release, ReleaseAdmin)
 admin.site.register(Build, BuildAdmin)
 admin.site.register(HotFix, HotFixAdmin)
+admin.site.register(ReleasePart, ReleasePartAdmin)

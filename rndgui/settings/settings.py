@@ -173,3 +173,7 @@ LOGGING = {
         },
     }
 }
+
+
+GITLAB_URL = 'http://gitlab.bt.bpc.in'
+GITLAB_TOKEN = 'sEVor74PMz6yCGd_AHxF'
