@@ -173,3 +173,6 @@ LOGGING = {
         },
     }
 }
+
+GITLAB_URL = 'http://gitlab.bt.bpc.in'
+GITLAB_TOKEN = 'sw64zxaiKi88eSmDSXvs'  # RnD Master key

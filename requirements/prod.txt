@@ -5,3 +5,4 @@ feedparser
 raven
 pip
 django-bootstrap3
+python-gitlab

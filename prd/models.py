@@ -6,6 +6,18 @@ from django.db import models
 from acm.models import Institution
 from django.utils.translation import ugettext_lazy as _
 
+from prd.api import GitLab
+
+
+def getkey(item):
+    return item[1]
+
+
+def gilab_project_list():
+    project_list = GitLab().project_list()
+    short_list = ((x.id, x.name_with_namespace) for x in project_list)
+    return sorted(short_list, key=getkey)
+
 
 class Product(models.Model):
     title = models.CharField("Product title", max_length=200)
@@ -17,6 +29,9 @@ class Product(models.Model):
     is_internal = models.BooleanField("Is internal", default=False)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+    specification_repo = models.IntegerField(_("Specifications repository"), null=True, blank=True,
+                                             help_text="Gitlab repostitory ID for product specifications",
+                                             choices=gilab_project_list())
 
     def __str__(self):
         return "{title}: {inst}".format(title=self.title, inst=self.inst)
@@ -79,3 +94,18 @@ class HotFix(models.Model):
 
     def get_absolute_url(self):
         return reverse('hotfix-detail', kwargs={'pk': self.pk})
+
+
+class ReleasePart(models.Model):
+    CHOICES = gilab_project_list()
+
+    name = models.CharField(_("Module name"), max_length=200)
+    product = models.ForeignKey(Product)
+    release = models.ForeignKey(to=Release, null=True, blank=True)
+    gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=CHOICES)
+    one_module = models.BooleanField(_("One module"), default=True,
+                                     help_text="Product have only one module(Product=Module)")
+
+    def __str__(self):
+        return self.name
+
