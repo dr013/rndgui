@@ -61,6 +61,15 @@ class Product(models.Model):
             res = ''
         return res
 
+    @property
+    def jira_url_link(self):
+        if self.jira:
+            res = '<a href="{url}projects/{jira}" target="_blank">{jira}</a>'.format(jira=self.jira,
+                                                                                     url=settings.JIRA_URL)
+        else:
+            res = ''
+        return res
+
 
 class Release(models.Model):
     name = models.CharField(_("Release number"), max_length=20)
@@ -198,3 +207,8 @@ class ReleasePart(models.Model):
     def gitlab_project_desc(self):
         return gitlab_project(self.gitlab_id).description
 
+
+class BuildRevision(models.Model):
+    build = models.ForeignKey(Build)
+    release_part = models.ForeignKey(ReleasePart)
+    revision = models.CharField(_("Git revision"), max_length=40)

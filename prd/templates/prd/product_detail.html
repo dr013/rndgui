@@ -5,7 +5,16 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <table class="table table-responsive">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product
+                        list</a>
+                </div>
+            </div>
+            <table class="table table-responsive table-bordered">
+                <tr align="center" class="bg-warning">
+                    <th colspan="3" class="bg-success">Product info</th>
+                </tr>
                 <tr>
                     <th colspan="2">Description</th>
                     <td>{{ object.desc }}</td>
@@ -14,10 +23,19 @@
                     <th colspan="2">WIKI</th>
                     <td>{{ object.wiki_url_link|safe }}</td>
                 </tr>
+                <tr>
+                    <th colspan="2">Jira</th>
+                     <td>{{ object.jira_url_link|safe }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">Release list</th>
+                    <td><a href="{% url 'release-list-by-product' object.name %}">Release list</a></td>
+                </tr>
+
                 {% for rec in release_part %}
                     {% if forloop.first %}
                         <tr align="center">
-                            <th colspan="3">Product modules</th>
+                            <th colspan="3" class="bg-success">Product modules</th>
                         </tr>
                         <tr>
                             <th>Module name</th>

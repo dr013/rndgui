@@ -33,11 +33,8 @@
                 <tr {% if rec.is_active %}class="success"{% endif %}>
                     <td><a href="{% url 'release-list-by-product' rec.name %}">{{ rec.title }}</a></td>
                     <td>{% if rec.desc %}{{ rec.desc }}{% else %} {% endif %}</td>
-                    <td>{% if rec.wiki_url %}
-                        <a href="{{ rec.wiki_url }}" target="_blank">{{ rec.wiki_url }}</a>{% endif %}</td>
-                    <td>{% if rec.jira %}
-                        <a href="{{ jira_url }}projects/{{ rec.jira }}" target="_blank">{{ rec.jira }}</a>
-                    {% else %} {% endif %}</td>
+                    <td>{{ rec.wiki_url_link|safe }}</td>
+                    <td>{{ rec.jira_url_link|safe }}</td>
                     <td>{{ rec.inst }}</td>
                     <td>{{ rec.owner.get_full_name }}</td>
                     <td><a href="{% url 'release-list-by-product' rec.name %}">Release list</a></td>

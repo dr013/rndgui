@@ -5,11 +5,12 @@
 {% block content %}
     <div class="container">
         <div class="row">
-         <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product list</a>
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product
+                        list</a>
                 </div>
+            </div>
             <form action="" method="post" class="form">{% csrf_token %}
                 {% bootstrap_form form %}
                 {% buttons %}

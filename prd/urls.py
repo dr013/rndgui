@@ -15,8 +15,8 @@ urlpatterns = [
     url(r'^release/([\w-]+)/$', views.ProductReleaseList.as_view(), name='release-list-by-product'),
 
     url(r'^build/(?P<pk>[0-9]+)/$', views.ReleaseBuildList.as_view(), name='build-list-by-release'),
-
-
+    url(r'^build-create/([\w-]+)/$', views.create_build1, name='create-build'),
+    url(r'^build-create2/$', views.create_build2, name='create-build2'),
 
     url(r'build-list$', views.BuildList.as_view(), name='build-list'),
     url(r'hotfix-list$', views.HotFixList.as_view(), name='hotfix-list')
