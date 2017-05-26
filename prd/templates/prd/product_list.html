@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% if perms.prd.can_add_product %}
+            {% if perms.prd.add_product %}
                 <div class="panel panel-default">
                     <div class="panel-footer">
                         {% buttons %}
@@ -38,13 +38,13 @@
                     <td>{{ rec.inst }}</td>
                     <td>{{ rec.owner.get_full_name }}</td>
                     <td><a href="{% url 'release-list-by-product' rec.name %}">Release list</a></td>
-                    <td>{% if perms.prd.can_modify_product %}
+                    <td>{% if perms.prd.modify_product %}
                         {% buttons %}<a href="{% url 'product-update' rec.pk %}"
                                         class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}Edit</a>
                         {% endbuttons %}
 
                     {% endif %}
-                        {% if perms.prd.can_delete_product %}
+                        {% if perms.prd.delete_product %}
                             {% buttons %}<a href="{% url 'product-delete' rec.pk %}"
                                             class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}Delete</a>
                             {% endbuttons %}

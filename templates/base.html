@@ -37,7 +37,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Products <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        {% if perms.prd.can_add_product %}
+                        {% if perms.prd.add_product %}
                         <li><a href="{% url 'product-create' %}">Add new product</a></li>
                         {% endif %}
                         <li role="separator" class="divider"></li>
