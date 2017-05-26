@@ -180,8 +180,6 @@ class ReleasePart(models.Model):
     product = models.ForeignKey(Product)
     release = models.ForeignKey(to=Release, null=True, blank=True)
     gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gilab_project_list())
-    one_module = models.BooleanField(_("One module"), default=True,
-                                     help_text="Product have only one module(Product=Module)")
     history = HistoricalRecords()
 
     def __str__(self):
