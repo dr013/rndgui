@@ -19,3 +19,9 @@ class GitLab:
     def project(self, pid):
         obj = self.gl.projects.get(pid)
         return obj
+
+    def create_tag(self, project, tag, ref, desc):
+        proj = self.project(project).id
+        tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
+                                          project_id=proj)
+        tag.set_release_description(desc)
