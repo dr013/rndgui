@@ -19,7 +19,7 @@
                         </tr>
                         </thead>
                     {% endif %}
-                <tr {% if rec.is_active %}class="success"{% endif %}>
+                <tr {% if rec.released %}class="success"{% endif %}>
                     <td>{{ rec.full_name }}</td>
                     <td>{{ rec.release }}</td>
                     <td>{{ rec.release.product }}</td>
