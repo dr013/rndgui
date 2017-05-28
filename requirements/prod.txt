@@ -1,4 +1,4 @@
-Django==1.11
+Django>=1.11
 psycopg2==2.7
 django-admin-tools
 feedparser
@@ -8,3 +8,7 @@ django-bootstrap3
 python-gitlab
 django-simple-history
 celery>=3.1.18
+jira
+certifi
+urllib3[secure]
+django-extensions

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.urls import reverse
+
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 from acm.models import Institution
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-from prd.api import GitLab
+from prd.api import GitLab, JiraProject
 
 
 def getkey(item):
@@ -28,11 +29,34 @@ def gitlab_project(pid):
         return None
 
 
+def check_jira_release(project, release):
+    jira = JiraProject(project=project)
+    task_name = 'Release {}'.format(release)
+    issue = jira.search_issue(task_name)
+    return issue
+
+
+def create_jira_release(project, release):
+    jira = JiraProject(project=project)
+    release_task = jira.create_release_task(release)
+    build0 = '{rel}.0'
+    build1 = '{rel}.1'
+    task0 = jira.create_sub_task(release_task, build0)
+
+    return release_task
+
+
+def jira_project_list(project=None):
+    jira = JiraProject(project=project)
+    project_list = jira.project_list()
+    return ((x.key, "{name}({key})".format(name=x.name, key=x.key)) for x in project_list)
+
+
 class Product(models.Model):
     title = models.CharField("Product title", max_length=200)
     desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
     wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
-    jira = models.CharField("Jira project code", max_length=20)  # TODO add choices
+    jira = models.CharField("Jira project code", max_length=20, choices=jira_project_list())
     inst = models.ForeignKey(Institution, verbose_name='Group')
     owner = models.ForeignKey(User)
     is_internal = models.BooleanField("Is internal", default=False)
@@ -97,6 +121,26 @@ class Release(models.Model):
         else:
             res = ''
         return res
+
+    @property
+    def jira_task_name(self):
+        if self.jira:
+            return 'Release {}'.format(self.name)
+        else:
+            return None
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # This code only happens if the objects is
+            # not in the database yet. Otherwise it would
+            # have pk
+            if not self.jira:
+                if check_jira_release(self.product.jira, self.name):
+                    self.jira = check_jira_release(self.product.jira, self.name).key
+                else:
+                    self.jira = create_jira_release(self.product.jira, self.name)
+
+        super(Release, self).save(*args, **kwargs)
 
 
 class Build(models.Model):

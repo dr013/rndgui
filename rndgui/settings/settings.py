@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'raven.contrib.django.raven_compat',
     'bootstrap3',
     'simple_history',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -105,8 +106,6 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/login/'
 
-JIRA_URL = 'http://jira.bpc.in:8080'
-
 # service discovery
 PRODUCT_URL = 'http://sv2-web.bt.bpc.in:9090/restful/product'
 
@@ -158,5 +157,5 @@ LOGGING = {
     }
 }
 
-GITLAB_URL = 'http://gitlab.bt.bpc.in'
-GITLAB_TOKEN = 'sw64zxaiKi88eSmDSXvs'  # RnD Master key
+JIRA_USER = 'jira-system'
+JIRA_PASS = '3WqOGzrj9G'

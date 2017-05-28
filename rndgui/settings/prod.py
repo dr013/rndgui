@@ -44,3 +44,15 @@ DEFAULT_FROM_EMAIL = 'svtools@bpcbt.com'
 EMAIL_SUBJECT_PREFIX = '[SVTools] '
 EMAIL_HOST_USER = 'svtools'
 EMAIL_HOST_PASSWORD = 'R7xdEp3Y'
+
+# Jira
+JIRA_URL = 'http://jira.bpc.in:8080'
+
+JIRA_OPTIONS = {
+            'server': JIRA_URL,
+            'verify': False
+        }
+
+# GitLab
+GITLAB_URL = 'http://gitlab.bt.bpc.in'
+GITLAB_TOKEN = 'sw64zxaiKi88eSmDSXvs'  # RnD Master key

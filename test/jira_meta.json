@@ -1,0 +1,577 @@
+[
+  {
+    "projects": [
+      {
+        "name": "DevOps test",
+        "self": "http://jira.bpc.in:8080/rest/api/2/project/15101",
+        "issuetypes": [
+          {
+            "name": "Task",
+            "fields": {
+              "labels": {
+                "operations": [
+                  "add",
+                  "set",
+                  "remove"
+                ],
+                "name": "Labels",
+                "required": False,
+                "autoCompleteUrl": "http://jira.bpc.in:8080/rest/api/1.0/labels/suggest?query=",
+                "hasDefaultValue": False,
+                "schema": {
+                  "items": "string",
+                  "type": "array",
+                  "system": "labels"
+                }
+              },
+              "customfield_11800": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "EsmClientExecutor",
+                "schema": {
+                  "customId": 11800,
+                  "type": "string",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield"
+                }
+              },
+              "assignee": {
+                "operations": [
+                  "set"
+                ],
+                "name": "Assignee",
+                "required": True,
+                "autoCompleteUrl": "http://jira.bpc.in:8080/rest/api/latest/user/assignable/search?issueKey=null&username=",
+                "hasDefaultValue": True,
+                "schema": {
+                  "type": "user",
+                  "system": "assignee"
+                }
+              },
+              "customfield_14303": {
+                "operations": [
+                  "set"
+                ],
+                "name": "Need transfer to trunk",
+                "required": False,
+                "allowedValues": [
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/customFieldOption/13300",
+                    "id": "13300",
+                    "value": "Yes"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/customFieldOption/13301",
+                    "id": "13301",
+                    "value": "No"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/customFieldOption/13302",
+                    "id": "13302",
+                    "value": "Done"
+                  }
+                ],
+                "hasDefaultValue": False,
+                "schema": {
+                  "customId": 14303,
+                  "type": "option",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:select"
+                }
+              },
+              "environment": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Environment",
+                "schema": {
+                  "type": "string",
+                  "system": "environment"
+                }
+              },
+              "customfield_11801": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "EsmRegistrationDate",
+                "schema": {
+                  "customId": 11801,
+                  "type": "datetime",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datetime"
+                }
+              },
+              "fixVersions": {
+                "operations": [
+                  "set",
+                  "add",
+                  "remove"
+                ],
+                "name": "Fix Version/s",
+                "required": False,
+                "allowedValues": [],
+                "hasDefaultValue": False,
+                "schema": {
+                  "items": "version",
+                  "type": "array",
+                  "system": "fixVersions"
+                }
+              },
+              "priority": {
+                "operations": [
+                  "set"
+                ],
+                "name": "Priority",
+                "required": False,
+                "allowedValues": [
+                  {
+                    "iconUrl": "http://jira.bpc.in:8080/images/icons/priorities/blocker.svg",
+                    "self": "http://jira.bpc.in:8080/rest/api/2/priority/1",
+                    "name": "Blocker",
+                    "id": "1"
+                  },
+                  {
+                    "iconUrl": "http://jira.bpc.in:8080/images/icons/priorities/critical.svg",
+                    "self": "http://jira.bpc.in:8080/rest/api/2/priority/2",
+                    "name": "Critical",
+                    "id": "2"
+                  },
+                  {
+                    "iconUrl": "http://jira.bpc.in:8080/images/icons/priorities/major.svg",
+                    "self": "http://jira.bpc.in:8080/rest/api/2/priority/3",
+                    "name": "Major",
+                    "id": "3"
+                  },
+                  {
+                    "iconUrl": "http://jira.bpc.in:8080/images/icons/priorities/minor.svg",
+                    "self": "http://jira.bpc.in:8080/rest/api/2/priority/10000",
+                    "name": "Average",
+                    "id": "10000"
+                  },
+                  {
+                    "iconUrl": "http://jira.bpc.in:8080/images/icons/priorities/minor.svg",
+                    "self": "http://jira.bpc.in:8080/rest/api/2/priority/4",
+                    "name": "Minor",
+                    "id": "4"
+                  },
+                  {
+                    "iconUrl": "http://jira.bpc.in:8080/images/icons/priorities/trivial.svg",
+                    "self": "http://jira.bpc.in:8080/rest/api/2/priority/5",
+                    "name": "Trivial",
+                    "id": "5"
+                  }
+                ],
+                "hasDefaultValue": True,
+                "schema": {
+                  "type": "priority",
+                  "system": "priority"
+                }
+              },
+              "customfield_12401": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": True,
+                "required": False,
+                "name": "Order",
+                "schema": {
+                  "customId": 12401,
+                  "type": "number",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:float"
+                }
+              },
+              "attachment": {
+                "operations": [],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Attachment",
+                "schema": {
+                  "items": "attachment",
+                  "type": "array",
+                  "system": "attachment"
+                }
+              },
+              "duedate": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Due Date",
+                "schema": {
+                  "type": "date",
+                  "system": "duedate"
+                }
+              },
+              "description": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Description",
+                "schema": {
+                  "type": "string",
+                  "system": "description"
+                }
+              },
+              "reporter": {
+                "operations": [
+                  "set"
+                ],
+                "name": "Reporter",
+                "required": True,
+                "autoCompleteUrl": "http://jira.bpc.in:8080/rest/api/latest/user/search?username=",
+                "hasDefaultValue": False,
+                "schema": {
+                  "type": "user",
+                  "system": "reporter"
+                }
+              },
+              "customfield_10008": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Incident solution",
+                "schema": {
+                  "customId": 10008,
+                  "type": "string",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea"
+                }
+              },
+              "customfield_10007": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Incident cause",
+                "schema": {
+                  "customId": 10007,
+                  "type": "string",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea"
+                }
+              },
+              "customfield_10004": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "ExtTicketID",
+                "schema": {
+                  "customId": 10004,
+                  "type": "string",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield"
+                }
+              },
+              "customfield_10005": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Incident description",
+                "schema": {
+                  "customId": 10005,
+                  "type": "string",
+                  "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea"
+                }
+              },
+              "versions": {
+                "operations": [
+                  "set",
+                  "add",
+                  "remove"
+                ],
+                "name": "Affects Version/s",
+                "required": False,
+                "allowedValues": [],
+                "hasDefaultValue": False,
+                "schema": {
+                  "items": "version",
+                  "type": "array",
+                  "system": "versions"
+                }
+              },
+              "summary": {
+                "operations": [
+                  "set"
+                ],
+                "hasDefaultValue": False,
+                "required": True,
+                "name": "Summary",
+                "schema": {
+                  "type": "string",
+                  "system": "summary"
+                }
+              },
+              "project": {
+                "operations": [
+                  "set"
+                ],
+                "name": "Project",
+                "required": True,
+                "allowedValues": [
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/project/15101",
+                    "avatarUrls": {
+                      "24x24": "http://jira.bpc.in:8080/secure/projectavatar?size=small&avatarId=14203",
+                      "32x32": "http://jira.bpc.in:8080/secure/projectavatar?size=medium&avatarId=14203",
+                      "48x48": "http://jira.bpc.in:8080/secure/projectavatar?avatarId=14203",
+                      "16x16": "http://jira.bpc.in:8080/secure/projectavatar?size=xsmall&avatarId=14203"
+                    },
+                    "id": "15101",
+                    "key": "DVPT",
+                    "name": "DevOps test"
+                  }
+                ],
+                "hasDefaultValue": False,
+                "schema": {
+                  "type": "project",
+                  "system": "project"
+                }
+              },
+              "timetracking": {
+                "operations": [
+                  "set",
+                  "edit"
+                ],
+                "hasDefaultValue": False,
+                "required": False,
+                "name": "Time Tracking",
+                "schema": {
+                  "type": "timetracking",
+                  "system": "timetracking"
+                }
+              },
+              "components": {
+                "operations": [
+                  "add",
+                  "set",
+                  "remove"
+                ],
+                "name": "Component/s",
+                "required": False,
+                "allowedValues": [],
+                "hasDefaultValue": False,
+                "schema": {
+                  "items": "component",
+                  "type": "array",
+                  "system": "components"
+                }
+              },
+              "issuetype": {
+                "operations": [],
+                "name": "Issue Type",
+                "required": True,
+                "allowedValues": [
+                  {
+                    "name": "Task",
+                    "self": "http://jira.bpc.in:8080/rest/api/2/issuetype/3",
+                    "iconUrl": "http://jira.bpc.in:8080/secure/viewavatar?size=xsmall&avatarId=12318&avatarType=issuetype",
+                    "subtask": False,
+                    "avatarId": 12318,
+                    "id": "3",
+                    "description": "A task that needs to be done."
+                  }
+                ],
+                "hasDefaultValue": False,
+                "schema": {
+                  "type": "issuetype",
+                  "system": "issuetype"
+                }
+              },
+              "resolution": {
+                "operations": [
+                  "set"
+                ],
+                "name": "Resolution",
+                "required": False,
+                "allowedValues": [
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/1",
+                    "name": "Fixed",
+                    "id": "1"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/2",
+                    "name": "Won"t Fix",
+                    "id": "2"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/3",
+                    "name": "Duplicate",
+                    "id": "3"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/4",
+                    "name": "Incomplete",
+                    "id": "4"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/5",
+                    "name": "Cannot Reproduce",
+                    "id": "5"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/6",
+                    "name": "Done",
+                    "id": "6"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/7",
+                    "name": "Deployed",
+                    "id": "7"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10000",
+                    "name": "Resolved",
+                    "id": "10000"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10001",
+                    "name": "Close",
+                    "id": "10001"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10100",
+                    "name": "Not actual",
+                    "id": "10100"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10202",
+                    "name": "Documentation error ",
+                    "id": "10202"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10203",
+                    "name": "Incorrect version",
+                    "id": "10203"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10204",
+                    "name": "Pending",
+                    "id": "10204"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10205",
+                    "name": "Configuration",
+                    "id": "10205"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10300",
+                    "name": "Code review",
+                    "id": "10300"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10400",
+                    "name": "Need more details",
+                    "id": "10400"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10401",
+                    "name": "Postponed",
+                    "id": "10401"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10501",
+                    "name": "Open",
+                    "id": "10501"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10601",
+                    "name": "Won"t Do",
+                    "id": "10601"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10703",
+                    "name": "Resolved \u2013 Tested",
+                    "id": "10703"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10704",
+                    "name": "Resolved \u2013 Not tested",
+                    "id": "10704"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10705",
+                    "name": "Resolved \u2013 Answered",
+                    "id": "10705"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10706",
+                    "name": "Decline \u2013 Cannot be fixed",
+                    "id": "10706"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10707",
+                    "name": "Decline \u2013 Cannot reproduce",
+                    "id": "10707"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10708",
+                    "name": "Decline \u2013 Configuration Error",
+                    "id": "10708"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10709",
+                    "name": "Decline \u2013 Custom Development",
+                    "id": "10709"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10710",
+                    "name": "Decline \u2013 Duplicate",
+                    "id": "10710"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10711",
+                    "name": "Decline \u2013 Functions as Designed",
+                    "id": "10711"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10712",
+                    "name": "Decline \u2013 Need More Information",
+                    "id": "10712"
+                  },
+                  {
+                    "self": "http://jira.bpc.in:8080/rest/api/2/resolution/10713",
+                    "name": "Decline \u2013 Recall",
+                    "id": "10713"
+                  }
+                ],
+                "hasDefaultValue": False,
+                "schema": {
+                  "type": "resolution",
+                  "system": "resolution"
+                }
+              }
+            },
+            "self": "http://jira.bpc.in:8080/rest/api/2/issuetype/3",
+            "iconUrl": "http://jira.bpc.in:8080/secure/viewavatar?size=xsmall&avatarId=12318&avatarType=issuetype",
+            "subtask": False,
+            "id": "3",
+            "expand": "fields",
+            "description": "A task that needs to be done."
+          }
+        ],
+        "avatarUrls": {
+          "24x24": "http://jira.bpc.in:8080/secure/projectavatar?size=small&avatarId=14203",
+          "32x32": "http://jira.bpc.in:8080/secure/projectavatar?size=medium&avatarId=14203",
+          "48x48": "http://jira.bpc.in:8080/secure/projectavatar?avatarId=14203",
+          "16x16": "http://jira.bpc.in:8080/secure/projectavatar?size=xsmall&avatarId=14203"
+        },
+        "key": "DVPT",
+        "id": "15101",
+        "expand": "issuetypes"
+      }
+    ],
+    "expand": "projects"
+  }
+]

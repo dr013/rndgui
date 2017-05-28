@@ -7,6 +7,7 @@ import logging
 import urllib
 # noinspection PyCompatibility
 import urllib2
+from prd.models import jira_project_list
 
 from django.conf import settings
 from django.contrib import messages
@@ -25,7 +26,7 @@ logger = logging.getLogger('sentry')
 @login_required
 def start(request):
     # get timesheet
-
+    jira_project_list()
     username = request.user.username
     prd_list = Product.objects.all()
 
