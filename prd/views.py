@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import datetime
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from django.forms import formset_factory
@@ -9,6 +8,9 @@ from prd.forms import ReleaseForm, BuildRevisionForm
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 class ReleaseList(ListView):

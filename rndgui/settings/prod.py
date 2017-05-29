@@ -56,3 +56,5 @@ JIRA_OPTIONS = {
 # GitLab
 GITLAB_URL = 'http://gitlab.bt.bpc.in'
 GITLAB_TOKEN = 'sw64zxaiKi88eSmDSXvs'  # RnD Master key
+
+BASE_URL = 'http://sv2.bpc.in/svtools/'

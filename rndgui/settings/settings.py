@@ -127,6 +127,11 @@ LOGGING = {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
     },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
     'handlers': {
         'sentry': {
             'level': 'WARNING',
@@ -136,11 +141,23 @@ LOGGING = {
             'level': 'WARNING',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'mysite.log',
+            'formatter': 'verbose'
         }
     },
     'loggers': {
         'django': {
-            'handlers': ['sentry', 'console'],
+            'handlers': ['sentry', 'console', 'mail_admins'],
             'level': 'WARNING',
             'propagate': True,
         },
@@ -154,6 +171,10 @@ LOGGING = {
             'handlers': ['sentry'],
             'propagate': False,
         },
+        'prd.models': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        }
     }
 }
 

@@ -5,28 +5,37 @@ from prd.models import Product, Release, Build, HotFix, ReleasePart, BuildRevisi
 from simple_history.admin import SimpleHistoryAdmin
 
 
-class ProductAdmin(admin.ModelAdmin):
+class BuildInline(admin.TabularInline):
+    model = Build
+
+
+class ProductAdmin(SimpleHistoryAdmin):
     list_filter = ('inst',)
 
 
 class ReleaseAdmin(SimpleHistoryAdmin):
     list_filter = ('product',)
+    list_display = ['name', 'product', 'jira', 'is_active', 'author', 'date_released']
+    inlines = [
+        BuildInline,
+    ]
 
 
-class BuildAdmin(admin.ModelAdmin):
+class BuildAdmin(SimpleHistoryAdmin):
     list_filter = ('release__product',)
 
 
-class HotFixAdmin(admin.ModelAdmin):
+class HotFixAdmin(SimpleHistoryAdmin):
     pass
 
 
-class ReleasePartAdmin(admin.ModelAdmin):
+class ReleasePartAdmin(SimpleHistoryAdmin):
     pass
 
 
 class BuildRevisionAdmin(SimpleHistoryAdmin):
     list_filter = ('build__release__product',)
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Release, ReleaseAdmin)
