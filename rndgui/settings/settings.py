@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'simple_history',
     'django_extensions',
+    'cat'
 ]
 
 MIDDLEWARE = [
