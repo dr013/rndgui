@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -33,17 +33,37 @@ def check_jira_release(project, release):
     jira = JiraProject(project=project)
     task_name = 'Release {}'.format(release)
     issue = jira.search_issue(task_name)
+    if not issue:
+        issue = create_jira_release(project, release)
+
+    return issue
+
+
+def check_jira_build(project, release, build):
+    jira = JiraProject(project=project)
+
+    build_name = 'Build {bld}'.format(bld=build)
+    q = "project='{prj}' and summary~'{task}' and type=Sub-task".format(prj=project, task=build_name)
+    issue = jira.search_issue(q)
+    if not issue:
+        issue = create_jira_build(project, release, build)
+
     return issue
 
 
 def create_jira_release(project, release):
     jira = JiraProject(project=project)
     release_task = jira.create_release_task(release)
-    build0 = '{rel}.0'
-    build1 = '{rel}.1'
-    task0 = jira.create_sub_task(release_task, build0)
 
     return release_task
+
+
+def create_jira_build(project, release, build):
+    jira = JiraProject(project=project)
+    release_task = check_jira_release(project, release)
+    build_task = jira.create_sub_task(release_task, build)
+
+    return build_task
 
 
 def jira_project_list(project=None):
@@ -131,15 +151,12 @@ class Release(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            # This code only happens if the objects is
-            # not in the database yet. Otherwise it would
-            # have pk
             if not self.jira:
-                if check_jira_release(self.product.jira, self.name):
-                    self.jira = check_jira_release(self.product.jira, self.name).key
-                else:
-                    self.jira = create_jira_release(self.product.jira, self.name)
-
+                self.jira = check_jira_release(self.product.jira, self.name)
+            bld0 = Build(name='0', release=self, author=self.author, released=True, date_released=datetime.date.today())
+            bld0.save()
+            bld1 = Build(name='1', release=self, author=self.author)
+            bld1.save()
         super(Release, self).save(*args, **kwargs)
 
 
@@ -182,6 +199,13 @@ class Build(models.Model):
         """Returns the queryset of hotfix for build"""
         hotfix_list = HotFix.objects.filter(build=self.pk).order_by('-date_released')
         return hotfix_list
+
+    def save(self, *args, **kwargs):
+
+        if not self.jira:
+            self.jira = check_jira_build(self.release.product.name, self.release.jira, self.full_name)
+
+        super(Build, self).save(*args, **kwargs)
 
 
 class HotFix(models.Model):

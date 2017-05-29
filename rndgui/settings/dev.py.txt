@@ -12,5 +12,28 @@ MIDDLEWARE += [
 
 INTERNAL_IPS = ["127.0.0.1", '10.7.32.91']
 
-AUTH_URL = "http://sv2-web.bt.bpc.in:9090/auth/"
+AUTH_URL = "http://sv2-web.bt.bpc.in/auth/"
+
+ALLOWED_HOSTS = ["krukov.bpc.in", "127.0.0.1"]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'rndgui.db'),
+    }
+}
+
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
+
+# Jira
+JIRA_URL = 'https://jira.bpcbt.com'
+JIRA_OPTIONS = {
+            'server': JIRA_URL,
+            'verify': False
+        }
+
+# GitLab
+GITLAB_URL = 'http://gitlab.bt.bpc.in'
+GITLAB_TOKEN = 'sw64zxaiKi88eSmDSXvs'  # RnD Master key
 
