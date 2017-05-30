@@ -7,6 +7,8 @@ import requests
 import json
 import logging
 
+logger = logging.getLogger('prd')
+
 
 class GitLab:
     def __init__(self):
@@ -26,11 +28,27 @@ class GitLab:
         obj = self.gl.projects.get(pid)
         return obj
 
-    def create_tag(self, project, tag, ref, desc, user=None):
-        proj = self.project(project).id
-        tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
-                                          project_id=proj, sudo=user)
-        tag.set_release_description(desc)
+    def check_tag(self, project_id, tag):
+        project = self.project(project_id)
+        tags = project.tags.list()
+        if tag in tags:
+            return True
+        else:
+            return False
+
+    def create_tag(self, project_id, tag, ref, desc, user=None):
+        logger.debug("Check Gitlab tag")
+        if self.check_tag(project_id, tag):
+            logger.debug("Found gitlab tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
+        else:
+            try:
+                tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
+                                              project_id=project_id, sudo=user)
+                tag.set_release_description(desc)
+            except gitlab.GitlabCreateError as errm:
+                logger.error(str(errm))
+
+            logger.info("Create new tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
 
 
 # noinspection PyCompatibility

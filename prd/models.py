@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import datetime
+import logging
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.core.cache import cache
 from simple_history.models import HistoricalRecords
 from acm.models import Institution
 from prd.api import GitLab, JiraProject
-import logging
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -20,9 +21,13 @@ def getkey(item):
 
 
 def gilab_project_list():
-    project_list = GitLab().project_list()
-    short_list = ((x.id, x.name_with_namespace) for x in project_list)
-    return sorted(short_list, key=getkey)
+    short_list = cache.get('gitlab_project_list')
+    if not short_list:
+        project_list = GitLab().project_list()
+        short_list = ((x.id, x.name_with_namespace) for x in project_list)
+        short_list = sorted(short_list, key=getkey)
+        cache.set('gitlab_project_list', short_list, 60 * 60)
+    return short_list
 
 
 def gitlab_project(pid):
@@ -36,21 +41,20 @@ def gitlab_project(pid):
 def check_jira_release(project, release):
     jira = JiraProject(project=project)
     task_name = 'Release {}'.format(release)
-    print('check release jira: ' + task_name)
     issue = jira.search_issue(task_name)
     if not issue:
         issue = create_jira_release(project, release)
-    print('Issue: ', issue)
     return issue.key
 
 
-def create_zero_tag(product, release, tag, author, ref):
+def create_zero_tag(product, release, tag, author):
     # TODO add sql OR
+    desc = "Zero tag for new release {}".format(release)
     release_module = ReleasePart.objects.filter(product__jira=product, release__name=release)
     if not release_module:
         release_module = ReleasePart.objects.filter(product__jira=product)
     for rec in release_module:
-        GitLab().create_tag(project=rec.gitlab_id, tag=tag, ref=ref, user=author)
+        GitLab().create_tag(project_id=rec.gitlab_id, tag=tag, ref=rec.work_branch, user=author.username, desc=desc)
 
 
 def check_jira_build(project, release, build):
@@ -78,9 +82,14 @@ def create_jira_build(project, release, build):
 
 
 def jira_project_list(project=None):
-    jira = JiraProject(project=project)
-    project_list = jira.project_list()
-    return ((x.key, "{name}({key})".format(name=x.name, key=x.key)) for x in project_list)
+    project_list_lov = cache.get('jira_project_list')
+    if not project_list_lov:
+        project_list = JiraProject(project=project).project_list()
+        project_list_lov = []
+        for rec in ((x.key, "{name}({key})".format(name=x.name, key=x.key)) for x in project_list):
+            project_list_lov.append(rec)
+        cache.set('jira_project_list', project_list_lov, 60 * 60)  # cache one hour
+    return project_list_lov
 
 
 class Product(models.Model):
@@ -232,7 +241,7 @@ class Build(models.Model):
         if self.released and self.name == '0':
             # close jira task
             jira = JiraProject(project=self.release.product.jira)
-            jira.assign_task(self.jira, self.author)
+            jira.assign_task(self.jira, self.author.username)
             jira.start_task(self.jira)
             jira.add_comment(self.jira, 'Init build for new release {rls}'.format(rls=self.release.name))
             jira.stop_task(self.jira)
