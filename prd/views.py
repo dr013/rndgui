@@ -118,5 +118,9 @@ class ProductDetail(DetailView):
         return context
 
 
+class BuildDetail(DetailView):
+    model = Build
+
+
 class ReleaseDetail(DetailView):
     model = Release

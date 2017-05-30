@@ -13,7 +13,7 @@ from acm.models import Institution
 from prd.api import GitLab, JiraProject
 
 # Get an instance of a logger
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('prd')
 
 
 def getkey(item):
@@ -60,15 +60,24 @@ def create_zero_tag(product, release, tag, author):
 def check_jira_build(project, release, build):
     jira = JiraProject(project=project)
     build_name = 'Build {bld}'.format(bld=build)
-    q = "project='{prj}' and summary~'{task}' and type=Sub-task".format(prj=project, task=build_name)
-    issue = jira.search_issue(q)
+    logger.debug("Check Jira build {bld} subtask in project {prj}".format(bld=build, prj=project))
+    issue = jira.search_issue(build_name)
     if not issue:
+        logger.debug("Task not found!")
         issue = create_jira_build(project, release, build)
+    else:
+        logger.debug("Task found!")
     return issue.key
+
+
+def check_jira_task_status(task):
+    jira = JiraProject(None)
+    return jira.get_task_status(task)
 
 
 def create_jira_release(project, release):
     jira = JiraProject(project=project)
+    logger.info("Create Jira release task for project {}.".format(project))
     release_task = jira.create_release_task(release)
     return release_task
 
@@ -76,8 +85,8 @@ def create_jira_release(project, release):
 def create_jira_build(project, release, build):
     jira = JiraProject(project=project)
     release_task = check_jira_release(project, release)
+    logger.info("Create new Jira Sub-task for build {}".format(build))
     build_task = jira.create_sub_task(release_task, build)
-
     return build_task
 
 
@@ -240,12 +249,17 @@ class Build(models.Model):
 
         if self.released and self.name == '0':
             # close jira task
-            jira = JiraProject(project=self.release.product.jira)
-            jira.assign_task(self.jira, self.author.username)
-            jira.start_task(self.jira)
-            jira.add_comment(self.jira, 'Init build for new release {rls}'.format(rls=self.release.name))
-            jira.stop_task(self.jira)
-            jira.close_task(self.jira)
+            status = check_jira_task_status(self.jira)
+            logger.debug("Check Jira task {} status".format(self.jira))
+            if 'Closed' not in status:
+                jira = JiraProject(project=self.release.product.jira)
+                jira.assign_task(self.jira, self.author.username)
+                jira.start_task(self.jira)
+                jira.add_comment(self.jira, 'Init build for new release {rls}'.format(rls=self.release.name))
+                jira.stop_task(self.jira)
+                jira.close_task(self.jira)
+            else:
+                logger.debug("Task already have status Closed!")
             # create gitlab tag
             create_zero_tag(self.release.product.jira, self.release, self.git_name, self.author)
 

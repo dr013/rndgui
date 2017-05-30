@@ -252,3 +252,7 @@ class JiraProject:
             if value['required'] and not value['hasDefaultValue']:
                 fields.append(key)
         return fields
+
+    def get_task_status(self, task):
+        status = str(self.jira.issue(task).fields.status)
+        return status

@@ -140,7 +140,7 @@ LOGGING = {
             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
         },
         'console': {
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
@@ -153,7 +153,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'mysite.log',
+            'filename': 'logs/rndgul-app.log',
             'formatter': 'verbose'
         }
     },
@@ -173,7 +173,7 @@ LOGGING = {
             'handlers': ['sentry'],
             'propagate': False,
         },
-        'prd.models': {
+        'prd': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
         }
