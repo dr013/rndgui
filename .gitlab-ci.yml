@@ -1,5 +1,6 @@
 variables:
     'DJANGO_SETTINGS_MODULE': "rndgui.settings"
+    'PYTHONWARNINGS': "ignore"
 stages:
     - test
     - deploy
