@@ -17,6 +17,7 @@ deploy_dev:
     stage: deploy
     script:
         - fab dev deploy
+        - sleep 60
         - curl http://sv2.bpc.in:8000
     only:
         - develop
