@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'simple_history',
     'django_extensions',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -190,3 +191,6 @@ CACHES = {
         'LOCATION': 'unique-snowflake',
     }
 }
+
+# Celery common
+CELERY_RESULT_BACKEND = 'django-db'
