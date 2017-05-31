@@ -72,8 +72,12 @@ def deploy():
 def install_requirements():
     require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green(" * install the necessary applications..."))
+    if 'develop' in env.environment:
+        req = 'dev.txt'
+    else:
+        req = 'prod.txt'
     with virtualenv():
-        requirements_file = env.path + '/requirements/prod.txt'
+        requirements_file = 'requirements/{req}'.format(req=req)
 
         args = ['install',
                 '-r', requirements_file, '--upgrade'
@@ -88,6 +92,12 @@ def update_from_git():
         print(green('run checkout master'))
         run('git checkout -- .')
         run('git clean -fd')
+
+        if 'develop' in env.environment:
+            run('git checkout develop')
+        else:
+            run('git checkout master')
+
         run('git fetch --prune origin')
         run('git pull')
 
@@ -122,7 +132,7 @@ def stop_webserver():
 def set_dev_config():
     print (red('Copy settings/dev'))
     with cd(env.path):
-        run('cp rndgui/settings/dev.py.txt rndgui/settings/dev.py')
+        run('cp rndgui/settings/demo.py rndgui/settings/dev.py')
 
 
 def run_dev_server():
