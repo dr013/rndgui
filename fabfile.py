@@ -140,6 +140,6 @@ def set_dev_config():
 def run_dev_server():
     print (green('Run dev server'))
     with virtualenv():
-        run('pid=$(< "pid") && kill -9 ${pid}')
-        run('[-f pid ] && rm pid')
+        run('[ -f pid ] && {pid=$(< "pid") && kill -9 ${pid}}')
+        run('[ -f pid ] && rm pid')
         run('python manage.py runserver sv2.bpc.in:8000 & && echo $! > pid')

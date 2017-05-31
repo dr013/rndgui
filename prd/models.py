@@ -31,7 +31,7 @@ def gilab_project_list():
 
 
 def gitlab_project(pid):
-    obj = GitLab().project(pid)
+    obj = GitLab().get_project(pid)
     if obj:
         return obj
     else:

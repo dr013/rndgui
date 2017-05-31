@@ -38,7 +38,7 @@
                     <td>{{ rec.inst }}</td>
                     <td>{{ rec.owner.get_full_name }}</td>
                     <td><a href="{% url 'release-list-by-product' rec.name %}">Release list</a></td>
-                    <td>{% if perms.prd.modify_product %}
+                    <td>{% if perms.prd.change_product %}
                         {% buttons %}<a href="{% url 'product-update' rec.pk %}"
                                         class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}Edit</a>
                         {% endbuttons %}
