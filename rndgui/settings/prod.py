@@ -58,3 +58,11 @@ GITLAB_URL = 'http://gitlab.bt.bpc.in'
 GITLAB_TOKEN = 'SasnDpte7dhAMgNAFPLA'  # RnD Master key
 
 BASE_URL = 'http://sv2.bpc.in/svtools/'
+
+# CELERY STUFF
+BROKER_URL = 'redis://sv2-web.bt.bpc.in:6379'
+CELERY_RESULT_BACKEND = 'redis://sv2-web.bt.bpc.in:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'
