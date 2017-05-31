@@ -5,9 +5,12 @@
 import datetime
 from fabric.api import env, run, cd, sudo, require, prefix
 from fabric.colors import green, red
+from fabric.contrib import django
 from contextlib import contextmanager as _contextmanager
 
 now = datetime.datetime.now()
+django.project('rndgui')
+django.settings_module('rndgui.settings')
 
 
 def production1():

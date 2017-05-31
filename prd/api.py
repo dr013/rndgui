@@ -24,26 +24,28 @@ class GitLab:
     def project_list(self):
         return self.gl.projects.list()
 
-    def project(self, pid):
+    def get_project(self, pid):
         obj = self.gl.projects.get(pid)
         return obj
 
     def check_tag(self, project_id, tag):
-        project = self.project(project_id)
-        tags = project.tags.list()
-        if tag in tags:
+        project_obj = self.get_project(project_id)
+        tags = project_obj.tags.list()
+        tag_list = [x.name for x in tags]
+        if tag in tag_list:
             return True
         else:
             return False
 
     def create_tag(self, project_id, tag, ref, desc, user=None):
+        # TODO check permission for sudo user  - add tag available only for Developer, Master and Owner role.
         logger.debug("Check Gitlab tag")
         if self.check_tag(project_id, tag):
             logger.debug("Found gitlab tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
         else:
             try:
                 tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
-                                              project_id=project_id, sudo=user)
+                                                  project_id=project_id, sudo=user)
                 tag.set_release_description(desc)
             except gitlab.GitlabCreateError as errm:
                 logger.error(str(errm))

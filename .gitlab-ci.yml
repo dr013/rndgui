@@ -1,5 +1,5 @@
 variables:
-    'DJANGO_SETTINGS_MODULE': rndgui.settings
+    'DJANGO_SETTINGS_MODULE': "rndgui.settings"
 stages:
     - test
     - deploy
