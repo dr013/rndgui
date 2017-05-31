@@ -58,6 +58,8 @@ def deploy():
     print(red("Beginning Deploy:"))
     update_from_git()
     install_requirements()
+    if 'develop' in env.environment:
+        set_dev_config()
     migrate()
     if env.environment == 'production':
         # stop_webserver()
@@ -65,7 +67,6 @@ def deploy():
         # start_webserver()
         # touch_reload()
     elif 'develop' in env.environment:
-        set_dev_config()
         run_dev_server()
 
 
