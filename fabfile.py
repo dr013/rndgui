@@ -113,6 +113,7 @@ def migrate():
     require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green('Migrate database'))
     with virtualenv():
+        run("python manage.py makemigrations")
         run("python manage.py migrate")
 
 
@@ -138,4 +139,6 @@ def set_dev_config():
 def run_dev_server():
     print (green('Run dev server'))
     with cd(env.path):
-        run('python manage.py runserver sv2.bpc.in:8000')
+        run('pid=$(< "pid") && kill -9 ${pid}')
+        run('rm pid')
+        run('python manage.py runserver sv2.bpc.in:8000 & && echo $! > pid')
