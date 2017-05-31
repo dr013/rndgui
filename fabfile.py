@@ -37,7 +37,7 @@ def dev():
     # здесь данные об удаленном сервере с сайтом
     env.environment = "develop"
     env.hosts = ["sv2.bpc.in:22"]
-    env.user = 'master'
+    env.user = 'www-data'
     env.path = '/srv/rndgui'
     env.db_host = 'rnd-pg.bt.bpc.in'
     env.activate = 'source /srv/rndgui/venv/bin/activate'
