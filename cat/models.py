@@ -26,28 +26,37 @@ class DBInstance(models.Model):
         return '{host}::{login}'.format(host=self.host, login=self.login)
 
     def get_absolute_url(self):
-        return reverse('instance-detail', kwargs={'pk': self.pk})
+        return reverse('dbinstance-detail', kwargs={'pk': self.pk})
+
+    def get_fields(self):
+        return [(field.verbose_name, field._get_val_from_obj(self)) for field in self.__class__._meta.fields]
 
 
 class WEBInstance(models.Model):
     host = models.CharField('Host', max_length=200)
-    port = port = models.IntegerField('Port', default=1521)
-    target_server = models.CharField('Server name', max_length=200)
-    host_login = models.CharField('Server name', max_length=200)
+    port = models.IntegerField('Port', default=7001)
+    target_server = models.CharField('Server', max_length=200)
+    host_login = models.CharField('Host login', max_length=200, default='weblogic')
 
     def __str__(self):
-        return 't3://{host}:{port}'.format(host=self.host, login=self.port)
+        return 't3://{host}:{port}'.format(host=self.host, port=self.port)
 
     def get_absolute_url(self):
-        return reverse('instance-detail', kwargs={'pk': self.pk})
+        return reverse('webinstance-detail', kwargs={'pk': self.pk})
+
+    def get_fields(self):
+        return [(field.verbose_name, field._get_val_from_obj(self)) for field in self.__class__._meta.fields]
 
 
 class STLNInstance(models.Model):
     host = models.CharField('Host', max_length=200)
-    host_login = models.CharField('Server name', max_length=200)
+    host_login = models.CharField('Host login', max_length=200)
 
     def __str__(self):
-        return '{host_login}@{host}'.format(host=self.host, login=self.host_login)
+        return '{host_login}@{host}'.format(host=self.host, host_login=self.host_login)
 
     def get_absolute_url(self):
-        return reverse('instance-detail', kwargs={'pk': self.pk})
+        return reverse('stlninstance-detail', kwargs={'pk': self.pk})
+
+    def get_fields(self):
+        return [(field.verbose_name, field._get_val_from_obj(self)) for field in self.__class__._meta.fields]

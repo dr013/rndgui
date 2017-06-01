@@ -59,9 +59,9 @@
                             <li><a href="{% url 'stlninstance-create' %}">Add new Standalone Instance</a></li>
                             <li role="separator" class="divider"></li>
                         {% endif %}
-                        <li><a href="{% url 'dbinstance-list' %}">DBInstances</a></li>
-                        <li><a href="{% url 'webinstance-list' %}">WBBInstances</a></li>
-                        <li><a href="{% url 'stlninstance-list' %}">STLNInstances</a></li>
+                        <li><a href="{% url 'dbinstance-list' %}">DB Instances</a></li>
+                        <li><a href="{% url 'webinstance-list' %}">WEB Instances</a></li>
+                        <li><a href="{% url 'stlninstance-list' %}">STLN Instances</a></li>
                     </ul>
                 </li>
                 {% if user.is_staff %}
