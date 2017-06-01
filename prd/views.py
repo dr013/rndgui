@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from django.forms import formset_factory
+from django.views.decorators.cache import never_cache
+
 from prd.forms import ReleaseForm, BuildRevisionForm, ProductForm
 from .models import *
 from django.shortcuts import render, get_object_or_404
@@ -112,6 +114,7 @@ class DeleteProduct(DeleteView):
     success_url = reverse_lazy('product-list')
 
 
+@never_cache
 class ProductDetail(DetailView):
     model = Product
 
@@ -145,3 +148,9 @@ class ReleasePartCreate(CreateView):
         return {
             'product': product,
         }
+
+
+class ReleasePartDelete(DeleteView):
+    model = ReleasePart
+    success_message = "Release part was deleted successfully"
+    success_url = reverse_lazy('product-list')
