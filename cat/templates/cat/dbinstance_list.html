@@ -23,7 +23,6 @@
                                 <th>Host</th>
                                 <th>Login</th>
                                 <th>Password</th>
-                                <th>Service</th>
                                 <th>Port</th>
                                 <th>SID</th>
                                 <th>Weight</th>
@@ -39,11 +38,10 @@
                                 <td><a href="{% url 'instance-detail' rec.pk %}">{{ rec.host }}</a></td>
                                 <td>{{ rec.login}}</td>
                                 <td>{{ rec.passwd }}</td>
-                                <td>{{ rec.dbname}}</td>
                                 <td>{{ rec.port}}</td>
                                 <td>{{ rec.sid }}</td>
                                 <td>{{ rec.weight}}</td>
-                                    {% if perms.cat.modify_dbinstance %}
+                                    {% if perms.cat.change_dbinstance %}
                                         <td>
                                             {% buttons %}
                                                 <a href="{% url 'instance-update' rec.pk %}"
