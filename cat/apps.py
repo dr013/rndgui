@@ -6,4 +6,4 @@ from django.apps import AppConfig
 
 class CatConfig(AppConfig):
     name = 'cat'
-    verbose_name = "Autotest host carousel"
+    verbose_name = "Auto test host carousel"

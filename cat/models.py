@@ -27,3 +27,27 @@ class DBInstance(models.Model):
 
     def get_absolute_url(self):
         return reverse('instance-detail', kwargs={'pk': self.pk})
+
+
+class WEBInstance(models.Model):
+    host = models.CharField('Host', max_length=200)
+    port = port = models.IntegerField('Port', default=1521)
+    target_server = models.CharField('Server name', max_length=200)
+    host_login = models.CharField('Server name', max_length=200)
+
+    def __str__(self):
+        return 't3://{host}:{port}'.format(host=self.host, login=self.port)
+
+    def get_absolute_url(self):
+        return reverse('instance-detail', kwargs={'pk': self.pk})
+
+
+class STLNInstance(models.Model):
+    host = models.CharField('Host', max_length=200)
+    host_login = models.CharField('Server name', max_length=200)
+
+    def __str__(self):
+        return '{host_login}@{host}'.format(host=self.host, login=self.host_login)
+
+    def get_absolute_url(self):
+        return reverse('instance-detail', kwargs={'pk': self.pk})

@@ -48,14 +48,20 @@
                        aria-expanded="false">Instances <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         {% if perms.cat.add_dbinstance %}
-                            <li>
-                                <a href="{% url 'instance-create' %}">Add new instance</a>
-                            </li>
+                            <li><a href="{% url 'dbinstance-create' %}">Add new DB Instance</a></li>
                             <li role="separator" class="divider"></li>
                         {% endif %}
-                        <li>
-                            <a href="{% url 'instance-list' %}">Instances</a>
-                        </li>
+                        {% if perms.cat.add_webinstance %}
+                            <li><a href="{% url 'webinstance-create' %}">Add new WEB Instance</a></li>
+                            <li role="separator" class="divider"></li>
+                        {% endif %}
+                        {% if perms.cat.add_stlninstance %}
+                            <li><a href="{% url 'stlninstance-create' %}">Add new Standalone Instance</a></li>
+                            <li role="separator" class="divider"></li>
+                        {% endif %}
+                        <li><a href="{% url 'dbinstance-list' %}">DBInstances</a></li>
+                        <li><a href="{% url 'webinstance-list' %}">WBBInstances</a></li>
+                        <li><a href="{% url 'stlninstance-list' %}">STLNInstances</a></li>
                     </ul>
                 </li>
                 {% if user.is_staff %}
