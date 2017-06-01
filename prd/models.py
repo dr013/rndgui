@@ -20,7 +20,7 @@ def getkey(item):
     return item[1]
 
 
-def gilab_project_list():
+def gitlab_project_list():
     short_list = cache.get('gitlab_project_list')
     if not short_list:
         project_list = GitLab().project_list()
@@ -105,15 +105,15 @@ class Product(models.Model):
     title = models.CharField("Product title", max_length=200, unique=True)
     desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
     wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
-    jira = models.CharField("Jira project code", max_length=20, choices=jira_project_list(), unique=True)
+    jira = models.CharField(_("Jira project code"), max_length=20, choices=jira_project_list(), unique=True,
+                            help_text="Jira project key")
     inst = models.ForeignKey(Institution, verbose_name='Group')
     owner = models.ForeignKey(User)
-    is_internal = models.BooleanField("Is internal", default=False)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     specification_repo = models.IntegerField(_("Specifications repository"), null=True, blank=True,
-                                             help_text="Gitlab repostitory ID for product specifications",
-                                             choices=gilab_project_list())
+                                             help_text="Gitlab repostitory for product specifications",
+                                             choices=gitlab_project_list())
     history = HistoricalRecords()
 
     def __str__(self):
@@ -142,6 +142,16 @@ class Product(models.Model):
         else:
             res = ''
         return res
+
+    @property
+    def gitlab_project_url(self):
+        return gitlab_project(self.specification_repo).web_url
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.jira and not self.desc:
+                self.desc = JiraProject(self.jira).get_project_desc()
+        super(Product, self).save(*args, **kwargs)
 
 
 class Release(models.Model):
@@ -304,10 +314,13 @@ class ReleasePart(models.Model):
     """ Release part  - product modules configuration"""
     name = models.CharField(_("Module name"), max_length=200)
     product = models.ForeignKey(Product)
-    release = models.ForeignKey(to=Release, null=True, blank=True)
-    gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gilab_project_list())
-    work_branch = models.CharField("Git branch", max_length=200, default='future')
+    release = models.ForeignKey(to=Release, null=True, blank=True,
+                                help_text="Specific release number. Skip if all releases have one configurations")
+    gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gitlab_project_list())
     history = HistoricalRecords()
+
+    class Meta:
+        unique_together = ('name', 'product',)
 
     def __str__(self):
         return '{product}::{name}'.format(product=self.product.name, name=self.name)

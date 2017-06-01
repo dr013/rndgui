@@ -4,10 +4,11 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from django.forms import formset_factory
-from prd.forms import ReleaseForm, BuildRevisionForm
+from prd.forms import ReleaseForm, BuildRevisionForm, ProductForm
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.contrib import messages
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -72,6 +73,7 @@ def create_build2(request):
     next_number = str(int(current_build.name) + 1)
     new_build = Build.objects.create(released=False, name=next_number, release=current_build.release,
                                      author=request.user, is_active=True)
+    messages.add_message(request, messages.SUCCESS, 'First build was created!')
     new_build.save()
     return render(request, 'prd/process_create_build.html', locals())
 
@@ -96,12 +98,13 @@ class ReleaseBuildList(ListView):
 
 class CreateProduct(CreateView):
     model = Product
-    fields = ['title', 'desc', 'wiki_url', 'jira', 'inst', 'owner']
+    form_class = ProductForm
+    success_message = "%(title)s was created successfully"
 
 
 class UpdateProduct(UpdateView):
     model = Product
-    fields = ['title', 'desc', 'wiki_url', 'jira', 'inst', 'owner']
+    form_class = ProductForm
 
 
 class DeleteProduct(DeleteView):
@@ -124,3 +127,21 @@ class BuildDetail(DetailView):
 
 class ReleaseDetail(DetailView):
     model = Release
+
+
+class ReleasePartCreate(CreateView):
+    model = ReleasePart
+    fields = ['name', 'product', 'gitlab_id']
+    success_message = "%(name)s was created successfully"
+
+    def get_success_url(self, **kwargs):
+        if kwargs:
+            return reverse_lazy('product-detail', kwargs={'pk': self.kwargs.get('product')})
+        else:
+            return reverse_lazy('product-list')
+
+    def get_initial(self):
+        product = get_object_or_404(Product, pk=self.kwargs.get('product'))
+        return {
+            'product': product,
+        }

@@ -22,7 +22,7 @@ class GitLab:
         self.gl.auth()
 
     def project_list(self):
-        return self.gl.projects.list()
+        return self.gl.projects.list(all=True)
 
     def get_project(self, pid):
         obj = self.gl.projects.get(pid)
@@ -79,6 +79,9 @@ class JiraProject:
 
     def set_project(self, project):
         self.project = self.jira.project(project.upper())
+
+    def get_project_desc(self):
+        return self.project.description
 
     def get_version_id(self, version_number):
         versions = self.jira.project_versions(self.project)

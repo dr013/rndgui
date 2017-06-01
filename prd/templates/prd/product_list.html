@@ -31,7 +31,7 @@
                         </tr>
                     {% endif %}
                 <tr {% if rec.is_active %}class="success"{% endif %}>
-                    <td><a href="{% url 'release-list-by-product' rec.name %}">{{ rec.title }}</a></td>
+                    <td><a href="{% url 'product-detail' rec.pk %}">{{ rec.title }}</a></td>
                     <td>{% if rec.desc %}{{ rec.desc }}{% else %} {% endif %}</td>
                     <td>{{ rec.wiki_url_link|safe }}</td>
                     <td>{{ rec.jira_url_link|safe }}</td>

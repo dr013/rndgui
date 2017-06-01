@@ -9,14 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="R&D software tools">
     <meta name="author" content="Evgeny Kryukov<krukov@bpcbt.com>">
-    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" >
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/dashboard.css" %}">
     <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %}"/>
     {% block css %}{% endblock %}
 </head>
 <body>
 {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message|safe }}</div>
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message|safe }}
+    </div>
 {% endfor %}
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -31,46 +36,46 @@
             <a class="navbar-brand" href="{% url 'start' %}">R&D tools</a>
         </div>
 
-     <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="dropdown">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Products <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         {% if perms.prd.add_product %}
-                        <li><a href="{% url 'product-create' %}">Add new product</a></li>
+                            <li><a href="{% url 'product-create' %}">Add new product</a></li>
                         {% endif %}
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'product-list' %}">Products</a></li>
                     </ul>
                 </li>
                 {% if user.is_staff %}
-                <li><a href="{% url 'admin:index' %}">Administration</a></li>
+                    <li><a href="{% url 'admin:index' %}">Administration</a></li>
                 {% endif %}
             </ul>
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
-                <li><a href="{% url 'start' %}">{% trans "Logged in as " %}{{ user.get_full_name }}</a></li>
-                <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+                    <li><a href="{% url 'start' %}">{% trans "Logged in as " %}{{ user.get_full_name }}</a></li>
+                    <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
                 </ul>
             </div>
-     </div>
+        </div>
     </div>
 </div>
 
 <div class="container-fluid">
     <div class="row">
-{#        <div class="col-sm-3 col-md-2 sidebar">#}
-{#            <ul class="nav nav-sidebar">#}
-{#                {% for rec in ACM_SECTION %}#}
-{#                    {% if rec.1 %}#}
-{#                        <li><a href="{% url rec.1 %}">{{ rec.0 }}</a></li>#}
-{#                    {% else %}#}
-{#                        <li class="nav-header disabled"><a>{{ rec.0 }}</a></li>#}
-{#                    {% endif %}#}
-{#                {% endfor %}#}
-{#            </ul>#}
-{#        </div>#}
+        {#        <div class="col-sm-3 col-md-2 sidebar">#}
+        {#            <ul class="nav nav-sidebar">#}
+        {#                {% for rec in ACM_SECTION %}#}
+        {#                    {% if rec.1 %}#}
+        {#                        <li><a href="{% url rec.1 %}">{{ rec.0 }}</a></li>#}
+        {#                    {% else %}#}
+        {#                        <li class="nav-header disabled"><a>{{ rec.0 }}</a></li>#}
+        {#                    {% endif %}#}
+        {#                {% endfor %}#}
+        {#            </ul>#}
+        {#        </div>#}
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="page-header">{% block header %}Dashboard{% endblock %}</h2>
             <div class="row">
@@ -90,33 +95,19 @@
     </div>
 </footer>
 
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
-    <script src="{% static "js/bootstrap.min.js" %}"></script>
-    <script>
-        $(document).ready(function () {
-            $("jira_task").tooltip();
-            $.fn.wait = function (time, type) {
-                time = time || 1000;
-                type = type || "fx";
-                return this.queue(type, function () {
-                    var self = this;
-                    setTimeout(function () {
-                        $(self).dequeue();
-                    }, time);
-                });
-            };
-            function runIt() {
-                $("blink").wait()
-                        .animate({"opacity": 0.1}, 2000)
-                        .wait()
-                        .animate({"opacity": 1}, 1500, runIt);
-            }
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script>
+    $(document).ready(function () {
+        $(".alert").alert();
+        window.setTimeout(function () {
+            $(".alert").alert('close');
+        }, 6000);
+    });
+</script>
 
-            runIt();
-        });
-    </script>
-    {% block js %}{% endblock %}
+{% block js %}{% endblock %}
 </body>
 </html>
 

@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 import datetime
 import json
 import logging
 import urllib
 # noinspection PyCompatibility
 import urllib2
-from prd.models import jira_project_list
 
+from django.views.generic import DetailView
+
+from .models import Institution
+from prd.models import jira_project_list
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
@@ -17,7 +19,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
 
-from acm.forms import LoginForm
+from .forms import LoginForm
 from prd.models import Product
 
 logger = logging.getLogger('sentry')
@@ -71,6 +73,7 @@ def login_view(request):
 
                     messages.add_message(request, messages.SUCCESS, _('New user {} was created.'.format(user.username)))
                     login(request, user)
+                messages.add_message(request, messages.INFO, 'Success login in LDAP!')
                 return redirect('start')
             else:
                 # without LDAP
@@ -265,3 +268,8 @@ def tofirstdayinisoweek(year, week):
 #     result['num_of_week'] = start_date.isocalendar()[1]
 #
 #     return result
+
+
+class GroupDetailView(DetailView):
+    model = Institution
+

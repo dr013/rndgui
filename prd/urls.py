@@ -12,6 +12,10 @@ urlpatterns = [
     url(r'^release-list/$', views.ReleaseList.as_view(), name='release-list'),
     url(r'^release-detail/$', views.ReleaseDetail.as_view(), name='release-detail'),
     url(r'^release/([\w-]+)/$', views.ProductReleaseList.as_view(), name='release-list-by-product'),
+    # Release part
+    url(r'^releasepart-add/(?P<product>[\w-]+)$', views.ReleasePartCreate.as_view(), name='releasepart-create'),
+    url(r'^releasepart-update/(?P<pk>[0-9]+)/$', views.UpdateView.as_view(), name='releasepart-update'),
+    url(r'^releasepart-delete/(?P<pk>[0-9]+)/$', views.DeleteView.as_view(), name='releasepart-delete'),
     # Build
     url(r'^build/(?P<pk>[0-9]+)/$', views.ReleaseBuildList.as_view(), name='build-list-by-release'),
     url(r'^build-create/([\w-]+)/$', views.create_build1, name='create-build'),

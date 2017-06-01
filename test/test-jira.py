@@ -15,4 +15,5 @@ jira = JIRA(options=JIRA_OPTIONS, basic_auth=(JIRA_USER, JIRA_PASS))
 task_key = 'DVPT-31'
 issue = jira.issue(task_key)
 
-print issue.fields.status, dir(issue)
+print (issue.fields.status, dir(issue))
+
