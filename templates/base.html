@@ -105,6 +105,18 @@
             $(".alert").alert('close');
         }, 6000);
     });
+    $("select#id_release").change(function () {
+        $.getJSON("/product/release/feeds/builds/" + $(this).val() + "/", function (j) {
+            var options = '<option value="">---------- </option>';
+            for (var i = 0; i < j.length; i++) {
+                options += '<option value="' + parseInt(j[i].pk) + '">' + j[i].fields['name'] + '</option>';
+            }
+            $("#id_build").html(options);
+            $("#id_build option:first").attr('selected', 'selected');
+            $("#id_build").attr('disabled', false);
+        })
+        $("#id_release").attr('selected', 'selected');
+    });
 </script>
 {% block js %}{% endblock %}
 </body>

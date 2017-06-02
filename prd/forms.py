@@ -14,11 +14,6 @@ class ReleaseForm(forms.Form):
         self.fields['product'].widget = forms.HiddenInput()
 
 
-class BuildRevisionForm(forms.Form):
-    module = forms.CharField(label='Product module', max_length=20, disabled=True)
-    revision = forms.CharField(label="Git revision", max_length=40)
-
-
 class ProductForm(forms.ModelForm):
     # def __init__(self, *args, **kwargs):
     #     super(ProductForm, self).__init__(*args, **kwargs)

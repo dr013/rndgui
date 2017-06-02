@@ -2,18 +2,19 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from django.forms import formset_factory
-from django.views.decorators.cache import never_cache
+from django import forms
 
-from prd.forms import ReleaseForm, BuildRevisionForm, ProductForm
+from prd.forms import ReleaseForm, ProductForm
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib import messages
 
 # Get an instance of a logger
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("prd")
 
 
 class ReleaseList(ListView):
@@ -26,6 +27,54 @@ class ProductList(ListView):
 
 class BuildList(ListView):
     model = Build
+
+
+CHOICE = (
+    ('-1', '2.14.1'),
+)
+
+
+class BuildIssueForm(forms.Form):
+    release = forms.ChoiceField(choices=CHOICE)
+    build = forms.ChoiceField(choices=CHOICE, widget=forms.Select())
+
+    def __init__(self, product, *args, **kwargs):
+        super(BuildIssueForm, self).__init__(*args, **kwargs)
+        self.fields['release'] = forms.ChoiceField(
+            choices=[(o.id, str(o)) for o in Release.objects.filter(product__jira=product)]
+        )
+
+
+class BuildRevisionForm(forms.ModelForm):
+    class Meta:
+        model = BuildRevision
+        fields = ['release_part', 'revision']
+
+
+def feeds_build(request, release_id):
+    from django.core import serializers
+    json_build = serializers.serialize("json", Build.objects.filter(release__pk=release_id))
+    return HttpResponse(json_build, mimetype="application/javascript")
+
+
+def create_build(request, product):
+    product_obj = Product.objects.get(jira=product.upper())
+    form1 = BuildIssueForm(product=product.upper())
+    num_of_form = ReleasePart.objects.filter(product__jira=product.upper()).count()
+    revision_form_set = formset_factory(BuildRevisionForm, extra=num_of_form)
+
+    if request.method == "POST":
+        form = BuildIssueForm(request.POST, request.FILES)
+        rev_formset = revision_form_set(request.POST, request.FILES, prefix='rev')
+        if rev_formset.is_valid() and form.is_valid():
+            form.save()
+            rev_formset.save()
+            # Do something. Should generally end with a redirect. For example:
+            return HttpResponseRedirect('start')
+    else:
+        form = form1
+        rev_formset = revision_form_set()
+    return render(request, 'create_build.html', {'formset': rev_formset, 'form': form, 'product_obj': product_obj})
 
 
 @login_required
