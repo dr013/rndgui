@@ -15,6 +15,11 @@
                         <p><a class="btn btn-success" href="{% url 'create-build' product.name %}" role="button">Create
                             build &raquo;</a></p>
                     {% endif %}
+                    {% if perms.prd.add_hotfix %}
+                        <p><a class="btn btn-success" href="{% url 'hotfix-create' %}" role="button">Create
+                            hotfix &raquo;</a></p>
+                    {% endif %}
+
                 </div>
             {% endfor %}
         </div>

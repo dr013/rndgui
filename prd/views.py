@@ -114,7 +114,6 @@ class DeleteProduct(DeleteView):
     success_url = reverse_lazy('product-list')
 
 
-@never_cache
 class ProductDetail(DetailView):
     model = Product
 
@@ -154,3 +153,15 @@ class ReleasePartDelete(DeleteView):
     model = ReleasePart
     success_message = "Release part was deleted successfully"
     success_url = reverse_lazy('product-list')
+
+
+class ReleasePartUpdate(UpdateView):
+    model = ReleasePart
+    success_message = "Release part %(name) was updated successfully"
+    fields = ['name', 'product', 'gitlab_id']
+
+
+class HotFixCreate(CreateView):
+    model = HotFix
+    fields = ['name', 'build', 'jira']
+    success_message = "%(name)s was created successfully!"
