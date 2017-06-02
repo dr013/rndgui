@@ -14,13 +14,6 @@ WEIGHT_ARR = (
 )
 
 
-class Instance(models.Model):
-    name = models.CharField('Name', max_length=200)
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-
-
 class DBInstance(models.Model):
     host = models.CharField('Host', max_length=200)
     sid = models.CharField('SID', max_length=20, blank=True, null=True, default='SV')
@@ -30,7 +23,9 @@ class DBInstance(models.Model):
     sys_user = models.CharField('System Login', max_length=200, blank=True, null=True, default='system')
     sys_passwd = models.CharField('System Password', max_length=200, blank=True, null=True, default='SYSTEM1')
     weight = models.CharField('Weight', choices=WEIGHT_ARR, max_length=200,)
-    instance = GenericRelation(Instance)
+    content_type = models.ForeignKey(ContentType, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey()
 
     def __str__(self):
         return '{host}::{login}'.format(host=self.host, login=self.login)
@@ -47,7 +42,9 @@ class WEBInstance(models.Model):
     port = models.IntegerField('Port', default=7001)
     target_server = models.CharField('Server', max_length=200)
     host_login = models.CharField('Host login', max_length=200, default='weblogic')
-    instance = GenericRelation(Instance)
+    content_type = models.ForeignKey(ContentType, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey()
 
     def __str__(self):
         return 't3://{host}:{port}'.format(host=self.host, port=self.port)
@@ -62,7 +59,9 @@ class WEBInstance(models.Model):
 class STLNInstance(models.Model):
     host = models.CharField('Host', max_length=200)
     host_login = models.CharField('Host login', max_length=200)
-    instance = GenericRelation(Instance)
+    content_type = models.ForeignKey(ContentType, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey()
 
     def __str__(self):
         return '{host_login}@{host}'.format(host=self.host, host_login=self.host_login)
@@ -72,3 +71,11 @@ class STLNInstance(models.Model):
 
     def get_fields(self):
         return [(field.verbose_name, field._get_val_from_obj(self)) for field in self.__class__._meta.fields]
+
+
+class Environment(models.Model):
+    name = models.CharField('Name', max_length=200)
+    is_active = models.BooleanField("Is active", default=True)
+
+    def __str__(self):
+        return self.name
