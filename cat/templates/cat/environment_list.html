@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}:Environment list{% endblock %}
+{% block header %}Environment list{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% if perms.cat.add_stlninstance %}
+                <div class="panel panel-default">
+                    <div class="panel-footer">
+                        {% buttons %}
+                            <a href="{% url 'env-create' %}" class="btn btn-primary"
+                               role="button">{% bootstrap_icon 'plus' %} Add new Environment</a>
+                        {% endbuttons %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="table-responsive">
+                {% for rec in object_list %}
+                    {% if forloop.first %}
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Name</th>
+                                <th>Active</th>
+                                <th>Oracle db Instance</th>
+                                <th>Weblogic Instance</th>
+                                <th>Standalone Instance</th>
+                                {% if perms.cat.change_environment %}
+                                    <th>Edit</th>
+                                {% endif %}
+                                {% if perms.cat.delete_environment%}
+                                    <th>Delete</th>
+                                {% endif %}
+                            </tr>
+                    {% endif %}
+                            <tr>
+                                <td><a href="{% url 'env-detail' rec.pk %}">{{ rec.name }}</a></td>
+                                <td>{{ rec.is_active}}</td>
+                                <td>
+                                    {% if rec.dbinstances.all %}
+                                    {% for db in rec.dbinstances.all %}
+                                        {{ db.login }}/{{ db.passwd }}@{{ db.host }}:{{ db.port }}/{{ db.sid }}</br>
+                                    {% endfor %}
+                                    {% else %}
+                                     N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if rec.webinstances.all %}
+                                        {% for web in rec.webinstances.all %}
+                                            t3://{{ web.host }}:{{ web.port }} </br>
+                                        {% endfor %}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if rec.stlninstances.all %}
+                                        {% for st in rec.stlninstances.all %}
+                                            {{ st.host_login }}@{{ st.host }} </br>
+                                        {% endfor %}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+                                {% if perms.cat.change_environment %}
+                                    <td>
+                                        {% buttons %}
+                                            <a href="{% url 'env-update' rec.pk %}"
+                                               class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}
+                                            </a>
+                                        {% endbuttons %}
+                                    </td>
+                                {% endif %}
+                                {% if perms.cat.delete_environment %}
+                                    <td>
+                                        {% buttons %}
+                                            <a href="{% url 'env-delete' rec.pk %}"
+                                               class="btn btn-warning btn-sm">{% bootstrap_icon "remove" %}
+                                            </a>
+                                        {% endbuttons %}
+                                    </td>
+                                {% endif %}
+
+                            </tr>
+                    {% if forloop.last %}
+                        </table>
+                    {% endif %}
+                {% empty %}
+                    <p>No Instance yet.</p>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -39,7 +39,7 @@ class STLNInstanceInline(GenericTabularInline):
 
 
 class InstanceAdmin(SimpleHistoryAdmin):
-
+    pass
     inlines = [
         DBInstanceInline,
         WEBInstanceInline,
