@@ -7,7 +7,6 @@ from django.contrib.contenttypes.forms import generic_inlineformset_factory
 from .models import *
 from .forms import EnvForm
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from .forms import DBInstanceFormSet, WEBInstanceFormSet, STLNInstanceFormSet
 from django.contrib import messages
 
 
@@ -38,63 +37,58 @@ class DeleteEnv(DeleteView):
         return super(DeleteEnv, self).delete(request, *args, **kwargs)
 
 
-class CreateEnv(CreateView):
-    model = Environment
-    fields = ['name', 'is_active']
-    db_form = DBInstanceFormSet()
-    web_form = WEBInstanceFormSet()
-    stln_form = STLNInstanceFormSet()
-    for form in db_form:
-        print(form.as_table())
+def CreateEnv(request):
 
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        db_form = DBInstanceFormSet()
-        web_form = WEBInstanceFormSet()
-        stln_form = STLNInstanceFormSet()
-        return self.render_to_response(
-            self.get_context_data(form=form,
-                                  db_form=db_form,
-                                  web_form=web_form,
-                                  stln_form=stln_form,))
+    DBInstanceFormSet = generic_inlineformset_factory(DBInstance, extra=1, can_delete=False)
+    WEBInstanceFormSet = generic_inlineformset_factory(WEBInstance, extra=1, can_delete=False)
+    STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=1, can_delete=False)
 
-
-def CreateEnv2(request):
     if request.method == "POST":
+        print "POST sent!"
         form = EnvForm(data=request.POST)
         formsetdb = DBInstanceFormSet(data=request.POST)
         formsetweb = WEBInstanceFormSet(data=request.POST)
         formsetstln = STLNInstanceFormSet(data=request.POST)
-        print "send post"
+
         if form.is_valid():
             print "form valid"
+            name = form.save()
+            c_env = Environment.objects.get(name=name)
+            print c_env.is_active
+            formsetdb = DBInstanceFormSet(data=request.POST, instance=c_env)
+            formsetweb = WEBInstanceFormSet(data=request.POST, instance=c_env)
+            formsetstln = STLNInstanceFormSet(data=request.POST, instance=c_env)
+
             for db in formsetdb:
                 if db.is_valid():
                     print "db valid"
                     db.save()
+            
             for web in formsetweb:
                 if web.is_valid():
                     print "web valid"
                     web.save()
+
             for stln in formsetstln:
                 if stln.is_valid():
                     print "form valid"
                     stln.save()
-            form.save()
-            HttpResponseRedirect('env-list')
+            c_env.save()
+            return HttpResponseRedirect('/instance/env-list')
     else:
         form = EnvForm()
         formsetdb = DBInstanceFormSet()
         formsetweb = WEBInstanceFormSet()
         formsetstln = STLNInstanceFormSet()
-        pass
     return render(request, 'cat/environment_form.html', locals())
 
 
 def UpdateEnv(request, pk):
     env = get_object_or_404(Environment, id=pk)
+    DBInstanceFormSet = generic_inlineformset_factory(DBInstance, extra=0, can_delete=False)
+    WEBInstanceFormSet = generic_inlineformset_factory(WEBInstance, extra=0, can_delete=False)
+    STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=0, can_delete=False)
+
     if request.method == "POST":
         form = EnvForm(data=request.POST, instance=env)
         formsetdb = DBInstanceFormSet(data=request.POST, instance=env)
@@ -113,16 +107,15 @@ def UpdateEnv(request, pk):
                     web.save()
             for stln in formsetstln:
                 if stln.is_valid():
-                    print "form valid"
+                    print "stln valid"
                     stln.save()
             form.save()
-            HttpResponseRedirect('env-list')
+            return HttpResponseRedirect('/instance/env-list')
     else:
         form = EnvForm(instance=env)
         formsetdb = DBInstanceFormSet(instance=env)
         formsetweb = WEBInstanceFormSet(instance=env)
         formsetstln = STLNInstanceFormSet(instance=env)
-        pass
     return render(request, 'cat/environment_form.html', locals())
 
 
