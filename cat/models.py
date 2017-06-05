@@ -83,9 +83,6 @@ class Environment(models.Model):
     def __str__(self):
         return self.name
 
-    def get_fields2(self):
-        return Environment._meta.virtual_fields
-
     def get_fields(self):
         return [(field.verbose_name, field._get_val_from_obj(self)) for field in self.__class__._meta.fields]
 

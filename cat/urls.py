@@ -27,8 +27,8 @@ urlpatterns = [
     #   Environments
     url(r'^env-list$', views.EnvLint.as_view(), name='env-list'),
     url(r'^env-detail/(?P<pk>[0-9]+)/$', views.EnvDetail.as_view(), name='env-detail'),
-    url(r'^env-add/$', views.CreateEnv.as_view(), name='env-create'),
-    url(r'^env-update/(?P<pk>[0-9]+)/$', views.UpdateEnv.as_view(), name='env-update'),
+    url(r'^env-add/$', views.CreateEnv2, name='env-create'),
+    url(r'^env-update/(?P<pk>[0-9]+)/$', views.UpdateEnv, name='env-update'),
     url(r'^env-delete/(?P<pk>[0-9]+)/$', views.DeleteEnv.as_view(), name='env-delete'),
 ]
 

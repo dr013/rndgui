@@ -3,22 +3,32 @@
 {% block title %}:Instance management{% endblock %}
 {% block header %}Instance management{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a href="{% url 'env-list' %}" class="btn btn-success active" role="button">Back to environment
-                        list</a>
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a href="{% url 'env-list' %}" class="btn btn-success active" role="button">Back to instance
+                    list</a>
             </div>
-            <form action="" method="post" class="form">{% csrf_token %}
-                {% bootstrap_form form %}
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">
-                        {% bootstrap_icon "star" %} Submit
-                    </button>
-                {% endbuttons %}
-            </form>
         </div>
+        <form action="" method="post" class="form">{% csrf_token %}
+            {% bootstrap_form form %}
+            DataBase Instance : </br> </br>
+
+            {% bootstrap_formset formsetdb layout='horizontal' %}
+            Weblogic Instance : </br> </br>
+
+            {% bootstrap_formset formsetweb layout='horizontal' %}
+            StandAlone Instance: </br> </br>
+
+            {% bootstrap_formset formsetstln layout='horizontal' %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "star" %} Submit
+                </button>
+            {% endbuttons %}
+        </form>
+
     </div>
+</div>
 {% endblock %}

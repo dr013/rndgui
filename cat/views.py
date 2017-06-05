@@ -3,7 +3,11 @@ from __future__ import unicode_literals
 
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.contrib.contenttypes.forms import generic_inlineformset_factory
 from .models import *
+from .forms import EnvForm
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from .forms import DBInstanceFormSet, WEBInstanceFormSet, STLNInstanceFormSet
 from django.contrib import messages
 
 
@@ -37,16 +41,89 @@ class DeleteEnv(DeleteView):
 class CreateEnv(CreateView):
     model = Environment
     fields = ['name', 'is_active']
+    db_form = DBInstanceFormSet()
+    web_form = WEBInstanceFormSet()
+    stln_form = STLNInstanceFormSet()
+    for form in db_form:
+        print(form.as_table())
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        db_form = DBInstanceFormSet()
+        web_form = WEBInstanceFormSet()
+        stln_form = STLNInstanceFormSet()
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  db_form=db_form,
+                                  web_form=web_form,
+                                  stln_form=stln_form,))
 
 
-class UpdateEnv(UpdateView):
-    model = Environment
-    fields = ['name', 'is_active']
-    success_message = 'Environment was updated successfully.'
+def CreateEnv2(request):
+    if request.method == "POST":
+        form = EnvForm(data=request.POST)
+        formsetdb = DBInstanceFormSet(data=request.POST)
+        formsetweb = WEBInstanceFormSet(data=request.POST)
+        formsetstln = STLNInstanceFormSet(data=request.POST)
+        print "send post"
+        if form.is_valid():
+            print "form valid"
+            for db in formsetdb:
+                if db.is_valid():
+                    print "db valid"
+                    db.save()
+            for web in formsetweb:
+                if web.is_valid():
+                    print "web valid"
+                    web.save()
+            for stln in formsetstln:
+                if stln.is_valid():
+                    print "form valid"
+                    stln.save()
+            form.save()
+            HttpResponseRedirect('env-list')
+    else:
+        form = EnvForm()
+        formsetdb = DBInstanceFormSet()
+        formsetweb = WEBInstanceFormSet()
+        formsetstln = STLNInstanceFormSet()
+        pass
+    return render(request, 'cat/environment_form.html', locals())
 
-    def form_valid(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super(UpdateEnv, self).form_valid(request, *args, **kwargs)
+
+def UpdateEnv(request, pk):
+    env = get_object_or_404(Environment, id=pk)
+    if request.method == "POST":
+        form = EnvForm(data=request.POST, instance=env)
+        formsetdb = DBInstanceFormSet(data=request.POST, instance=env)
+        formsetweb = WEBInstanceFormSet(data=request.POST, instance=env)
+        formsetstln = STLNInstanceFormSet(data=request.POST, instance=env)
+        print "send post"
+        if form.is_valid():
+            print "form valid"
+            for db in formsetdb:
+                if db.is_valid():
+                    print "db valid"
+                    db.save()
+            for web in formsetweb:
+                if web.is_valid():
+                    print "web valid"
+                    web.save()
+            for stln in formsetstln:
+                if stln.is_valid():
+                    print "form valid"
+                    stln.save()
+            form.save()
+            HttpResponseRedirect('env-list')
+    else:
+        form = EnvForm(instance=env)
+        formsetdb = DBInstanceFormSet(instance=env)
+        formsetweb = WEBInstanceFormSet(instance=env)
+        formsetstln = STLNInstanceFormSet(instance=env)
+        pass
+    return render(request, 'cat/environment_form.html', locals())
 
 
 class DBInstanceList(ListView):
