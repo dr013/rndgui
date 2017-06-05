@@ -23,6 +23,32 @@ class EnvDetail(DetailView):
         return Environment.objects.all()
 
 
+class DeleteEnv(DeleteView):
+    model = Environment
+    success_url = reverse_lazy('env-list')
+    success_message = 'Environment was deleted successfully.'
+    template_name = "cat/instance_confirm_delete.html"
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteEnv, self).delete(request, *args, **kwargs)
+
+
+class CreateEnv(CreateView):
+    model = Environment
+    fields = ['name', 'is_active']
+
+
+class UpdateEnv(UpdateView):
+    model = Environment
+    fields = ['name', 'is_active']
+    success_message = 'Environment was updated successfully.'
+
+    def form_valid(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(UpdateEnv, self).form_valid(request, *args, **kwargs)
+
+
 class DBInstanceList(ListView):
     model = DBInstance
 

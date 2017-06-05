@@ -13,21 +13,48 @@
             </div>
             <table class="table table-responsive table-bordered">
                 <tr align="center" class="bg-warning">
-                    <th colspan="3" class="bg-success">Instance info</th>
+                    <th colspan="2" class="bg-success">Environment info</th>
                 </tr>
-                {{ env.dbinstances }}
-
-                {% for r in env.dbinstances.all %}
-                    {{r.host}}
-                {% endfor %}
-
                 {% for name, value in object.get_fields %}
                     <tr>
-                        <th colspan="2">{{ name }}:</th>
-                        <td>{{ value|default:"Not available" }}</td>
+                        <th>{{ name }}:</th>
+                        <td>{{ value }}</td>
                     </tr>
                 {% endfor %}
-
+                {% if env.dbinstances.all %}
+                    <tr align="center" class="bg-warning">
+                        <th colspan="2" class="bg-success">Oracle db environments</th>
+                    </tr>
+                    {% for rec in env.dbinstances.all %}
+                        <tr><th>Host:</th><td>{{ rec.host }}</td></tr>
+                        <tr><th>Login:</th><td>{{ rec.login }}</td></tr>
+                        <tr><th>Password:</th><td>{{ rec.passwd }}</td></tr>
+                        <tr><th>Port:</th><td>{{ rec.port }}</td></tr>
+                        <tr><th>SID:</th><td>{{ rec.sid }}</td></tr>
+                        <tr><th>System Login:</th><td>{{ rec.sys_user }}</td></tr>
+                        <tr><th>System Password:</th><td>{{ rec.sys_passwd }}</td></tr>
+                    {% endfor %}
+                {% endif  %}
+                {% if env.webinstances.all %}
+                    <tr align="center" class="bg-warning">
+                        <th colspan="2" class="bg-success">Weblogic environments</th>
+                    </tr>
+                    {% for rec in env.webinstances.all %}
+                        <tr><th>Host:</th><td>{{ rec.host }}</td></tr>
+                        <tr><th>Port:</th><td>{{ rec.port }}</td></tr>
+                        <tr><th>Managed server:</th><td>{{ rec.target_server }}</td></tr>
+                        <tr><th>Host login:</th><td>{{ rec.host_login }}</td></tr>
+                    {% endfor %}
+                {% endif  %}
+                {% if env.stlninstances.all %}
+                    <tr align="center" class="bg-warning">
+                        <th colspan="2" class="bg-success">Standalone app environments</th>
+                    </tr>
+                    {% for rec in env.stlninstances.all %}
+                    <tr><th>Host:</th><td>{{ rec.host }}</td></tr>
+                    <tr><th>Host login:</th><td>{{ rec.host_login }}</td></tr>
+                    {% endfor %}
+                {% endif  %}
             </table>
         </div>
     </div>
