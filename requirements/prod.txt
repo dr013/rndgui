@@ -7,7 +7,7 @@ pip
 django-bootstrap3
 python-gitlab
 django-simple-history
-celery>=3.1.18
+celery>=4.0.2
 jira
 certifi
 urllib3[secure]
