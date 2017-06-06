@@ -186,12 +186,5 @@ LOGGING = {
 JIRA_USER = 'jira-system'
 JIRA_PASS = '3WqOGzrj9G'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-    }
-}
-
 # Celery common
 CELERY_RESULT_BACKEND = 'django-db'

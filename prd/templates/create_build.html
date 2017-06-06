@@ -30,7 +30,7 @@
                                         {% for rev in  rev_part.revision_list %}
                                             {{ rec }}
                                             <option value="{{ rev.id }}">
-                                                <b>{{ rev.short_id }}</b>"{{ rev.message|truncatechars:150 }}"
+                                                <b>{{ rev.short_id }}</b> => "{{ rev.message|truncatechars:150 }}"
                                                 by {{ rev.author_name }} at {{ rev.authored_date }}</option>
                                         {% endfor %}
                                     {% endif %}

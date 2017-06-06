@@ -25,7 +25,6 @@ urlpatterns = [
     # Build
     url(r'^build/(?P<pk>[0-9]+)/$', views.ReleaseBuildList.as_view(), name='build-list-by-release'),
     url(r'^build-create/([\w-]+)/$', views.create_build, name='build-create'),
-    url(r'^build-create2/$', views.create_build2, name='create-build2'),
     url(r'^build-detail/(?P<pk>[0-9]+)/$', views.BuildDetail.as_view(), name='build-detail'),
     url(r'build-list$', views.BuildList.as_view(), name='build-list'),
     url(r'release/feeds/builds/(?P<release_id>[0-9]+)/$', views.feeds_build),

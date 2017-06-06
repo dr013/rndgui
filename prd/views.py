@@ -65,27 +65,52 @@ def create_build(request, product):
         build = Build.objects.get(pk=int(build_id))
         prev_data = Build.objects.get(release=build.release, name=str(int(build.name) - 1)).date_released
         pk = build.pk
-    else:
-        build = Build()
-        build.pk = -1
-        prev_data = datetime.date.today().replace(day=1) - datetime.timedelta(days=1)
+        product_obj = Product.objects.get(jira=product.upper())
+        form = BuildIssueForm(product=product.upper(), initial={'build': pk})
+        release_part = ReleasePart.objects.filter(product=product_obj)
+        rev_list = []
+        for rec in release_part:
+            rev_list.append({'pk': rec.id,
+                             'revision_list': GitLab().get_revision_list(project_id=rec.gitlab_id,
+                                                                         ref_name=rec.work_branch,
+                                                                         since=prev_data)})
+    elif request.method == "POST":
 
-    product_obj = Product.objects.get(jira=product.upper())
-    form1 = BuildIssueForm(product=product.upper(), initial={'build': pk})
-    release_part = ReleasePart.objects.filter(product=product_obj)
-    rev_list = []
-    for rec in release_part:
-        rev_list.append({'pk': rec.id,
-                         'revision_list': GitLab().get_revision_list(project_id=rec.gitlab_id, ref_name=rec.work_branch,
-                                                                     since=prev_data)})
-    if request.method == "POST":
-        form = BuildIssueForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            # Do something. Should generally end with a redirect. For example:
-            return HttpResponseRedirect('start')
-    else:
-        form = form1
+        build = Build.objects.get(pk=request.POST['build'])
+        release = build.release
+        product = release.product
+
+        release_part = ReleasePart.objects.filter(product=product)
+        for rec in release_part:
+            post_part = 'part_{}'.format(rec.pk)
+            if post_part in request.POST:
+                revision = request.POST[post_part]
+                rel_part = ReleasePart.objects.get(pk=rec.pk)
+                bld_revision = BuildRevision()
+                bld_revision.build = build
+                bld_revision.release_part = rel_part
+                bld_revision.revision = revision
+                bld_revision.save()
+                gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=build.git_name, ref=revision,
+                                             desc=build.git_name, user=request.user)
+        messages.add_message(request, messages.INFO, '1. Git tags in GitLab was created successufily.')
+        build.date_released = datetime.date.today()
+        build.author = request.user
+        build.released = True
+        build.save()
+        messages.add_message(request, messages.INFO, '2.1 Jira task for issued build was closed.')
+        messages.add_message(request, messages.INFO, '2.2 Jira task for new build was created.')
+        # todo release_author
+
+        build_new = Build(name=str(int(build.name) + 1), release=release)
+        build_new.author = request.user
+
+        build_new.save()
+        messages.add_message(request, messages.SUCCESS, 'New buiild name: {}'.format(build_new.full_name))
+        messages.add_message(request, messages.WARNING, '3. Dictionary report - task not found!')
+        messages.add_message(request, messages.WARNING, '4. Specification repostiory - need permissions!')
+        return HttpResponseRedirect(reverse('build-list-by-release', kwargs={'pk': release.pk}))
+
     return render(request, 'create_build.html', locals())
 
 

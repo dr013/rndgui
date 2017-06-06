@@ -257,7 +257,7 @@ class Build(models.Model):
         if not self.jira:
             self.jira = check_jira_build(self.release.product.name, self.release.name, self.full_name)
 
-        if self.released and self.name == '0':
+        if self.released:
             # close jira task
             status = check_jira_task_status(self.jira)
             logger.debug("Check Jira task {} status".format(self.jira))
@@ -351,3 +351,6 @@ class BuildRevision(models.Model):
     build = models.ForeignKey(Build)
     release_part = models.ForeignKey(ReleasePart)
     revision = models.CharField(_("Git revision"), max_length=40)
+
+    def __str__(self):
+        return '{build}={release_part}'.format(build=self.build, release_part=self.release_part)

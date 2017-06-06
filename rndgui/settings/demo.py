@@ -30,15 +30,14 @@ DATABASES = {
     }
 }
 
-
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
 # Jira
 JIRA_URL = 'http://jira.bpc.in:8080'
 JIRA_OPTIONS = {
-            'server': JIRA_URL,
-            'verify': False
-        }
+    'server': JIRA_URL,
+    'verify': False
+}
 
 # GitLab
 GITLAB_URL = 'http://gitlab.bt.bpc.in'
@@ -51,7 +50,6 @@ EMAIL_SUBJECT_PREFIX = '[SVTools] '
 EMAIL_HOST_USER = 'svtools'
 EMAIL_HOST_PASSWORD = 'R7xdEp3Y'
 
-
 BASE_URL = 'http://sv2.bpc.in/svtools/'
 
 # CELERY STUFF
@@ -61,3 +59,9 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Nairobi'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}

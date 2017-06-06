@@ -139,5 +139,4 @@ def set_dev_config():
 def run_dev_server():
     print (green('Run dev server'))
     with virtualenv():
-        run("""ps aux | grep 'python manage.py runserver' | grep -v 'grep' | awk '{print $2}' | xargs kill -9""")
         run('python manage.py runserver sv2.bpc.in:8000 &')

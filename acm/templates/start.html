@@ -11,15 +11,6 @@
                     <p><a href="{{ product.wiki_url }}">Project Wiki(confluence) </a></p>
                     <p><a class="btn btn-info" href="{% url 'product-detail' product.pk %}" role="button">View details
                         &raquo;</a></p>
-                    {% if perms.prd.add_build %}
-                        <p><a class="btn btn-success" href="{% url 'build-create' product.name %}" role="button">Create
-                            build &raquo;</a></p>
-                    {% endif %}
-                    {% if perms.prd.add_hotfix %}
-                        <p><a class="btn btn-success" href="{% url 'hotfix-create' %}" role="button">Create
-                            hotfix &raquo;</a></p>
-                    {% endif %}
-
                 </div>
             {% endfor %}
         </div>
