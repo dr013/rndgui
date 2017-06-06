@@ -57,7 +57,7 @@
                                 <td>
                                     {% if rec.stlninstances.all %}
                                         {% for st in rec.stlninstances.all %}
-                                            {{ st.host_login }}@{{ st.host }} </br>
+                                            {{ st.user }}@{{ st.host }} </br>
                                         {% endfor %}
                                     {% else %}
                                         N/A

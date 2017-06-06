@@ -21,7 +21,9 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>Host</th>
-                                <th>Host login</th>
+                                <th>Port</th>
+                                <th>User</th>
+                                <th>Password</th>
                                 {% if perms.cat.change_stlninstance %}
                                     <th>Edit</th>
                                 {% endif %}
@@ -32,7 +34,9 @@
                     {% endif %}
                             <tr>
                                 <td><a href="{% url 'stlninstance-detail' rec.pk %}">{{ rec.host }}</a></td>
-                                <td>{{ rec.host_login}}</td>
+                                <td>{{ rec.port}}</td>
+                                <td>{{ rec.user}}</td>
+                                <td>{{ rec.passwd}}</td>
                                 {% if perms.cat.change_stlninstance %}
                                     <td>
                                         {% buttons %}

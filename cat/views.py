@@ -177,7 +177,7 @@ class WEBInstanceDetail(DetailView):
 
 class CreateWEBInstance(CreateView):
     model = WEBInstance
-    fields = ['host', 'port', 'target_server', 'host_login']
+    fields = ['host', 'port', 'target_server', 'login', 'passwd']
     template_name = "cat/instance_form.html"
 
     def get_context_data(self, **kwargs):
@@ -188,7 +188,7 @@ class CreateWEBInstance(CreateView):
 
 class UpdateWEBInstance(UpdateView):
     model = WEBInstance
-    fields = ['host', 'port', 'target_server', 'host_login']
+    fields = ['host', 'port', 'target_server', 'login', 'passwd']
     success_message = 'WEB Instance was updated successfully.'
     template_name = "cat/instance_form.html"
 
@@ -229,7 +229,7 @@ class STLNInstanceDetail(DetailView):
 
 class CreateSTLNInstance(CreateView):
     model = STLNInstance
-    fields = ['host', 'host_login']
+    fields = ['host', 'port', 'user', 'passwd']
     template_name = "cat/instance_form.html"
 
     def get_context_data(self, **kwargs):
@@ -240,7 +240,7 @@ class CreateSTLNInstance(CreateView):
 
 class UpdateSTLNInstance(UpdateView):
     model = STLNInstance
-    fields = ['host', 'host_login']
+    fields = ['host', 'port', 'user', 'passwd']
     success_message = 'Standalone Instance was updated successfully.'
     template_name = "cat/instance_form.html"
 

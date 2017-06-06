@@ -23,7 +23,8 @@
                                 <th>Host</th>
                                 <th>Port</th>
                                 <th>Managed Server</th>
-                                <th>Host login</th>
+                                <th>Login</th>
+                                <th>Password</th>
                                 {% if perms.cat.change_webinstance %}
                                     <th>Edit</th>
                                 {% endif %}
@@ -36,7 +37,8 @@
                                 <td><a href="{% url 'webinstance-detail' rec.pk %}">{{ rec.host }}</a></td>
                                 <td>{{ rec.port}}</td>
                                 <td>{{ rec.target_server }}</td>
-                                <td>{{ rec.host_login}}</td>
+                                <td>{{ rec.login}}</td>
+                                <td>{{ rec.passwd}}</td>
                                     {% if perms.cat.change_webinstance %}
                                         <td>
                                             {% buttons %}
