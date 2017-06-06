@@ -27,8 +27,8 @@ urlpatterns = [
     url(r'^build-create/([\w-]+)/$', views.create_build, name='build-create'),
     url(r'^build-detail/(?P<pk>[0-9]+)/$', views.BuildDetail.as_view(), name='build-detail'),
     url(r'build-list$', views.BuildList.as_view(), name='build-list'),
-    url(r'release/feeds/builds/(?P<release_id>[0-9]+)/$', views.feeds_build),
+    # url(r'release/feeds/builds/(?P<release_id>[0-9]+)/$', views.feeds_build),
     # Hotfix
     url(r'hotfix-list$', views.HotFixList.as_view(), name='hotfix-list'),
-    url(r'hotfix-create/$', login_required(views.HotFixCreate.as_view()), name='hotfix-create'),
+    url(r'hotfix-create/(?P<pk>[0-9]+)/$', login_required(views.HotFixCreate.as_view()), name='hotfix-create'),
 ]

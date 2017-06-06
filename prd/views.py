@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
-from django.forms import formset_factory
+# from django.forms import formset_factory
 from django import forms
 
 from prd.forms import ReleaseForm, ProductForm
@@ -114,54 +114,54 @@ def create_build(request, product):
     return render(request, 'create_build.html', locals())
 
 
-def create_build1(request, product=None):
-    product_obj = Product.objects.get(jira=product.upper())
+# def create_build1(request, product=None):
+#     product_obj = Product.objects.get(jira=product.upper())
+#
+#     if request.method == 'GET' and product:  # set product
+#
+#         form = ReleaseForm(product_obj)
+#         phase = 2
+#     elif request.method == 'POST':  # create build
+#         form = ReleaseForm(product_obj, request.POST)
+#         if form.is_valid():
+#             release = form.cleaned_data['release']
+#             product_id = form.cleaned_data['product']
+#             build = Build.objects.get(released=False)
+#             release_part = ReleasePart.objects.filter(product__pk=product_id, release__isnull=True)
+#             init_form = [{"module": x.name} for x in release_part]
+#             release_part_cnt = release_part.count()
+#             build_revision_formset = formset_factory(BuildRevisionForm, max_num=release_part_cnt)
+#             formset = build_revision_formset(initial=init_form)
+#             phase = 3
+#         else:
+#             form = ReleaseForm(product_obj, request.POST)
+#             phase = 2
+#
+#     else:
+#         phase = 1
+#
+#     return render(request, 'create_build.html', locals())
+#
 
-    if request.method == 'GET' and product:  # set product
-
-        form = ReleaseForm(product_obj)
-        phase = 2
-    elif request.method == 'POST':  # create build
-        form = ReleaseForm(product_obj, request.POST)
-        if form.is_valid():
-            release = form.cleaned_data['release']
-            product_id = form.cleaned_data['product']
-            build = Build.objects.get(released=False)
-            release_part = ReleasePart.objects.filter(product__pk=product_id, release__isnull=True)
-            init_form = [{"module": x.name} for x in release_part]
-            release_part_cnt = release_part.count()
-            build_revision_formset = formset_factory(BuildRevisionForm, max_num=release_part_cnt)
-            formset = build_revision_formset(initial=init_form)
-            phase = 3
-        else:
-            form = ReleaseForm(product_obj, request.POST)
-            phase = 2
-
-    else:
-        phase = 1
-
-    return render(request, 'create_build.html', locals())
-
-
-@login_required
-@permission_required('prd.add_build')
-def create_build2(request):
-    build_revision_formset = formset_factory(BuildRevisionForm)
-    formset = build_revision_formset(request.POST)
-    if formset.is_valid():
-        for rec in formset:
-            print rec
-
-    current_build = Build.objects.get(released=False)
-    current_build.released = True
-    current_build.date_released = datetime.datetime.now()
-    current_build.save()
-    next_number = str(int(current_build.name) + 1)
-    new_build = Build.objects.create(released=False, name=next_number, release=current_build.release,
-                                     author=request.user, is_active=True)
-    messages.add_message(request, messages.SUCCESS, 'First build was created!')
-    new_build.save()
-    return render(request, 'prd/process_create_build.html', locals())
+# @login_required
+# @permission_required('prd.add_build')
+# def create_build2(request):
+#     build_revision_formset = formset_factory(BuildRevisionForm)
+#     formset = build_revision_formset(request.POST)
+#     if formset.is_valid():
+#         for rec in formset:
+#             print rec
+#
+#     current_build = Build.objects.get(released=False)
+#     current_build.released = True
+#     current_build.date_released = datetime.datetime.now()
+#     current_build.save()
+#     next_number = str(int(current_build.name) + 1)
+#     new_build = Build.objects.create(released=False, name=next_number, release=current_build.release,
+#                                      author=request.user, is_active=True)
+#     messages.add_message(request, messages.SUCCESS, 'First build was created!')
+#     new_build.save()
+#     return render(request, 'prd/process_create_build.html', locals())
 
 
 class HotFixList(ListView):
@@ -189,6 +189,7 @@ class ReleaseBuildList(ListView):
     def get_context_data(self, **kwargs):
         context = super(ReleaseBuildList, self).get_context_data(**kwargs)
         context['product'] = self.release.product
+        context['release'] = self.release
         return context
 
 
@@ -257,8 +258,41 @@ class ReleasePartUpdate(UpdateView):
 
 class HotFixCreate(CreateView):
     model = HotFix
+    template_name = 'hotfix_form.html'
     fields = ['name', 'build', 'jira']
     success_message = "%(name)s was created successfully!"
+
+    def get_initial(self):
+        self.build = Build.objects.get(pk=self.kwargs.get('pk'))
+        hotfix = HotFix.objects.filter(build=self.build)
+        logger.debug(
+            'HotFix current number for build {bld} is {cnt}'.format(bld=self.build.full_name, cnt=hotfix.count()))
+        if hotfix.count() == 0:
+            hotfix_num = '1'
+        else:
+            hotfix_num = str(int(hotfix.name) + 1)
+        return {
+            'build': self.build,
+            'name': hotfix_num
+        }
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        obj.date_released = datetime.date.today()
+        # set tag
+        tag_name = '{bld}.{tag}'.format(bld=self.build.git_name, tag=obj.name)
+        tag_desc = 'HotFix {name} for build {bld}'.format(bld=self.build.full_name, name=obj.name)
+        release_part = ReleasePart.objects.filter(product=self.build.release.product)
+        for rec in release_part:
+
+            gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=rec.work_branch,
+                                         desc=tag_desc, user=obj.author)
+            logger.debug(str(gitlab))
+        return super(HotFixCreate, self).form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('build-list-by-release', kwargs={'pk': self.build.release.pk})
 
 
 class ReleaseCreate(CreateView):

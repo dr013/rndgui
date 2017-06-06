@@ -7,8 +7,7 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-
-                    <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product
+                    <a href="{% url 'release-list-by-product' release.product.jira %}" class="btn btn-success active" role="button">Back to release
                         list</a>
                 </div>
             </div>
@@ -18,6 +17,7 @@
                         <table class="table">
                         <thead>
                         <tr>
+                            <th>Action</th>
                             <th>Name</th>
                             <th>Release</th>
                             <th>Product</th>
@@ -28,6 +28,17 @@
                         </thead>
                     {% endif %}
                 <tr {% if rec.released %}class="success"{% endif %}>
+                    <td>{% if rec.released %}
+                        {% if perms.prd.add_hotfix %}
+                            <a href="{% url 'hotfix-create' rec.pk %}" class="btn btn-success"
+                               role="button">{% bootstrap_icon 'plus' %}Issue hotfix</a>
+                        {% endif %}
+                    {% else %}
+                        {% if perms.prd.add_build %}
+                            <a href="{% url 'build-create' product.name %}?build={{ rec.pk }}" class="btn btn-primary"
+                               role="button">{% bootstrap_icon 'plus' %}Issue build</a>
+                        {% endif %}
+                    {% endif %}
                     <td>{{ rec.full_name }}</td>
                     <td>{{ rec.release }}</td>
                     <td>{{ rec.release.product }}</td>
@@ -35,10 +46,7 @@
                     <td>{% if rec.date_released %}
                         {{ rec.date_released|date }}
                     {% else %}
-                        {% if perms.prd.add_build %}
-                            <a href="{% url 'build-create' product.name %}?build={{ rec.pk }}" class="btn btn-primary"
-                               role="button">{% bootstrap_icon 'plus' %}Issue build</a>
-                        {% endif %}
+
                     {% endif %}</td>
                     <td>{{ rec.author.get_full_name }}</td>
                 </tr>
@@ -52,7 +60,6 @@
                                 <th>Author</th>
                                 <th>Jira HotFix task</th>
                                 <th>Release Date</th>
-                                <th>Module Revisions</th>
                             </tr>
                             </thead>
                         {% endif %}
@@ -62,7 +69,6 @@
                             <td>{{ hotfix.author.get_full_name }}</td>
                             <td>{{ hotfix.get_jira_url|safe }}</td>
                             <td>{{ hotfix.date_released|date }}</td>
-                            <td></td>
                         </tr>
                     {% endfor %}
                 {% endif %}
