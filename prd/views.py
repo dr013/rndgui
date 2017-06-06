@@ -29,7 +29,6 @@ class BuildList(ListView):
     model = Build
 
 
-
 CHOICE = (
     ('-1', '2.14.1'),
 )
@@ -106,7 +105,7 @@ def create_build1(request, product=None):
     else:
         phase = 1
 
-    return render(request, 'prd/create_build.html', locals())
+    return render(request, 'create_build.html', locals())
 
 
 @login_required
