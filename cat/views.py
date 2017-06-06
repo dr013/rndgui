@@ -44,36 +44,26 @@ def CreateEnv(request):
     STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=1, can_delete=False)
 
     if request.method == "POST":
-        print "POST sent!"
         form = EnvForm(data=request.POST)
-        formsetdb = DBInstanceFormSet(data=request.POST)
-        formsetweb = WEBInstanceFormSet(data=request.POST)
-        formsetstln = STLNInstanceFormSet(data=request.POST)
-
         if form.is_valid():
             print "form valid"
-            name = form.save()
-            c_env = Environment.objects.get(name=name)
-            print c_env.is_active
+            c_env = form.save()
             formsetdb = DBInstanceFormSet(data=request.POST, instance=c_env)
             formsetweb = WEBInstanceFormSet(data=request.POST, instance=c_env)
             formsetstln = STLNInstanceFormSet(data=request.POST, instance=c_env)
 
-            for db in formsetdb:
-                if db.is_valid():
-                    print "db valid"
-                    db.save()
-            
-            for web in formsetweb:
-                if web.is_valid():
-                    print "web valid"
-                    web.save()
+            if formsetdb.is_valid():
+                print "db valid"
+                formsetdb.save()
 
-            for stln in formsetstln:
-                if stln.is_valid():
-                    print "form valid"
-                    stln.save()
-            c_env.save()
+            if formsetweb.is_valid():
+                print "web valid"
+                formsetweb.save()
+
+            if formsetstln.is_valid():
+                print "stln valid"
+                formsetstln.save()
+
             return HttpResponseRedirect('/instance/env-list')
     else:
         form = EnvForm()
