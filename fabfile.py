@@ -114,7 +114,6 @@ def migrate():
     require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green('Migrate database'))
     with virtualenv():
-        run("python manage.py makemigrations")
         run("python manage.py migrate")
 
 
