@@ -30,7 +30,7 @@ class GitLab:
 
     def check_tag(self, project_id, tag):
         project_obj = self.get_project(project_id)
-        tags = project_obj.tags.list()
+        tags = project_obj.tags.list(all=True)
         tag_list = [x.name for x in tags]
         if tag in tag_list:
             return True
@@ -51,6 +51,15 @@ class GitLab:
                 logger.error(str(errm))
 
             logger.info("Create new tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
+
+    def get_revision_list(self, project_id, ref_name, since):
+        project = self.gl.projects.get(project_id)
+        logger.info("Project_id:{}".format(project_id))
+        logger.info('Ref name: {}'.format(ref_name))
+        logger.info(str(since))
+        commits = project.commits.list(ref_name=ref_name, since=str(since), all=True)
+
+        return commits
 
 
 # noinspection PyCompatibility

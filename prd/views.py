@@ -36,7 +36,7 @@ CHOICE = (
 
 class BuildIssueForm(forms.Form):
     release = forms.ChoiceField(choices=CHOICE)
-    build = forms.ChoiceField(choices=CHOICE, widget=forms.Select())
+    build = forms.IntegerField(widget=forms.HiddenInput())
 
     def __init__(self, product, *args, **kwargs):
         super(BuildIssueForm, self).__init__(*args, **kwargs)
@@ -57,28 +57,38 @@ def feeds_build(request, release_id):
     return HttpResponse(json_build, mimetype="application/javascript")
 
 
+@login_required
+@permission_required('prd.add_build')
 def create_build(request, product):
-    product_obj = Product.objects.get(jira=product.upper())
-    form1 = BuildIssueForm(product=product.upper())
-    num_of_form = ReleasePart.objects.filter(product__jira=product.upper()).count()
-    revision_form_set = formset_factory(BuildRevisionForm, extra=num_of_form)
+    if request.method == "GET" and 'build' in request.GET:
+        build_id = request.GET['build']
+        build = Build.objects.get(pk=int(build_id))
+        prev_data = Build.objects.get(release=build.release, name=str(int(build.name) - 1)).date_released
+        pk = build.pk
+    else:
+        build = Build()
+        build.pk = -1
+        prev_data = datetime.date.today().replace(day=1) - datetime.timedelta(days=1)
 
+    product_obj = Product.objects.get(jira=product.upper())
+    form1 = BuildIssueForm(product=product.upper(), initial={'build': pk})
+    release_part = ReleasePart.objects.filter(product=product_obj)
+    rev_list = []
+    for rec in release_part:
+        rev_list.append({'pk': rec.id,
+                         'revision_list': GitLab().get_revision_list(project_id=rec.gitlab_id, ref_name=rec.work_branch,
+                                                                     since=prev_data)})
     if request.method == "POST":
         form = BuildIssueForm(request.POST, request.FILES)
-        rev_formset = revision_form_set(request.POST, request.FILES, prefix='rev')
-        if rev_formset.is_valid() and form.is_valid():
+        if form.is_valid():
             form.save()
-            rev_formset.save()
             # Do something. Should generally end with a redirect. For example:
             return HttpResponseRedirect('start')
     else:
         form = form1
-        rev_formset = revision_form_set()
-    return render(request, 'create_build.html', {'formset': rev_formset, 'form': form, 'product_obj': product_obj})
+    return render(request, 'create_build.html', locals())
 
 
-@login_required
-@permission_required('prd.add_build')
 def create_build1(request, product=None):
     product_obj = Product.objects.get(jira=product.upper())
 

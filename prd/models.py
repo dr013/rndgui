@@ -317,7 +317,7 @@ class ReleasePart(models.Model):
     release = models.ForeignKey(to=Release, null=True, blank=True,
                                 help_text="Specific release number. Skip if all releases have one configurations")
     gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gitlab_project_list())
-    work_branch = models.CharField(_("Work branch"), null=True, blank=True, max_length=200)
+    work_branch = models.CharField(_("Work branch"), null=True, blank=True, max_length=200, default='future')
     history = HistoricalRecords()
 
     class Meta:

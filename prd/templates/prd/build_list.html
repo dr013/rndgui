@@ -5,12 +5,9 @@
 {% block content %}
     <div class="container">
         <div class="row">
-          <div class="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-body">
-                    {% if perms.prd.add_build %}
-                        <a href="{% url 'build-create' product.name %}" class="btn btn-primary"
-                           role="button">{% bootstrap_icon 'plus' %}Add new build</a>
-                    {% endif %}
+
                     <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product
                         list</a>
                 </div>
@@ -35,7 +32,14 @@
                     <td>{{ rec.release }}</td>
                     <td>{{ rec.release.product }}</td>
                     <td>{{ rec.get_jira_url|safe }} </td>
-                    <td>{{ rec.date_released|date }}</td>
+                    <td>{% if rec.date_released %}
+                        {{ rec.date_released|date }}
+                    {% else %}
+                        {% if perms.prd.add_build %}
+                            <a href="{% url 'build-create' product.name %}?build={{ rec.pk }}" class="btn btn-primary"
+                               role="button">{% bootstrap_icon 'plus' %}Issue build</a>
+                        {% endif %}
+                    {% endif %}</td>
                     <td>{{ rec.author.get_full_name }}</td>
                 </tr>
                 {% if rec.hotfix_list %}
@@ -57,8 +61,8 @@
                             <td>{{ hotfix.full_name }}</td>
                             <td>{{ hotfix.author.get_full_name }}</td>
                             <td>{{ hotfix.get_jira_url|safe }}</td>
-                            <td>{{ hotfix.date_released|date }}
-                            <td> </td>
+                            <td>{{ hotfix.date_released|date }}</td>
+                            <td></td>
                         </tr>
                     {% endfor %}
                 {% endif %}
