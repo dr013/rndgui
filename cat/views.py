@@ -38,7 +38,6 @@ class DeleteEnv(DeleteView):
 
 
 def CreateEnv(request):
-
     DBInstanceFormSet = generic_inlineformset_factory(DBInstance, extra=1, can_delete=False)
     WEBInstanceFormSet = generic_inlineformset_factory(WEBInstance, extra=1, can_delete=False)
     STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=1, can_delete=False)
@@ -46,25 +45,18 @@ def CreateEnv(request):
     if request.method == "POST":
         form = EnvForm(data=request.POST)
         if form.is_valid():
-            print "form valid"
-            c_env = form.save()
+            c_env = form.save(commit=False)
             formsetdb = DBInstanceFormSet(data=request.POST, instance=c_env)
             formsetweb = WEBInstanceFormSet(data=request.POST, instance=c_env)
             formsetstln = STLNInstanceFormSet(data=request.POST, instance=c_env)
-
-            if formsetdb.is_valid():
-                print "db valid"
-                formsetdb.save()
-
-            if formsetweb.is_valid():
-                print "web valid"
-                formsetweb.save()
-
-            if formsetstln.is_valid():
-                print "stln valid"
-                formsetstln.save()
-
-            return HttpResponseRedirect('/instance/env-list')
+            print formsetdb
+            if form.is_valid():
+                if formsetdb.is_valid() and formsetweb.is_valid() and formsetstln.is_valid():
+                    formsetdb.save()
+                    formsetweb.save()
+                    formsetstln.save()
+                    form.save()
+                    return HttpResponseRedirect('/instance/env-list')
     else:
         form = EnvForm()
         formsetdb = DBInstanceFormSet()
@@ -84,23 +76,13 @@ def UpdateEnv(request, pk):
         formsetdb = DBInstanceFormSet(data=request.POST, instance=env)
         formsetweb = WEBInstanceFormSet(data=request.POST, instance=env)
         formsetstln = STLNInstanceFormSet(data=request.POST, instance=env)
-        print "send post"
         if form.is_valid():
-            print "form valid"
-            for db in formsetdb:
-                if db.is_valid():
-                    print "db valid"
-                    db.save()
-            for web in formsetweb:
-                if web.is_valid():
-                    print "web valid"
-                    web.save()
-            for stln in formsetstln:
-                if stln.is_valid():
-                    print "stln valid"
-                    stln.save()
-            form.save()
-            return HttpResponseRedirect('/instance/env-list')
+            if formsetdb.is_valid() and formsetweb.is_valid() and formsetstln.is_valid():
+                formsetdb.save()
+                formsetweb.save()
+                formsetstln.save()
+                form.save()
+                return HttpResponseRedirect('/instance/env-list')
     else:
         form = EnvForm(instance=env)
         formsetdb = DBInstanceFormSet(instance=env)

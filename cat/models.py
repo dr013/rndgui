@@ -67,7 +67,7 @@ class STLNInstance(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return '{host_login}@{host}'.format(host=self.host, host_login=self.host_login)
+        return '{user}@{host}'.format(host=self.host, user=self.user)
 
     def get_absolute_url(self):
         return reverse('stlninstance-detail', kwargs={'pk': self.pk})
