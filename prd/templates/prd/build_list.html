@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 {% block title %}:Build list{% endblock %}
 {% block header %}Build list{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
+          <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if perms.prd.add_build %}
+                        <a href="{% url 'build-create' product.name %}" class="btn btn-primary"
+                           role="button">{% bootstrap_icon 'plus' %}Add new build</a>
+                    {% endif %}
+                    <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product
+                        list</a>
+                </div>
+            </div>
             <div class="table-responsive">
                 {% for rec in object_list %}
                     {% if forloop.first %}
@@ -56,7 +67,7 @@
                     </table>
                 {% endif %}
                 {% empty %}
-                    <p>No releases yet.</p>
+                    <p>No builds yet.</p>
                     </div>
                 {% endfor %}
         </div>

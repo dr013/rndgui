@@ -29,6 +29,7 @@ class BuildList(ListView):
     model = Build
 
 
+
 CHOICE = (
     ('-1', '2.14.1'),
 )
@@ -140,11 +141,21 @@ class ProductReleaseList(ListView):
         self.product = get_object_or_404(Product, jira=self.args[0].upper())
         return Release.objects.filter(product=self.product).order_by('-date_released')
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductReleaseList, self).get_context_data(**kwargs)
+        context['product'] = self.product
+        return context
+
 
 class ReleaseBuildList(ListView):
     def get_queryset(self):
         self.release = get_object_or_404(Release, pk=self.kwargs['pk'])
         return Build.objects.filter(release=self.release).order_by('-date_released')
+
+    def get_context_data(self, **kwargs):
+        context = super(ReleaseBuildList, self).get_context_data(**kwargs)
+        context['product'] = self.release.product
+        return context
 
 
 class CreateProduct(CreateView):
@@ -182,7 +193,7 @@ class ReleaseDetail(DetailView):
 
 class ReleasePartCreate(CreateView):
     model = ReleasePart
-    fields = ['name', 'product', 'gitlab_id']
+    fields = ['name', 'product', 'gitlab_id', 'work_branch']
     success_message = "%(name)s was created successfully"
 
     def get_success_url(self, **kwargs):
@@ -207,10 +218,49 @@ class ReleasePartDelete(DeleteView):
 class ReleasePartUpdate(UpdateView):
     model = ReleasePart
     success_message = "Release part %(name) was updated successfully"
-    fields = ['name', 'product', 'gitlab_id']
+    fields = ['name', 'product', 'gitlab_id', 'work_branch']
 
 
 class HotFixCreate(CreateView):
     model = HotFix
     fields = ['name', 'build', 'jira']
     success_message = "%(name)s was created successfully!"
+
+
+class ReleaseCreate(CreateView):
+    model = Release
+    template_name = 'release_form.html'
+    fields = ['name', 'product', ]
+
+    def get_initial(self):
+        self.product = get_object_or_404(Product, jira=self.kwargs.get('product').upper())
+        self.release_list = Release.objects.all().filter(product=self.product).order_by('-name')
+        if self.release_list.count() == 0:
+            release_name = '1.0'
+        else:
+            release_full_name = self.release_list[0]['name'].split(".")
+            if len(release_full_name) == 1:
+                release_name = int(release_full_name + 1)
+            else:
+                release_name = '{product}.{release}'.format(product=release_full_name[0],
+                                                            release=int(release_full_name) + 1)
+
+        return {
+            'product': self.product,
+            'name': release_name,
+        }
+
+    def get_success_url(self):
+        return reverse('build-list-by-release', args=(self.object.id,))
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ReleaseCreate, self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['product'] = self.product
+        return context
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.author = user
+        return super(ReleaseCreate, self).form_valid(form)

@@ -12,7 +12,7 @@
                     <p><a class="btn btn-info" href="{% url 'product-detail' product.pk %}" role="button">View details
                         &raquo;</a></p>
                     {% if perms.prd.add_build %}
-                        <p><a class="btn btn-success" href="{% url 'create-build' product.name %}" role="button">Create
+                        <p><a class="btn btn-success" href="{% url 'build-create' product.name %}" role="button">Create
                             build &raquo;</a></p>
                     {% endif %}
                     {% if perms.prd.add_hotfix %}

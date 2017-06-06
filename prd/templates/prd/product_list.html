@@ -27,7 +27,7 @@
                             <th>Group</th>
                             <th>Owner</th>
                             <th>Releases</th>
-                            <th>Actions</th>
+                            <th colspan="2" align="center">Actions</th>
                         </tr>
                     {% endif %}
                 <tr {% if rec.is_active %}class="success"{% endif %}>
@@ -42,13 +42,13 @@
                         {% buttons %}<a href="{% url 'product-update' rec.pk %}"
                                         class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}Edit</a>
                         {% endbuttons %}
-
                     {% endif %}
+                    </td>
+                    <td>
                         {% if perms.prd.delete_product %}
                             {% buttons %}<a href="{% url 'product-delete' rec.pk %}"
                                             class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}Delete</a>
                             {% endbuttons %}
-
                         {% endif %}
                     </td>
                 </tr>
