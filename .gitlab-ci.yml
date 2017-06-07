@@ -13,7 +13,9 @@ nose_test:
     except:
         - master
 deploy_dev:
-    environment: develop
+    environment:
+        name: develop
+        url: http://sv2.bpc.in:8000
     stage: deploy
     script:
         - fab dev deploy
