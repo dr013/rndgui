@@ -17,7 +17,7 @@ def production1():
     # здесь данные об удаленном сервере с сайтом
     env.environment = "production"
     env.hosts = ["sv2-web.bt.bpc.in:22"]
-    env.user = 'uwsgi'
+    env.user = 'www'
     env.path = '/srv/rndgui'
     env.db_host = 'rnd-pg.bt.bpc.in'
     env.activate = 'source /srv/rndgui/venv/bin/activate'
