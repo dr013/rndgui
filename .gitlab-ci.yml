@@ -26,7 +26,9 @@ deploy_dev:
         - rnd
 
 deploy_production:
-    environment: production
+    environment:
+      name: production
+      url: http://sv2-web.bt.bpc.in
     stage: deploy
     script:
         - fab production1 deploy
