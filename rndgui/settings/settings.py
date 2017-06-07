@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'simple_history',
     'django_extensions',
-    'cat'
+    'cat',
     'django_celery_results',
     'django_celery_beat',
 ]
