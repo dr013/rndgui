@@ -45,18 +45,16 @@ def CreateEnv(request):
     if request.method == "POST":
         form = EnvForm(data=request.POST)
         if form.is_valid():
-            c_env = form.save(commit=False)
+            c_env = form.save()
             formsetdb = DBInstanceFormSet(data=request.POST, instance=c_env)
             formsetweb = WEBInstanceFormSet(data=request.POST, instance=c_env)
             formsetstln = STLNInstanceFormSet(data=request.POST, instance=c_env)
-            print formsetdb
-            if form.is_valid():
-                if formsetdb.is_valid() and formsetweb.is_valid() and formsetstln.is_valid():
-                    formsetdb.save()
-                    formsetweb.save()
-                    formsetstln.save()
-                    form.save()
-                    return HttpResponseRedirect('/instance/env-list')
+            if formsetdb.is_valid() and formsetweb.is_valid() and formsetstln.is_valid():
+                formsetdb.save()
+                formsetweb.save()
+                formsetstln.save()
+
+                return HttpResponseRedirect('/instance/env-list')
     else:
         form = EnvForm()
         formsetdb = DBInstanceFormSet()
