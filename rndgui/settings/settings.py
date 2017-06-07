@@ -48,9 +48,12 @@ INSTALLED_APPS = [
     'simple_history',
     'django_extensions',
     'cat'
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'rndgui.urls'
@@ -128,20 +132,37 @@ LOGGING = {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
     },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
     'handlers': {
         'sentry': {
             'level': 'WARNING',
             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
         },
         'console': {
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/rndgul-app.log',
             'formatter': 'verbose'
         }
     },
     'loggers': {
         'django': {
-            'handlers': ['sentry', 'console'],
+            'handlers': ['sentry', 'console', 'mail_admins'],
             'level': 'WARNING',
             'propagate': True,
         },
@@ -155,8 +176,16 @@ LOGGING = {
             'handlers': ['sentry'],
             'propagate': False,
         },
+        'prd': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        }
     }
 }
 
+# jira credential
 JIRA_USER = 'jira-system'
 JIRA_PASS = '3WqOGzrj9G'
+
+# Celery common
+CELERY_RESULT_BACKEND = 'django-db'

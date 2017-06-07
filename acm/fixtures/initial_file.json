@@ -1,0 +1,185 @@
+[
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "Product manager",
+      "permissions": [
+        34,
+        35,
+        36,
+        40,
+        41,
+        42,
+        31,
+        32,
+        33,
+        37,
+        38,
+        39,
+        43,
+        44,
+        45
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "Senior Developer",
+      "permissions": [
+        34,
+        35,
+        36,
+        40,
+        41,
+        42
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "Release manager",
+      "permissions": [
+        34,
+        35,
+        36,
+        58,
+        59,
+        60,
+        64,
+        65,
+        66,
+        55,
+        56,
+        57,
+        52,
+        53,
+        54,
+        61,
+        62,
+        63,
+        40,
+        41,
+        42,
+        37,
+        38,
+        39
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+      "name": "Developer",
+      "permissions": [
+        40,
+        41,
+        42
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$duGYBNjGIyoQ$RAlMxbHl97mIlFjH4Swd/aijko0b6G9RArb2Mz0VYx8=",
+      "last_login": "2017-06-02T07:25:08.491Z",
+      "is_superuser": true,
+      "username": "krukov",
+      "first_name": "Evgeny",
+      "last_name": "Krukov",
+      "email": "krukov@bpcbt.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2017-05-23T12:38:36.297Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$oePq4rgLO5yD$oyPtouebtlVVrey6GtU0TZxD2AxSIowoJv48t+q8Sjw=",
+      "last_login": "2017-05-24T12:07:41Z",
+      "is_superuser": true,
+      "username": "dorontcov",
+      "first_name": "Sergei",
+      "last_name": "Dorontcov",
+      "email": "dorontcov@bpcbt.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2017-05-24T12:07:40Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$618ebLFRh0CZ$NZ6zmiy39yHLcZTZAkj2DmC9C/WZJx2PM1ZTAyw7C4g=",
+      "last_login": "2017-05-26T12:44:46Z",
+      "is_superuser": false,
+      "username": "kazakov",
+      "first_name": "Ivan",
+      "last_name": "Kazakov",
+      "email": "kazakov@bpcbt.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2017-05-25T13:08:42Z",
+      "groups": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$36000$yiPKXbjoYyAS$/clDhfZXoOFCRyACiHQl5VbvPNesywbyLprpBI8vGoE=",
+      "last_login": "2017-06-02T07:23:56.394Z",
+      "is_superuser": false,
+      "username": "truschelev",
+      "first_name": "Oleg",
+      "last_name": "Truschelev",
+      "email": "truschelev@bpcbt.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2017-05-25T14:57:06Z",
+      "groups": [
+        4
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "acm.historicalinstitution",
+    "pk": 1,
+    "fields": {
+      "id": 1,
+      "inst_name": "RnD Backoffice",
+      "slug_name": "rnd",
+      "history_date": "2017-05-25T12:47:49.558Z",
+      "history_user": 1,
+      "history_type": "~"
+    }
+  },
+  {
+    "model": "acm.institution",
+    "pk": 1,
+    "fields": {
+      "inst_name": "RnD Backoffice",
+      "slug_name": "rnd"
+    }
+  }
+]

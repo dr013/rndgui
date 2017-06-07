@@ -5,9 +5,12 @@
 import datetime
 from fabric.api import env, run, cd, sudo, require, prefix
 from fabric.colors import green, red
+from fabric.contrib import django
 from contextlib import contextmanager as _contextmanager
 
 now = datetime.datetime.now()
+django.project('rndgui')
+django.settings_module('rndgui.settings')
 
 
 def production1():
@@ -34,7 +37,7 @@ def dev():
     # здесь данные об удаленном сервере с сайтом
     env.environment = "develop"
     env.hosts = ["sv2.bpc.in:22"]
-    env.user = 'master'
+    env.user = 'www-data'
     env.path = '/srv/rndgui'
     env.db_host = 'rnd-pg.bt.bpc.in'
     env.activate = 'source /srv/rndgui/venv/bin/activate'
@@ -55,6 +58,8 @@ def deploy():
     print(red("Beginning Deploy:"))
     update_from_git()
     install_requirements()
+    if 'develop' in env.environment:
+        set_dev_config()
     migrate()
     if env.environment == 'production':
         # stop_webserver()
@@ -62,15 +67,18 @@ def deploy():
         # start_webserver()
         # touch_reload()
     elif 'develop' in env.environment:
-        set_dev_config()
         run_dev_server()
 
 
 def install_requirements():
     require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
     print(green(" * install the necessary applications..."))
+    if 'develop' in env.environment:
+        req = 'dev.txt'
+    else:
+        req = 'prod.txt'
     with virtualenv():
-        requirements_file = env.path + '/requirements/prod.txt'
+        requirements_file = 'requirements/{req}'.format(req=req)
 
         args = ['install',
                 '-r', requirements_file, '--upgrade'
@@ -85,6 +93,12 @@ def update_from_git():
         print(green('run checkout master'))
         run('git checkout -- .')
         run('git clean -fd')
+
+        if 'develop' in env.environment:
+            run('git checkout develop')
+        else:
+            run('git checkout master')
+
         run('git fetch --prune origin')
         run('git pull')
 
@@ -119,10 +133,10 @@ def stop_webserver():
 def set_dev_config():
     print (red('Copy settings/dev'))
     with cd(env.path):
-        run('cp rndgui/settings/dev.py.txt rndgui/settings/dev.py')
+        run('cp rndgui/settings/demo.py rndgui/settings/dev.py')
 
 
 def run_dev_server():
     print (green('Run dev server'))
-    with cd(env.path):
-        run('python manage.py runserver sv2.bpc.in:8000')
+    with virtualenv():
+        run('python manage.py runserver sv2.bpc.in:8000 &')

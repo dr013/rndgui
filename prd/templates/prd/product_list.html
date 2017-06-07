@@ -27,28 +27,28 @@
                             <th>Group</th>
                             <th>Owner</th>
                             <th>Releases</th>
-                            <th>Actions</th>
+                            <th colspan="2" align="center">Actions</th>
                         </tr>
                     {% endif %}
                 <tr {% if rec.is_active %}class="success"{% endif %}>
-                    <td><a href="{% url 'release-list-by-product' rec.name %}">{{ rec.title }}</a></td>
+                    <td><a href="{% url 'product-detail' rec.pk %}">{{ rec.title }}</a></td>
                     <td>{% if rec.desc %}{{ rec.desc }}{% else %} {% endif %}</td>
                     <td>{{ rec.wiki_url_link|safe }}</td>
                     <td>{{ rec.jira_url_link|safe }}</td>
                     <td>{{ rec.inst }}</td>
                     <td>{{ rec.owner.get_full_name }}</td>
                     <td><a href="{% url 'release-list-by-product' rec.name %}">Release list</a></td>
-                    <td>{% if perms.prd.modify_product %}
+                    <td>{% if perms.prd.change_product %}
                         {% buttons %}<a href="{% url 'product-update' rec.pk %}"
                                         class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}Edit</a>
                         {% endbuttons %}
-
                     {% endif %}
+                    </td>
+                    <td>
                         {% if perms.prd.delete_product %}
                             {% buttons %}<a href="{% url 'product-delete' rec.pk %}"
                                             class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}Delete</a>
                             {% endbuttons %}
-
                         {% endif %}
                     </td>
                 </tr>

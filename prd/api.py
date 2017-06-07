@@ -7,6 +7,8 @@ import requests
 import json
 import logging
 
+logger = logging.getLogger('prd')
+
 
 class GitLab:
     def __init__(self):
@@ -20,17 +22,44 @@ class GitLab:
         self.gl.auth()
 
     def project_list(self):
-        return self.gl.projects.list()
+        return self.gl.projects.list(all=True)
 
-    def project(self, pid):
+    def get_project(self, pid):
         obj = self.gl.projects.get(pid)
         return obj
 
-    def create_tag(self, project, tag, ref, desc):
-        proj = self.project(project).id
-        tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
-                                          project_id=proj)
-        tag.set_release_description(desc)
+    def check_tag(self, project_id, tag):
+        project_obj = self.get_project(project_id)
+        tags = project_obj.tags.list(all=True)
+        tag_list = [x.name for x in tags]
+        if tag in tag_list:
+            return True
+        else:
+            return False
+
+    def create_tag(self, project_id, tag, ref, desc, user=None):
+        # TODO check permission for sudo user  - add tag available only for Developer, Master and Owner role.
+        logger.debug("Check Gitlab tag")
+        if self.check_tag(project_id, tag):
+            logger.debug("Found gitlab tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
+        else:
+            try:
+                tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
+                                                  project_id=project_id, sudo=user)
+                tag.set_release_description(desc)
+            except gitlab.GitlabCreateError as errm:
+                logger.error(str(errm))
+
+            logger.info("Create new tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
+
+    def get_revision_list(self, project_id, ref_name, since):
+        project = self.gl.projects.get(project_id)
+        logger.info("Project_id:{}".format(project_id))
+        logger.info('Ref name: {}'.format(ref_name))
+        logger.info(str(since))
+        commits = project.commits.list(ref_name=ref_name, since=str(since), all=True)
+
+        return commits
 
 
 # noinspection PyCompatibility
@@ -59,6 +88,9 @@ class JiraProject:
 
     def set_project(self, project):
         self.project = self.jira.project(project.upper())
+
+    def get_project_desc(self):
+        return self.project.description
 
     def get_version_id(self, version_number):
         versions = self.jira.project_versions(self.project)
@@ -234,3 +266,7 @@ class JiraProject:
             if value['required'] and not value['hasDefaultValue']:
                 fields.append(key)
         return fields
+
+    def get_task_status(self, task):
+        status = str(self.jira.issue(task).fields.status)
+        return status

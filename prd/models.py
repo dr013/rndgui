@@ -1,28 +1,37 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import datetime
+import logging
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.core.cache import cache
 from simple_history.models import HistoricalRecords
 from acm.models import Institution
 from prd.api import GitLab, JiraProject
+
+# Get an instance of a logger
+logger = logging.getLogger('prd')
 
 
 def getkey(item):
     return item[1]
 
 
-def gilab_project_list():
-    project_list = GitLab().project_list()
-    short_list = ((x.id, x.name_with_namespace) for x in project_list)
-    return sorted(short_list, key=getkey)
+def gitlab_project_list():
+    short_list = cache.get('gitlab_project_list')
+    if not short_list:
+        project_list = GitLab().project_list()
+        short_list = ((x.id, x.name_with_namespace) for x in project_list)
+        short_list = sorted(short_list, key=getkey)
+        cache.set('gitlab_project_list', short_list, 60 * 60)
+    return short_list
 
 
 def gitlab_project(pid):
-    obj = GitLab().project(pid)
+    obj = GitLab().get_project(pid)
     if obj:
         return obj
     else:
@@ -35,56 +44,76 @@ def check_jira_release(project, release):
     issue = jira.search_issue(task_name)
     if not issue:
         issue = create_jira_release(project, release)
+    return issue.key
 
-    return issue
+
+def create_zero_tag(product, release, tag, author):
+    # TODO add sql OR
+    desc = "Zero tag for new release {}".format(release)
+    release_module = ReleasePart.objects.filter(product__jira=product, release__name=release)
+    if not release_module:
+        release_module = ReleasePart.objects.filter(product__jira=product)
+    for rec in release_module:
+        GitLab().create_tag(project_id=rec.gitlab_id, tag=tag, ref=rec.work_branch, user=author.username, desc=desc)
 
 
 def check_jira_build(project, release, build):
     jira = JiraProject(project=project)
-
     build_name = 'Build {bld}'.format(bld=build)
-    q = "project='{prj}' and summary~'{task}' and type=Sub-task".format(prj=project, task=build_name)
-    issue = jira.search_issue(q)
+    logger.debug("Check Jira build {bld} subtask in project {prj}".format(bld=build, prj=project))
+    issue = jira.search_issue(build_name)
     if not issue:
+        logger.debug("Task not found!")
         issue = create_jira_build(project, release, build)
+    else:
+        logger.debug("Task found!")
+    return issue.key
 
-    return issue
+
+def check_jira_task_status(task):
+    jira = JiraProject(None)
+    return jira.get_task_status(task)
 
 
 def create_jira_release(project, release):
     jira = JiraProject(project=project)
+    logger.info("Create Jira release task for project {}.".format(project))
     release_task = jira.create_release_task(release)
-
     return release_task
 
 
 def create_jira_build(project, release, build):
     jira = JiraProject(project=project)
     release_task = check_jira_release(project, release)
+    logger.info("Create new Jira Sub-task for build {}".format(build))
     build_task = jira.create_sub_task(release_task, build)
-
     return build_task
 
 
 def jira_project_list(project=None):
-    jira = JiraProject(project=project)
-    project_list = jira.project_list()
-    return ((x.key, "{name}({key})".format(name=x.name, key=x.key)) for x in project_list)
+    project_list_lov = cache.get('jira_project_list')
+    if not project_list_lov:
+        project_list = JiraProject(project=project).project_list()
+        project_list_lov = []
+        for rec in ((x.key, "{name}({key})".format(name=x.name, key=x.key)) for x in project_list):
+            project_list_lov.append(rec)
+        cache.set('jira_project_list', project_list_lov, 60 * 60)  # cache one hour
+    return project_list_lov
 
 
 class Product(models.Model):
-    title = models.CharField("Product title", max_length=200)
+    title = models.CharField("Product title", max_length=200, unique=True)
     desc = models.CharField("Product Description", max_length=200, null=True, blank=True)
     wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
-    jira = models.CharField("Jira project code", max_length=20, choices=jira_project_list())
+    jira = models.CharField(_("Jira project code"), max_length=20, choices=jira_project_list(), unique=True,
+                            help_text="Jira project key")
     inst = models.ForeignKey(Institution, verbose_name='Group')
     owner = models.ForeignKey(User)
-    is_internal = models.BooleanField("Is internal", default=False)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     specification_repo = models.IntegerField(_("Specifications repository"), null=True, blank=True,
-                                             help_text="Gitlab repostitory ID for product specifications",
-                                             choices=gilab_project_list())
+                                             help_text="Gitlab repostitory for product specifications",
+                                             choices=gitlab_project_list())
     history = HistoricalRecords()
 
     def __str__(self):
@@ -114,6 +143,16 @@ class Product(models.Model):
             res = ''
         return res
 
+    @property
+    def gitlab_project_url(self):
+        return gitlab_project(self.specification_repo).web_url
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.jira and not self.desc:
+                self.desc = JiraProject(self.jira).get_project_desc()
+        super(Product, self).save(*args, **kwargs)
+
 
 class Release(models.Model):
     name = models.CharField(_("Release number"), max_length=20)
@@ -126,6 +165,9 @@ class Release(models.Model):
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
     history = HistoricalRecords()
+
+    class Meta:
+        unique_together = ('name', 'product',)
 
     def __str__(self):
         return "{rel} - {prd}".format(rel=self.name, prd=self.product)
@@ -153,11 +195,13 @@ class Release(models.Model):
         if not self.pk:
             if not self.jira:
                 self.jira = check_jira_release(self.product.jira, self.name)
+            super(Release, self).save(*args, **kwargs)
             bld0 = Build(name='0', release=self, author=self.author, released=True, date_released=datetime.date.today())
             bld0.save()
             bld1 = Build(name='1', release=self, author=self.author)
             bld1.save()
-        super(Release, self).save(*args, **kwargs)
+        else:
+            super(Release, self).save(*args, **kwargs)
 
 
 class Build(models.Model):
@@ -171,6 +215,9 @@ class Build(models.Model):
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
     history = HistoricalRecords()
+
+    class Meta:
+        unique_together = ('name', 'release',)
 
     def __str__(self):
         return "{prd} {rel}.{build}".format(rel=self.release.name, prd=self.release.product, build=self.name)
@@ -200,10 +247,31 @@ class Build(models.Model):
         hotfix_list = HotFix.objects.filter(build=self.pk).order_by('-date_released')
         return hotfix_list
 
+    @property
+    def changelog(self):
+        return '{base_url}project/{prj}/{bld}/changelog/'.format(prj=self.release.product.name,
+                                                                 bld=self.full_name, base_url=settings.BASE_URL)
+
     def save(self, *args, **kwargs):
 
         if not self.jira:
-            self.jira = check_jira_build(self.release.product.name, self.release.jira, self.full_name)
+            self.jira = check_jira_build(self.release.product.name, self.release.name, self.full_name)
+
+        if self.released:
+            # close jira task
+            status = check_jira_task_status(self.jira)
+            logger.debug("Check Jira task {} status".format(self.jira))
+            if 'Closed' not in status:
+                jira = JiraProject(project=self.release.product.jira)
+                jira.assign_task(self.jira, self.author.username)
+                jira.start_task(self.jira)
+                jira.add_comment(self.jira, 'Init build for new release {rls}'.format(rls=self.release.name))
+                jira.stop_task(self.jira)
+                jira.close_task(self.jira)
+            else:
+                logger.debug("Task already have status Closed!")
+            # create gitlab tag
+            create_zero_tag(self.release.product.jira, self.release, self.git_name, self.author)
 
         super(Build, self).save(*args, **kwargs)
 
@@ -246,9 +314,14 @@ class ReleasePart(models.Model):
     """ Release part  - product modules configuration"""
     name = models.CharField(_("Module name"), max_length=200)
     product = models.ForeignKey(Product)
-    release = models.ForeignKey(to=Release, null=True, blank=True)
-    gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gilab_project_list())
+    release = models.ForeignKey(to=Release, null=True, blank=True,
+                                help_text="Specific release number. Skip if all releases have one configurations")
+    gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gitlab_project_list())
+    work_branch = models.CharField(_("Work branch"), null=True, blank=True, max_length=200, default='future')
     history = HistoricalRecords()
+
+    class Meta:
+        unique_together = ('name', 'product',)
 
     def __str__(self):
         return '{product}::{name}'.format(product=self.product.name, name=self.name)
@@ -278,3 +351,6 @@ class BuildRevision(models.Model):
     build = models.ForeignKey(Build)
     release_part = models.ForeignKey(ReleasePart)
     revision = models.CharField(_("Git revision"), max_length=40)
+
+    def __str__(self):
+        return '{build}={release_part}'.format(build=self.build, release_part=self.release_part)

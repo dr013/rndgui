@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}:Issue build for product {{ product_obj.title }}{% endblock %}
+{% block header %}{{ object.title }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>
+                        Issue build for {{ product_obj.title }}</h3>
+                    <h4> Set revision for build {{ build.full_name }}.</h4>
+                </div>
+            </div>
+            <div class="row">
+                <form role="form" action="#" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form_errors form layout='inline' %}
+                    {% bootstrap_form form %}
+                    {% for rec in release_part %}
+                        <div class="form-group">
+                            <label class="control-label" for="id_form-0-release_part">Release
+                                part {{ rec.name }}</label>
+                        </div>
+                        <div class="form-group">
+                            <select name="part_{{ rec.pk }}" class="form-control" title="">
+                                <option value="" selected>--------- </option>
+                                {% for rev_part in rev_list %}
+                                    {% if rev_part.pk == rec.pk %}
+                                        {% for rev in  rev_part.revision_list %}
+                                            {{ rec }}
+                                            <option value="{{ rev.id }}">
+                                                <b>{{ rev.short_id }}</b> => "{{ rev.message|truncatechars:150 }}"
+                                                by {{ rev.author_name }} at {{ rev.authored_date }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br><br>
+                    {% endfor %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "star" %} Submit
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

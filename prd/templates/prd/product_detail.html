@@ -7,46 +7,96 @@
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    {% if perms.prd.add_release %}
+                        <a href="{% url 'release-create' object.name %}" class="btn btn-primary"
+                           role="button">{% bootstrap_icon 'plus' %}Add new release</a>
+                    {% endif %}
                     <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product
                         list</a>
                 </div>
             </div>
             <table class="table table-responsive table-bordered">
                 <tr align="center" class="bg-warning">
-                    <th colspan="3" class="bg-success">Product info</th>
+                    <th colspan="6" class="bg-success">Product info</th>
                 </tr>
-                <tr>
-                    <th colspan="2">Description</th>
-                    <td>{{ object.desc }}</td>
-                </tr>
+                {% if object.desc %}
+                    <tr>
+                        <th colspan="2">Description</th>
+                        <td colspan="4">{{ object.desc }}</td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <th colspan="2">WIKI</th>
-                    <td>{{ object.wiki_url_link|safe }}</td>
+                    <td colspan="4">{{ object.wiki_url_link|safe }}</td>
                 </tr>
                 <tr>
                     <th colspan="2">Jira</th>
-                     <td>{{ object.jira_url_link|safe }}</td>
+                    <td colspan="4">{{ object.jira_url_link|safe }}</td>
                 </tr>
+                {% if object.specification_repo %}
+                    <tr>
+                        <th colspan="2">Specification repository</th>
+                        <td colspan="4">{{ object.gitlab_project_url|urlize }}</td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <th colspan="2">Release list</th>
-                    <td><a href="{% url 'release-list-by-product' object.name %}">Release list</a></td>
+                    <td colspan="4"><a href="{% url 'release-list-by-product' object.name %}">Release list</a></td>
                 </tr>
 
                 {% for rec in release_part %}
                     {% if forloop.first %}
                         <tr align="center">
-                            <th colspan="3" class="bg-success">Product modules</th>
+                            <th colspan="5" class="bg-success">Product modules</th>
+                            <td>
+                                {% buttons %}
+                                    <a href="{% url 'releasepart-create' object.pk %}" class="btn btn-primary"
+                                       role="button">{% bootstrap_icon 'plus' %}Add new module</a>
+                                {% endbuttons %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Module name</th>
                             <th>Module description</th>
                             <th>Gitlab project URL</th>
+                            <th>Work branch</th>
+                            <th colspan="2" class="text-center">Module actions</th>
                         </tr>
+
                     {% endif %}
                     <tr>
                         <td>{{ rec.name }}</td>
                         <td>{{ rec.gitlab_project_desc }}</td>
                         <td>{{ rec.gitlab_project_url|urlize }}</td>
+                        <td>{{ rec.work_branch }}</td>
+                        <td align="center">
+                            {% if perms.prd.change_releasepart %}
+                                {% buttons %}<a href="{% url 'releasepart-update' rec.pk %}"
+                                                class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}Edit</a>
+                                {% endbuttons %}
+                            {% else %}
+                                &nbsp;
+                            {% endif %}
+                        </td>
+                        <td align="center">
+                            {% if perms.prd.delete_releasepart %}
+                                {% buttons %}<a href="{% url 'releasepart-delete' rec.pk %}"
+                                                class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}Delete</a>
+                                {% endbuttons %}
+
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">There are no modules in this product.
+                            {% if perms.prd.add_releasepart %}
+                                {% buttons %}
+                                    <a href="{% url 'releasepart-create' object.pk %}" class="btn btn-primary"
+                                       role="button">{% bootstrap_icon 'plus' %}Create module</a>
+                                {% endbuttons %}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>

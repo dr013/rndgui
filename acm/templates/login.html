@@ -25,28 +25,46 @@
 <body>
 
 <div class="container">
-{% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message|safe }}</div>
-{% endfor %}
- <form class="form-signin" action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Username</label>
-        <input type="text" id="inputEmail" class="form-control" placeholder="BPC username" required autofocus name="username">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="BPC Password" required  name="password">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="1" name="is_ldap" checked> LDAP
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-
+    <div class="row">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+        <form class="form-signin" action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="inputEmail" class="sr-only">Username</label>
+            <input type="text" id="inputEmail" class="form-control" placeholder="BPC username" required autofocus
+                   name="username">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="BPC Password" required
+                   name="password">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="1" name="is_ldap" checked> LDAP
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
 </div>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script>
+    $(document).ready(function () {
+        $(".alert").alert();
+        window.setTimeout(function () {
+            $(".alert").alert('close');
+        }, 6000);
+    });
+</script>
 </body>
 </html>
 
