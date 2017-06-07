@@ -139,4 +139,4 @@ def set_dev_config():
 def run_dev_server():
     print (green('Run dev server'))
     with virtualenv():
-        run('python manage.py runserver sv2.bpc.in:8000 &')
+        run(' [ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || python manage.py runserver sv2.bpc.in:8000 &')

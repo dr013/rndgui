@@ -50,7 +50,7 @@ class GitLab:
             except gitlab.GitlabCreateError as errm:
                 logger.error(str(errm))
 
-            logger.info("Create new tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
+            logger.info("Create new tag {tag} in GitLab project {prd}.".format(tag=str(tag), prd=project_id))
 
     def get_revision_list(self, project_id, ref_name, since):
         project = self.gl.projects.get(project_id)
