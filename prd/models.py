@@ -169,6 +169,7 @@ class Release(models.Model):
 
     class Meta:
         unique_together = ('name', 'product',)
+        ordering = ['-created']
 
     def __str__(self):
         return "{rel} - {prd}".format(rel=self.name, prd=self.product)
