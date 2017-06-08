@@ -235,6 +235,7 @@ class Build(models.Model):
 
     class Meta:
         unique_together = ('name', 'release',)
+        ordering = ["-created"]
 
     def __str__(self):
         return "{prd} {rel}.{build}".format(rel=self.release.name, prd=self.release.product, build=self.name)
