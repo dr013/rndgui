@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from env.models import Environment
+from envrnmnt.models import Environment
 
 # Create your models here.
 

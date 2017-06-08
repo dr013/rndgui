@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^$', start, name='start'),
     url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^product/', include('prd.urls')),
-    url(r'^instance/', include('env.urls')),
+    url(r'^instance/', include('envrnmnt.urls')),
     url(r'^test-env/', include('cat.urls')),
     url(r'^login/', login_view, name='login'),
     url(r'^logout/', logout_view, name='logout'),

@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'simple_history',
     'django_extensions',
     'cat',
-    'env',
+    'envrnmnt',
     'django_celery_results',
     'django_celery_beat',
     'jra'
