@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{% static "css/dashboard.css" %}">
     <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %}"/>
     {% block css %}{% endblock %}
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/jquery.formset.js" %}"></script>
 </head>
 <body>
 {% for message in messages %}
@@ -126,9 +130,7 @@
     </div>
 </footer>
 
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
-<script src="{% static "js/bootstrap.min.js" %}"></script>
+
 <script>
     $(document).ready(function () {
         $(".alert").alert();
@@ -149,6 +151,7 @@
         $("#id_release").attr('selected', 'selected');
     });
 </script>
+
 {% block js %}{% endblock %}
 </body>
 </html>

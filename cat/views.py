@@ -38,9 +38,9 @@ class DeleteEnv(DeleteView):
 
 
 def CreateEnv(request):
-    DBInstanceFormSet = generic_inlineformset_factory(DBInstance, extra=1, can_delete=False)
-    WEBInstanceFormSet = generic_inlineformset_factory(WEBInstance, extra=1, can_delete=False)
-    STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=1, can_delete=False)
+    DBInstanceFormSet = generic_inlineformset_factory(DBInstance, extra=1, can_delete=True)
+    WEBInstanceFormSet = generic_inlineformset_factory(WEBInstance, extra=1, can_delete=True)
+    STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=1, can_delete=True)
 
     if request.method == "POST":
         form = EnvForm(data=request.POST)
@@ -65,9 +65,9 @@ def CreateEnv(request):
 
 def UpdateEnv(request, pk):
     env = get_object_or_404(Environment, id=pk)
-    DBInstanceFormSet = generic_inlineformset_factory(DBInstance, extra=0, can_delete=False)
-    WEBInstanceFormSet = generic_inlineformset_factory(WEBInstance, extra=0, can_delete=False)
-    STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=0, can_delete=False)
+    DBInstanceFormSet = generic_inlineformset_factory(DBInstance, extra=0, can_delete=True)
+    WEBInstanceFormSet = generic_inlineformset_factory(WEBInstance, extra=0, can_delete=True)
+    STLNInstanceFormSet = generic_inlineformset_factory(STLNInstance, extra=0, can_delete=True)
 
     if request.method == "POST":
         form = EnvForm(data=request.POST, instance=env)
@@ -86,7 +86,7 @@ def UpdateEnv(request, pk):
         formsetdb = DBInstanceFormSet(instance=env)
         formsetweb = WEBInstanceFormSet(instance=env)
         formsetstln = STLNInstanceFormSet(instance=env)
-    return render(request, 'cat/environment_form.html', locals())
+    return render(request, 'cat/environment_edit_form.html', locals())
 
 
 class DBInstanceList(ListView):
