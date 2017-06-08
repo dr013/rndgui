@@ -14,16 +14,10 @@ class EnvLint(ListView):
     model = Environment
     context_object_name = 'envs'
 
-    def get_queryset(self):
-        return Environment.objects.all()
-
 
 class EnvDetail(DetailView):
     model = Environment
     context_object_name = 'env'
-
-    def get_queryset(self):
-        return Environment.objects.all()
 
 
 class DeleteEnv(DeleteView):
