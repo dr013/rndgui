@@ -15,7 +15,7 @@
                         list</a>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table table-responsive">
                 {% for release in object_list %}
 
                     {% if forloop.first %}
@@ -28,7 +28,7 @@
                             <th>Build List</th>
                         </tr>
                     {% endif %}
-                <tr {% if release.is_active %}class="success"{% endif %}>
+                <tr {% if release.is_active and release.released %}class="info"{% elif not release.released %}class="warning"{% endif %}>
                     <td><a href="{% url 'build-list-by-release' release.pk %}" title="Build list">{{ release.name }}</a>
                     </td>
                     <td>{{ release.product }}</td>
