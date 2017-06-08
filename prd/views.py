@@ -253,9 +253,9 @@ class ReleaseCreate(CreateView):
         if self.release_list.count() == 0:
             release_name = '1.0'
         else:
-            release_full_name = self.release_list[0].name.split(".")[-1]
+            release_full_name = self.release_list[0].name.split(".")
             if len(release_full_name) == 1:
-                release_name = str(int(release_full_name) + 1)
+                release_name = str(int(release_full_name[-1]) + 1)
             else:
                 release_name = '{product}.{release}'.format(product=release_full_name[0],
                                                             release=int(release_full_name) + 1)
