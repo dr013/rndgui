@@ -7,7 +7,7 @@ import urllib
 # noinspection PyCompatibility
 import urllib2
 from django.views.generic import DetailView
-
+from django.db.models import Q
 from .models import Institution
 from prd.models import jira_project_list
 from django.conf import settings
@@ -28,7 +28,8 @@ def start(request):
     # get timesheet
     jira_project_list()
     username = request.user.username
-    prd_list = Product.objects.all()
+
+    prd_list = Product.objects.filter(Q(inst__pk=1) | Q(inst__in=Institution.objects.filter(user=request.user)))
 
     return render(request, 'start.html', locals())
 
