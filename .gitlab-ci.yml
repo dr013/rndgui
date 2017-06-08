@@ -13,7 +13,9 @@ nose_test:
     except:
         - master
 deploy_dev:
-    environment: develop
+    environment:
+        name: develop
+        url: http://sv2.bpc.in:8000
     stage: deploy
     script:
         - fab dev deploy
@@ -25,10 +27,13 @@ deploy_dev:
         - rnd
 
 deploy_production:
-    environment: production
+    environment:
+      name: production
+      url: http://sv2-web.bt.bpc.in
     stage: deploy
     script:
         - fab production1 deploy
+        - sleep 60
         - curl http://sv2-web.bt.bpc.in
     only:
         - master

@@ -6,7 +6,6 @@ import logging
 import urllib
 # noinspection PyCompatibility
 import urllib2
-
 from django.views.generic import DetailView
 
 from .models import Institution
@@ -18,7 +17,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
-
 from .forms import LoginForm
 from prd.models import Product
 

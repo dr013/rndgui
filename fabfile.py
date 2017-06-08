@@ -111,27 +111,27 @@ def touch_reload():
 
 
 def migrate():
-    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])
     print(green('Migrate database'))
     with virtualenv():
         run("python manage.py migrate")
 
 
 def collect_static():
-    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])
     print(green('Collect static'))
     with virtualenv():
         run("python manage.py collectstatic -l --noinput")
 
 
 def stop_webserver():
-    require('environment', provided_by=[production1, production2, dev])  # дописать по желанию dev и stage
+    require('environment', provided_by=[production1, production2, dev])
     print(green('Stop uwsgi'))
     sudo("/etc/init.d/uwsgi stop")
 
 
 def set_dev_config():
-    print (red('Copy settings/dev'))
+    print (green('Copy settings/dev'))
     with cd(env.path):
         run('cp rndgui/settings/demo.py rndgui/settings/dev.py')
 
@@ -139,4 +139,4 @@ def set_dev_config():
 def run_dev_server():
     print (green('Run dev server'))
     with virtualenv():
-        run('python manage.py runserver sv2.bpc.in:8000 &')
+        run('[ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || python manage.py runserver sv2.bpc.in:8000 &')
