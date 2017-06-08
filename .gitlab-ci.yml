@@ -19,6 +19,7 @@ deploy_dev:
     stage: deploy
     script:
         - fab dev deploy
+        - sleep 60
         - curl http://sv2.bpc.in:8000
     only:
         - develop
@@ -32,6 +33,7 @@ deploy_production:
     stage: deploy
     script:
         - fab production1 deploy
+        - sleep 60
         - curl http://sv2-web.bt.bpc.in
     only:
         - master
