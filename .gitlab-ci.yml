@@ -22,7 +22,7 @@ deploy_dev:
         - sleep 60
         - curl http://sv2.bpc.in:8000
     only:
-        - develop
+        - master
     tags:
         - rnd
 
@@ -36,6 +36,6 @@ deploy_production:
         - sleep 60
         - curl http://sv2-web.bt.bpc.in
     only:
-        - master
+        - tags
     tags:
         - rnd

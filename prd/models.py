@@ -50,11 +50,13 @@ def check_jira_release(project, release):
 def create_zero_tag(product, release, tag, author):
     # TODO add sql OR
     desc = "Zero tag for new release {}".format(release)
-    release_module = ReleasePart.objects.filter(product__jira=product, release__name=release)
+    release_obj = Release.objects.get(name=release)
+    release_module = ReleasePart.objects.filter(product__jira=product, release=release_obj)
     if not release_module:
         release_module = ReleasePart.objects.filter(product__jira=product)
     for rec in release_module:
-        GitLab().create_tag(project_id=rec.gitlab_id, tag=tag, ref=rec.work_branch, user=author.username, desc=desc)
+        GitLab().create_tag(project_id=rec.gitlab_id, tag=tag, ref=release_obj.dev_branch, user=author.username,
+                            desc=desc)
 
 
 def check_jira_build(project, release, build):
@@ -191,6 +193,22 @@ class Release(models.Model):
         else:
             return None
 
+    @property
+    def dev_branch(self):
+        if self.released:
+            ref_name = '{name}-develop'.format(name=self.name)
+        else:
+            ref_name = 'future'
+        return ref_name
+
+    @property
+    def stable_branch(self):
+        if self.released:
+            ref_name = '{name}-master'.format(name=self.name)
+        else:
+            ref_name = 'future'
+        return ref_name
+
     def save(self, *args, **kwargs):
         if not self.pk:
             if not self.jira:
@@ -317,7 +335,6 @@ class ReleasePart(models.Model):
     release = models.ForeignKey(to=Release, null=True, blank=True,
                                 help_text="Specific release number. Skip if all releases have one configurations")
     gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gitlab_project_list())
-    work_branch = models.CharField(_("Work branch"), null=True, blank=True, max_length=200, default='future')
     history = HistoricalRecords()
 
     class Meta:

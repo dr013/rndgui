@@ -59,7 +59,6 @@
                             <th>Module name</th>
                             <th>Module description</th>
                             <th>Gitlab project URL</th>
-                            <th>Work branch</th>
                             <th colspan="2" class="text-center">Module actions</th>
                         </tr>
 
@@ -68,7 +67,6 @@
                         <td>{{ rec.name }}</td>
                         <td>{{ rec.gitlab_project_desc }}</td>
                         <td>{{ rec.gitlab_project_url|urlize }}</td>
-                        <td>{{ rec.work_branch }}</td>
                         <td align="center">
                             {% if perms.prd.change_releasepart %}
                                 {% buttons %}<a href="{% url 'releasepart-update' rec.pk %}"

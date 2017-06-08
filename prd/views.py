@@ -72,7 +72,7 @@ def create_build(request, product):
         for rec in release_part:
             rev_list.append({'pk': rec.id,
                              'revision_list': GitLab().get_revision_list(project_id=rec.gitlab_id,
-                                                                         ref_name=rec.work_branch,
+                                                                         ref_name=build.release.dev_branch,
                                                                          since=prev_data)})
     elif request.method == "POST":
 
@@ -228,19 +228,16 @@ class ReleaseDetail(DetailView):
 
 class ReleasePartCreate(CreateView):
     model = ReleasePart
-    fields = ['name', 'product', 'gitlab_id', 'work_branch']
+    fields = ['name', 'product', 'gitlab_id']
     success_message = "%(name)s was created successfully"
 
     def get_success_url(self, **kwargs):
-        if kwargs:
-            return reverse_lazy('product-detail', kwargs={'pk': self.kwargs.get('product')})
-        else:
-            return reverse_lazy('product-list')
+        return reverse_lazy('product-detail', kwargs={'pk': self.product.pk})
 
     def get_initial(self):
-        product = get_object_or_404(Product, pk=self.kwargs.get('product'))
+        self.product = get_object_or_404(Product, pk=self.kwargs.get('product'))
         return {
-            'product': product,
+            'product': self.product,
         }
 
 
@@ -253,7 +250,7 @@ class ReleasePartDelete(DeleteView):
 class ReleasePartUpdate(UpdateView):
     model = ReleasePart
     success_message = "Release part %(name) was updated successfully"
-    fields = ['name', 'product', 'gitlab_id', 'work_branch']
+    fields = ['name', 'product', 'gitlab_id']
 
 
 class HotFixCreate(CreateView):
@@ -286,7 +283,7 @@ class HotFixCreate(CreateView):
         release_part = ReleasePart.objects.filter(product=self.build.release.product)
         for rec in release_part:
 
-            gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=rec.work_branch,
+            gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=self.build.full_name,
                                          desc=tag_desc, user=obj.author)
             logger.debug(str(gitlab))
         return super(HotFixCreate, self).form_valid(form)
