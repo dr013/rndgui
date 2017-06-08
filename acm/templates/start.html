@@ -7,10 +7,12 @@
                 <div class="col-xs-6 col-lg-4">
                     <h2>{{ product.title }}</h2>
                     <p>{{ product.desc }}  </p>
-                    <p><a href="{{ jira_url }}/browse/{{ product.jira }}">Jira Project URL</a></p>
+                    <p><a href="{{ jira_url }}/browse/{{ product.jira }}">Product in Jira</a></p>
                     <p><a href="{{ product.wiki_url }}">Project Wiki(confluence) </a></p>
+                    <p><a href="{% url 'release-list-by-product' product.name %}">Release list</a></p>
                     <p><a class="btn btn-info" href="{% url 'product-detail' product.pk %}" role="button">View details
                         &raquo;</a></p>
+
                 </div>
             {% endfor %}
         </div>
