@@ -232,7 +232,6 @@ class HotFixCreate(CreateView):
         tag_desc = 'HotFix {name} for build {bld}'.format(bld=self.build.full_name, name=obj.name)
         release_part = ReleasePart.objects.filter(product=self.build.release.product)
         for rec in release_part:
-
             gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=self.build.full_name,
                                          desc=tag_desc, user=obj.author)
             logger.debug(str(gitlab))
@@ -258,7 +257,7 @@ class ReleaseCreate(CreateView):
                 release_name = str(int(release_full_name[-1]) + 1)
             else:
                 release_name = '{product}.{release}'.format(product=release_full_name[0],
-                                                            release=int(release_full_name) + 1)
+                                                            release=int(release_full_name[1]) + 1)
 
         return {
             'product': self.product,
