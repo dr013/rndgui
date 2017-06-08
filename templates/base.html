@@ -54,27 +54,6 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Instances <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        {% if perms.cat.add_dbinstance %}
-                            <li><a href="{% url 'dbinstance-create' %}">Add new DB Instance</a></li>
-                            <li role="separator" class="divider"></li>
-                        {% endif %}
-                        {% if perms.cat.add_webinstance %}
-                            <li><a href="{% url 'webinstance-create' %}">Add new WEB Instance</a></li>
-                            <li role="separator" class="divider"></li>
-                        {% endif %}
-                        {% if perms.cat.add_stlninstance %}
-                            <li><a href="{% url 'stlninstance-create' %}">Add new Standalone Instance</a></li>
-                            <li role="separator" class="divider"></li>
-                        {% endif %}
-                        <li><a href="{% url 'dbinstance-list' %}">DB Instances</a></li>
-                        <li><a href="{% url 'webinstance-list' %}">WEB Instances</a></li>
-                        <li><a href="{% url 'stlninstance-list' %}">Standalone Instances</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false"> Environments <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         {% if perms.prd.add_product %}
@@ -82,6 +61,10 @@
                         {% endif %}
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'env-list' %}">Environments</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{% url 'dbinstance-list' %}">DB Instances</a></li>
+                        <li><a href="{% url 'webinstance-list' %}">WEB Instances</a></li>
+                        <li><a href="{% url 'stlninstance-list' %}">Standalone Instances</a></li>
                     </ul>
                 </li>
                 {% if user.is_staff %}
