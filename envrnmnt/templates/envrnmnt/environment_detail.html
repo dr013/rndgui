@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}:Instance detail {{ object.title }}{% endblock %}
+{% block header %}{{ object.title }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'env-list' %}" class="btn btn-success active" role="button">Back to environment
+                        list</a>
+                </div>
+            </div>
+            <table class="table table-responsive table-bordered">
+                <tr align="center" class="bg-warning">
+                    <th colspan="2" class="bg-success">Environment info</th>
+                </tr>
+                {% for name, value in object.get_fields %}
+                    <tr>
+                        <th>{{ name }}:</th>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+                {% if env.dbinstances.all %}
+                    <tr align="center" class="bg-warning">
+                        <th colspan="2" class="bg-success">Oracle db environments</th>
+                    </tr>
+                    {% for rec in env.dbinstances.all %}
+                        <tr><th>Host:</th><td>{{ rec.host }}</td></tr>
+                        <tr><th>Login:</th><td>{{ rec.login }}</td></tr>
+                        <tr><th>Password:</th><td>{{ rec.passwd }}</td></tr>
+                        <tr><th>Port:</th><td>{{ rec.port }}</td></tr>
+                        <tr><th>SID:</th><td>{{ rec.sid }}</td></tr>
+                        <tr><th>System Login:</th><td>{{ rec.sys_user }}</td></tr>
+                        <tr><th>System Password:</th><td>{{ rec.sys_passwd }}</td></tr>
+                    {% endfor %}
+                {% endif  %}
+                {% if env.webinstances.all %}
+                    <tr align="center" class="bg-warning">
+                        <th colspan="2" class="bg-success">Weblogic environments</th>
+                    </tr>
+                    {% for rec in env.webinstances.all %}
+                        <tr><th>Host:</th><td>{{ rec.host }}</td></tr>
+                        <tr><th>Port:</th><td>{{ rec.port }}</td></tr>
+                        <tr><th>Managed server:</th><td>{{ rec.target_server }}</td></tr>
+                        <tr><th>Login:</th><td>{{ rec.login }}</td></tr>
+                        <tr><th>Password:</th><td>{{ rec.passwd }}</td></tr>
+                    {% endfor %}
+                {% endif  %}
+                {% if env.stlninstances.all %}
+                    <tr align="center" class="bg-warning">
+                        <th colspan="2" class="bg-success">Standalone app environments</th>
+                    </tr>
+                    {% for rec in env.stlninstances.all %}
+                    <tr><th>Host:</th><td>{{ rec.host }}</td></tr>
+                    <tr><th>Port:</th><td>{{ rec.port }}</td></tr>
+                    <tr><th>User:</th><td>{{ rec.user }}</td></tr>
+                    <tr><th>Password:</th><td>{{ rec.passwd }}</td></tr>
+                    {% endfor %}
+                {% endif  %}
+            </table>
+        </div>
+    </div>
+{% endblock %}
