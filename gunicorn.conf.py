@@ -9,7 +9,6 @@ user = "uwsgi"
 group = "uwsgi"
 errorlog = "/srv/rndgui/logs/error-gunicorn.log"
 loglevel = "info"
-
 proc_name = "rndgui"
 accesslog = "/srv/rndgui/logs/access-gunicorn.log"
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
