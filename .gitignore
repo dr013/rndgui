@@ -143,3 +143,5 @@ rndgui/static/adminx
 rndgui/static/admin_tools
 rndgui/rndgui.db
 
+rndgui/static/admin/
+rndgui/static/django_extensions/
