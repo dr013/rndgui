@@ -19,7 +19,7 @@ print (issue.fields.status, dir(issue))
 for rec in issue.raw['fields']:
     print ("Field:", rec, "Value:", issue.raw['fields'][rec])
 
-project = 'CORE'
+project = 'SVNTF'
 task_type = 'Sub-task'
 obj_list = jira.createmeta(projectKeys=project, issuetypeNames=task_type,
                            expand='projects.issuetypes.fields')

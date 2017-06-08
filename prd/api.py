@@ -110,6 +110,7 @@ class JiraProject:
             return False
 
     def create_version(self, version_name):
+        logger.info("Create version in Jira")
         cur_date = datetime.datetime.now()
         res = self.jira.create_version(version_name, self.project, startDate=cur_date.isoformat())
         return res
@@ -154,6 +155,7 @@ class JiraProject:
         return res
 
     def create_sub_task(self, parent, build):
+        self.create_version(build)
         params = {
             "project": {"key": self.project.key},
             "parent": {"key": parent},
