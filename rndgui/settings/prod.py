@@ -16,8 +16,9 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-ALLOWED_HOSTS = ["sv2-web.bt.bpc.in", " 10.7.33.73"]
 
+ALLOWED_HOSTS = ["sv2-web.bt.bpc.in", " 10.7.33.73"]
+INTERNAL_IPS = ["127.0.0.1", '10.7.33.73']
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Password validation
@@ -47,7 +48,6 @@ EMAIL_HOST_PASSWORD = 'R7xdEp3Y'
 
 # Jira
 JIRA_URL = 'http://jira.bpc.in:8080'
-
 JIRA_OPTIONS = {
             'server': JIRA_URL,
             'verify': False
@@ -69,7 +69,6 @@ CELERY_TIMEZONE = 'Africa/Nairobi'
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }

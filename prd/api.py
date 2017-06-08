@@ -165,8 +165,8 @@ class JiraProject:
         fields = self.get_required_field(self.project.key, 'Sub-task')
 
         if "customfield_10024" in fields:
-            params["customfield_10024"] = "Core"
-
+            params["customfield_10024"] = {"value": "Core"}
+        logger.debug(msg=str(params))
         res = self.jira.create_issue(fields=params)
         return res
 
