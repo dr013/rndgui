@@ -255,7 +255,7 @@ class ReleaseCreate(CreateView):
         else:
             release_full_name = self.release_list[0].name.split(".")[-1]
             if len(release_full_name) == 1:
-                release_name = int(release_full_name + 1)
+                release_name = str(int(release_full_name) + 1)
             else:
                 release_name = '{product}.{release}'.format(product=release_full_name[0],
                                                             release=int(release_full_name) + 1)
