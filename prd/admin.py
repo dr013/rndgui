@@ -25,14 +25,6 @@ class BuildAdmin(SimpleHistoryAdmin):
     list_filter = ('release__product',)
 
 
-class HotFixAdmin(SimpleHistoryAdmin):
-    pass
-
-
-class ReleasePartAdmin(SimpleHistoryAdmin):
-    pass
-
-
 class BuildRevisionAdmin(SimpleHistoryAdmin):
     list_filter = ('build__release__product',)
 
@@ -41,5 +33,5 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Release, ReleaseAdmin)
 admin.site.register(Build, BuildAdmin)
 admin.site.register(HotFix, SimpleHistoryAdmin)
-admin.site.register(ReleasePart, ReleasePartAdmin)
+admin.site.register(ReleasePart, SimpleHistoryAdmin)
 admin.site.register(BuildRevision, BuildRevisionAdmin)
