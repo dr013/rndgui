@@ -1,20 +1,60 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-{% block title %}:Instance list{% endblock %}
-{% block header %}Instance list{% endblock %}
+{% block title %}:Test servers list{% endblock %}
+{% block header %}Test servers list{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
+            {% if perms.cat.add_testenvironment %}
+            <div class="panel panel-default">
+                <div class="panel-footer">
+                    {% buttons %}
+                    <a href="{% url 'test-env-add' %}" class="btn btn-primary"
+                       role="button">{% bootstrap_icon 'plus' %} Add new Test server</a>
+                    {% endbuttons %}
+                </div>
+            </div>
+            {% endif %}
             <div class="table-responsive">
                 {% for rec in object_list %}
                     {% if forloop.first %}
                         <table class="table table-bordered">
                             <tr>
+                                <th>Name</th>
                                 <th>Environment</th>
+                                <th>Product</th>
+                                <th>Status</th>
+                                {% if perms.cat.change_testenvironment %}
+                                    <th>Edit</th>
+                                {% endif %}
+                                {% if perms.cat.delete_testenvironment %}
+                                    <th>Delete</th>
+                                {% endif %}
                             </tr>
                     {% endif %}
                             <tr>
+                                <td><a href="{% url 'test-env-detail' rec.pk %}">{{ rec.name }}</a></td>
                                 <td>{{ rec.env }}</td>
+                                <td>{{ rec.prd }}</td>
+                                <td>{{ rec.get_status_display }}</td>
+                                {% if perms.cat.change_testenvironment %}
+                                <td>
+                                    {% buttons %}
+                                    <a href="{% url 'test-env-update' rec.pk %}"
+                                       class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}
+                                    </a>
+                                    {% endbuttons %}
+                                </td>
+                                {% endif %}
+                                {% if perms.cat.delete_testenvironment %}
+                                    <td>
+                                        {% buttons %}
+                                        <a href="{% url 'test-env-delete' rec.pk %}"
+                                           class="btn btn-warning btn-sm">{% bootstrap_icon "remove" %}
+                                        </a>
+                                        {% endbuttons %}
+                                    </td>
+                                {% endif %}
                             </tr>
                     {% if forloop.last %}
                         </table>
