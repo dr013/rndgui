@@ -2,20 +2,19 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from simple_history.admin import SimpleHistoryAdmin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from .models import *
 
 
-class DBInstanceAdmin(SimpleHistoryAdmin):
+class DBInstanceAdmin(admin.ModelAdmin):
     list_filter = ['host', ]
 
 
-class WEBInstanceAdmin(SimpleHistoryAdmin):
+class WEBInstanceAdmin(admin.ModelAdmin):
     list_filter = ['host', ]
 
 
-class STLNInstanceAdmin(SimpleHistoryAdmin):
+class STLNInstanceAdmin(admin.ModelAdmin):
     list_filter = ['host', ]
 
 
@@ -34,8 +33,7 @@ class STLNInstanceInline(GenericTabularInline):
     extra = 1
 
 
-class InstanceAdmin(SimpleHistoryAdmin):
-    pass
+class InstanceAdmin(admin.ModelAdmin):
     inlines = [
         DBInstanceInline,
         WEBInstanceInline,
