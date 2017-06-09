@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from simple_history.admin import SimpleHistoryAdmin
 from django.contrib import admin
 from .models import *
 # Register your models here.
 
 
-class TestEnvironmentAdmin(SimpleHistoryAdmin):
+class TestEnvironmentAdmin(admin.ModelAdmin):
     list_filter = ['env', ]
 
 
