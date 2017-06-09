@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% if perms.cat.add_dbinstance %}
+            {% if perms.envrnmnt.add_dbinstance %}
                 <div class="panel panel-default">
                     <div class="panel-footer">
                         {% buttons %}
@@ -26,10 +26,10 @@
                                 <th>Port</th>
                                 <th>SID</th>
                                 <th>Weight</th>
-                                {% if perms.cat.change_dbinstance %}
+                                {% if perms.envrnmnt.change_dbinstance %}
                                     <th>Edit</th>
                                 {% endif %}
-                                {% if perms.cat.delete_dbinstance %}
+                                {% if perms.envrnmnt.delete_dbinstance %}
                                     <th>Delete</th>
                                 {% endif %}
                             </tr>
@@ -41,7 +41,7 @@
                                 <td>{{ rec.port}}</td>
                                 <td>{{ rec.sid }}</td>
                                 <td>{{ rec.weight}}</td>
-                                    {% if perms.cat.change_dbinstance %}
+                                    {% if perms.envrnmnt.change_dbinstance %}
                                         <td>
                                             {% buttons %}
                                                 <a href="{% url 'dbinstance-update' rec.pk %}"
@@ -50,7 +50,7 @@
                                             {% endbuttons %}
                                         </td>
                                     {% endif %}
-                                    {% if perms.cat.delete_dbinstance %}
+                                    {% if perms.envrnmnt.delete_dbinstance %}
                                         <td>
                                             {% buttons %}
                                                 <a href="{% url 'dbinstance-delete' rec.pk %}"
