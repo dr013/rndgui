@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% if perms.cat.add_webinstance %}
+            {% if perms.envrnmnt.add_webinstance %}
                 <div class="panel panel-default">
                     <div class="panel-footer">
                         {% buttons %}
@@ -25,10 +25,10 @@
                                 <th>Managed Server</th>
                                 <th>Login</th>
                                 <th>Password</th>
-                                {% if perms.cat.change_webinstance %}
+                                {% if perms.envrnmnt.change_webinstance %}
                                     <th>Edit</th>
                                 {% endif %}
-                                {% if perms.cat.delete_webinstance %}
+                                {% if perms.envrnmnt.delete_webinstance %}
                                     <th>Delete</th>
                                 {% endif %}
                             </tr>
@@ -39,7 +39,7 @@
                                 <td>{{ rec.target_server }}</td>
                                 <td>{{ rec.login}}</td>
                                 <td>{{ rec.passwd}}</td>
-                                    {% if perms.cat.change_webinstance %}
+                                    {% if perms.envrnmnt.change_webinstance %}
                                         <td>
                                             {% buttons %}
                                                 <a href="{% url 'webinstance-update' rec.pk %}"
@@ -48,7 +48,7 @@
                                             {% endbuttons %}
                                         </td>
                                     {% endif %}
-                                    {% if perms.cat.delete_webinstance %}
+                                    {% if perms.envrnmnt.delete_webinstance %}
                                         <td>
                                             {% buttons %}
                                                 <a href="{% url 'webinstance-delete' rec.pk %}"
