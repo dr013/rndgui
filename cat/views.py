@@ -73,3 +73,4 @@ def acquire_env(request):
     model.acquire(user=request.user, release=release)
     #   TODO add 'human'-response
     return HttpResponseRedirect('/test-env/test-env-list')
+
