@@ -7,7 +7,7 @@ pip
 django-bootstrap3
 python-gitlab
 django-simple-history
-celery>=4.0.2
+celery>=3.1
 jira
 certifi
 urllib3[secure]
@@ -17,3 +17,4 @@ redis
 django-celery-beat
 gunicorn
 setproctitle
+six
