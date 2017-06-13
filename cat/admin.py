@@ -15,5 +15,9 @@ class UsageLogAdmin(admin.ModelAdmin):
     list_display = ['id', 'stand', 'release', 'status', 'started_at', 'task', 'hash', 'finished_at', 'author']
 
 
+class UsageLogAdmin(admin.ModelAdmin):
+    list_filter = ['stand', ]
+
+
 admin.site.register(TestEnvironment, TestEnvironmentAdmin)
 admin.site.register(UsageLog, UsageLogAdmin)
