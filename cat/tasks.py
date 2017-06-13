@@ -1,4 +1,10 @@
 
+from .models import *
+
 
 def getFreeServer():
-    pass
+    env = TestEnvironment()
+    env.acquire()
+
+
+

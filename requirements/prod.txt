@@ -12,9 +12,7 @@ jira
 certifi
 urllib3[secure]
 django-extensions
-django-celery-results
 redis
-django-celery-beat
 gunicorn
 setproctitle
 six
