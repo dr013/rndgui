@@ -65,7 +65,7 @@ CELERY_RESULT_BACKEND = 'redis://sv2-web.bt.bpc.in:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Africa/Nairobi'
+CELERY_TIMEZONE = 'Europe/Moscow'
 
 CACHES = {
     'default': {
