@@ -142,4 +142,4 @@ rndgui/static/admin
 rndgui/static/admin_tools
 rndgui/rndgui.db
 rndgui/static/django_extensions/
-rndgui.iml
+*.bak
