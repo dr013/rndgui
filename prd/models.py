@@ -13,7 +13,7 @@ from acm.models import Institution
 from prd.api import GitLab, JiraProject
 
 # Get an instance of a logger
-logger = logging.getLogger('prd')
+logger = logging.getLogger(__name__)
 
 
 def getkey(item):
@@ -279,18 +279,20 @@ class Build(models.Model):
         if self.released:
             # close jira task
             status = check_jira_task_status(self.jira)
-            logger.debug("Check Jira task {} status".format(self.jira))
+            logger.debug("Jira task {jra} - status is {status}".format(jra=self.jira, status=status))
+
             if 'Closed' not in status:
                 jira = JiraProject(project=self.release.product.jira)
-                jira.assign_task(self.jira, self.author.username)
-                jira.start_task(self.jira)
-                jira.add_comment(self.jira, 'Init build for new release {rls}'.format(rls=self.release.name))
-                jira.stop_task(self.jira)
+                # jira.assign_task(self.jira, self.author.username)
+                # jira.start_task(self.jira)
+                jira.add_comment(self.jira, 'Build {}'.format(self.full_name))
+                # jira.stop_task(self.jira)
                 jira.close_task(self.jira)
             else:
                 logger.debug("Task already have status Closed!")
             # create gitlab tag
-            create_zero_tag(self.release.product.jira, self.release, self.git_name, self.author)
+            if self.name == '0':
+                create_zero_tag(self.release.product.jira, self.release, self.git_name, self.author)
 
         super(Build, self).save(*args, **kwargs)
 
@@ -368,7 +370,7 @@ class ReleasePart(models.Model):
 class BuildRevision(models.Model):
     build = models.ForeignKey(Build)
     release_part = models.ForeignKey(ReleasePart)
-    revision = models.CharField(_("Git revision"), max_length=40)
+    revision = models.CharField(_("Git revision"), max_length=40, null=True, blank=True)
 
     def __str__(self):
         return '{build}={release_part}'.format(build=self.build, release_part=self.release_part)

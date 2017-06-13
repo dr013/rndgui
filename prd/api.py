@@ -109,11 +109,27 @@ class JiraProject:
         else:
             return False
 
-    def create_version(self, version_name):
-        logger.info("Create version in Jira")
-        cur_date = datetime.datetime.now()
-        res = self.jira.create_version(version_name, self.project, startDate=cur_date.isoformat())
-        return res
+    def create_version(self, version_name, start=datetime.datetime.now().isoformat(), released=False, archived=False,
+                       release_date=None, description=None):
+
+        version = self.check_version(version_name)
+        if not version:
+            logger.info("Create version {ver} in Jira {prj}".format(ver=version_name, prj=self.project))
+            version = self.jira.create_version(name=version_name, project=self.project, description=description,
+                                               archived=archived, releaseDate=release_date, start=start)
+        else:
+            logger.info("Found version {ver} in Jira {prj}".format(ver=version_name, prj=self.project))
+
+        return version
+
+    def check_version(self, version):
+        versions = self.jira.project_versions(self.project)
+        find_version = [x.name for x in versions]
+        x = {x.name: x for x in versions}
+        if version in find_version:
+            return x[version]
+        else:
+            return False
 
     def move_version(self, version_id, after_id):
         res = self.jira.move_version(after_id, version_id)
@@ -155,11 +171,12 @@ class JiraProject:
         return res
 
     def create_sub_task(self, parent, build):
-        self.create_version(build)
+        desc = "Build {b}".format(b=build)
+        self.create_version(version_name=build, description=desc)
         params = {
             "project": {"key": self.project.key},
             "parent": {"key": parent},
-            "summary": "Build {b}".format(b=build),
+            "summary": desc,
             "issuetype": {"name": "Sub-task"},
             "versions": [{"id": self.get_version_id(build)}]
         }
@@ -222,9 +239,22 @@ class JiraProject:
         res = self.jira.transition_issue(issue, '5', resolution={'id': '1'})
         return res
 
-    def close_task(self, task):
+    def find_transition(self, task, act):
         issue = self.jira.issue(task)
-        res = self.jira.transition_issue(issue, '701')
+        transitions = self.jira.transitions(issue)
+        logger.debug(transitions)
+        for rec in transitions:
+            if act in rec['name']:
+                return issue, rec['id']
+        return issue, None
+
+    def close_task(self, task):
+        act = 'Close Issue'
+        issue, transition = self.find_transition(task, act)
+        if transition:
+            res = self.jira.transition_issue(issue, transition)
+        else:
+            res = None
         return res
 
     def add_comment(self, task, msg):
