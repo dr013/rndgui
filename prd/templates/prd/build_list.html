@@ -29,7 +29,7 @@
                     {% endif %}
                 <tr {% if rec.released %}class="success"{% endif %}>
                     <td>{% if rec.released %}
-                        {% if perms.prd.add_hotfix %}
+                        {% if perms.prd.add_hotfix and not forloop.first %}
                             <a href="{% url 'hotfix-create' rec.pk %}" class="btn btn-success"
                                role="button">{% bootstrap_icon 'plus' %}Issue hotfix</a>
                         {% endif %}
