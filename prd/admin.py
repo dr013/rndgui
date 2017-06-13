@@ -22,7 +22,7 @@ class ReleaseAdmin(SimpleHistoryAdmin):
 
 
 class BuildAdmin(SimpleHistoryAdmin):
-    list_filter = ('release__product',)
+    list_filter = ('release__product', 'release')
 
 
 class BuildRevisionAdmin(SimpleHistoryAdmin):
