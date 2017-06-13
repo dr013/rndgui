@@ -39,9 +39,9 @@ class GitLab:
 
     def create_tag(self, project_id, tag, ref, desc, user=None):
         # TODO check permission for sudo user  - add tag available only for Developer, Master and Owner role.
-        logger.debug("Check Gitlab tag")
+        logger.debug("Check Gitlab tag {}".format(tag))
         if self.check_tag(project_id, tag):
-            logger.debug("Found gitlab tag {tag} in GitLab project {prd}".format(tag=tag, prd=project_id))
+            logger.debug("Found gitlab tag {tag} in GitLab project {prd}.".format(tag=tag, prd=project_id))
         else:
             try:
                 tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},

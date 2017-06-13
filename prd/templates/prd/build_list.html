@@ -9,6 +9,7 @@
                 <div class="panel-body">
                     <a href="{% url 'release-list-by-product' release.product.jira %}" class="btn btn-success active" role="button">Back to release
                         list</a>
+                    <a href="{% url 'product-detail' release.product.pk %}" class="btn btn-success" role="button">{{ release.product.title }}</a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -20,7 +21,6 @@
                             <th>Action</th>
                             <th>Name</th>
                             <th>Release</th>
-                            <th>Product</th>
                             <th>Build Jira Task</th>
                             <th>Release Date</th>
                             <th>Author</th>
@@ -29,9 +29,11 @@
                     {% endif %}
                 <tr {% if rec.released %}class="success"{% endif %}>
                     <td>{% if rec.released %}
-                        {% if perms.prd.add_hotfix and not forloop.first %}
+                        {% if perms.prd.add_hotfix and rec.name != '0' %}
                             <a href="{% url 'hotfix-create' rec.pk %}" class="btn btn-success"
                                role="button">{% bootstrap_icon 'plus' %}Issue hotfix</a>
+                            {% elif rec.name == '0' %}
+                            Technical build
                         {% endif %}
                     {% else %}
                         {% if perms.prd.add_build %}
@@ -40,8 +42,7 @@
                         {% endif %}
                     {% endif %}
                     <td>{{ rec.full_name }}</td>
-                    <td>{{ rec.release }}</td>
-                    <td>{{ rec.release.product }}</td>
+                    <td>{{ rec.release.name }}</td>
                     <td>{{ rec.get_jira_url|safe }} </td>
                     <td>{% if rec.date_released %}
                         {{ rec.date_released|date }}
