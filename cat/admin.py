@@ -9,4 +9,9 @@ class TestEnvironmentAdmin(admin.ModelAdmin):
     list_filter = ['env', ]
 
 
+class UsageLogAdmin(admin.ModelAdmin):
+    list_filter = ['stand', ]
+
+
 admin.site.register(TestEnvironment, TestEnvironmentAdmin)
+admin.site.register(UsageLog, UsageLogAdmin)
