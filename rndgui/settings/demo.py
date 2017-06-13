@@ -14,7 +14,7 @@ INTERNAL_IPS = ["127.0.0.1", '10.7.32.91', ]
 
 AUTH_URL = "http://sv2-web.bt.bpc.in/auth/"
 
-ALLOWED_HOSTS = ["sv2.bpc.in", "127.0.0.1", ]
+ALLOWED_HOSTS = ["sv2.bpc.in", "127.0.0.1", "localhost", ]
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

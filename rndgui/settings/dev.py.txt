@@ -14,7 +14,7 @@ INTERNAL_IPS = ["127.0.0.1", '10.7.32.91']
 
 AUTH_URL = "http://sv2-web.bt.bpc.in/auth/"
 
-ALLOWED_HOSTS = ["krukov.bpc.in", "127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ]
 
 DATABASES = {
     'default': {
