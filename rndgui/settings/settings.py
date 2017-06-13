@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'cat',
     'envrnmnt',
-    'django_celery_results',
-    'django_celery_beat',
     'jra'
 ]
 
