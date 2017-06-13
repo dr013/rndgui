@@ -23,11 +23,6 @@ APP_DIR = os.path.dirname(BASE_DIR)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '@og4(j(*5s^_pn=fgg%tq%tn84^-%c-^zx^3qck0v9a=fxnb4a'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-
-
-ALLOWED_HOSTS = []
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -220,3 +215,5 @@ JIRA_PASS = '3WqOGzrj9G'
 
 # Celery common
 CELERY_RESULT_BACKEND = 'django-db'
+
+ADMINS = [('Sergey Dorontsov', 'dorontcov@bpcbt.com'), ('Evgeniy Kryukov', 'krukov@bpcbt.com')]
