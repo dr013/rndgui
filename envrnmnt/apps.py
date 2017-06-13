@@ -5,5 +5,5 @@ from django.apps import AppConfig
 
 
 class CatConfig(AppConfig):
-    name = 'env'
-    verbose_name = "Test environments"
+    name = 'envrnmnt'
+    verbose_name = "Environment settings"

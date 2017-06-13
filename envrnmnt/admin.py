@@ -7,9 +7,6 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from .models import *
 
 
-# Register your models here.
-
-
 class DBInstanceAdmin(SimpleHistoryAdmin):
     list_filter = ['host', ]
 

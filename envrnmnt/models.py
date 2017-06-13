@@ -9,9 +9,9 @@ from django.contrib.contenttypes.models import ContentType
 from acm.models import Institution
 
 WEIGHT_ARR = (
-    ('Big', 'For SmartVista project'),
-    ('Medium', 'For SMSGate, SSO projects'),
-    ('Small', 'For other project'),
+    ('Big', 'For SmartVista project - 30 Gb'),
+    ('Medium', 'For SMSGate, SSO projects - 5 Gb'),
+    ('Small', 'For other project - less 1 Gb'),
 )
 
 
@@ -23,7 +23,7 @@ class DBInstance(models.Model):
     passwd = models.CharField('DB Password', max_length=200)
     sys_user = models.CharField('System Login', max_length=200, blank=True, null=True, default='system')
     sys_passwd = models.CharField('System Password', max_length=200, blank=True, null=True, default='SYSTEM1')
-    weight = models.CharField('Weight', choices=WEIGHT_ARR, max_length=200,)
+    weight = models.CharField('Weight', choices=WEIGHT_ARR, max_length=200, )
     content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField(null=True, blank=True)
     content_object = GenericForeignKey('content_type', 'object_id')
