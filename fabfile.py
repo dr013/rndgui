@@ -63,6 +63,7 @@ def deploy():
     migrate()
     if env.environment == 'production':
         # stop_webserver()
+        clean_pyc()
         collect_static()
         # start_webserver()
         # touch_reload()
@@ -122,6 +123,13 @@ def collect_static():
     print(green('Collect static'))
     with virtualenv():
         run("python manage.py collectstatic -l --noinput")
+
+
+def clean_pyc():
+    require('environment', provided_by=[production1()])
+    print(green('Clean pyc'))
+    with virtualenv():
+        run("python manage.py clean_pyc")
 
 
 def stop_webserver():
