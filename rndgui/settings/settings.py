@@ -133,10 +133,18 @@ LOGGING = {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
+        'main_formatter': {
+            'format': '%(levelname)s:%(name)s: %(message)s '
+                      '(%(asctime)s; %(filename)s:%(lineno)d)',
+            'datefmt': "%Y-%m-%d %H:%M:%S",
+        }
     },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
         }
     },
     'handlers': {
@@ -155,18 +163,43 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler',
             'include_html': True
         },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
+        'production_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': 'logs/rndgul-app.log',
-            'formatter': 'verbose'
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 7,
+            'formatter': 'verbose',
+            'filters': ['require_debug_false'],
+        },
+        'debug_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/main_debug.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB
+            'backupCount': 7,
+            'formatter': 'main_formatter',
+            'filters': ['require_debug_true'],
+        },
+        'null': {
+            "class": 'logging.NullHandler',
         }
     },
     'loggers': {
-        'django': {
-            'handlers': ['sentry', 'console', 'mail_admins'],
-            'level': 'WARNING',
+        'django.request': {
+            'handlers': ['mail_admins', 'console', 'sentry'],
+            'level': 'ERROR',
             'propagate': True,
+        },
+        'django': {
+            'handlers': ['null', ],
+        },
+        'py.warnings': {
+            'handlers': ['null', ],
+        },
+        '': {
+            'handlers': ['console', 'production_file', 'debug_file'],
+            'level': "DEBUG",
         },
         'raven': {
             'level': 'WARNING',
@@ -177,10 +210,6 @@ LOGGING = {
             'level': 'WARNING',
             'handlers': ['sentry'],
             'propagate': False,
-        },
-        'prd': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
         }
     }
 }
