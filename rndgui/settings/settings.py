@@ -217,5 +217,3 @@ JIRA_PASS = '3WqOGzrj9G'
 CELERY_RESULT_BACKEND = 'django-db'
 
 ADMINS = [('Sergey Dorontsov', 'dorontcov@bpcbt.com'), ('Evgeniy Kryukov', 'krukov@bpcbt.com')]
-
-USE_TZ = True
