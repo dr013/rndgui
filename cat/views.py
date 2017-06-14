@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.urls import reverse_lazy
+from django.shortcuts import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from .models import *
 from django.contrib import messages
@@ -63,3 +64,12 @@ class CreateTestEnv(CreateView):
         context = super(CreateTestEnv, self).get_context_data(**kwargs)
         context['list_url'] = "test-env-list"
         return context
+
+
+def acquire_env(request):
+    model = TestEnvironment()
+    #   TODO get Release by 'stand.product'
+    release = Release.objects.get(pk=1)
+    model.acquire(user=request.user, release=release)
+    #   TODO add 'human'-response
+    return HttpResponseRedirect('/test-env/test-env-list')

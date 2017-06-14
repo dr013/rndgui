@@ -177,14 +177,6 @@ LOGGING = {
             'level': 'WARNING',
             'handlers': ['sentry'],
             'propagate': False,
-        },
-        'prd': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-        },
-        'cat': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
         }
     }
 }
