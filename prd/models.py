@@ -229,7 +229,7 @@ class Build(models.Model):
     is_active = models.BooleanField(_("Is active"), default=True)
     released = models.BooleanField(_("Is released"), default=False)
     author = models.ForeignKey(User)
-    date_released = models.DateField(_("Build date"), null=True, blank=True)
+    date_released = models.DateTimeField(_("Build date"), null=True, blank=True)
     created = models.DateField(_("Created"), auto_now_add=True)
     updated = models.DateField(_("Updated"), auto_now=True)
     history = HistoricalRecords()

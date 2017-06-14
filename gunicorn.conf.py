@@ -2,7 +2,7 @@ import multiprocessing
 
 # bind = "127.0.0.1:8888"
 
-bind = "unix:/srv/rndgui/rndgui.sock"
+bind = "unix:/tmp/rndgui.sock"
 # worker numbers 2xCPUs + 1
 workers = multiprocessing.cpu_count() * 2 + 1
 user = "uwsgi"
