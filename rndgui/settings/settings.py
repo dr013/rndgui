@@ -93,6 +93,8 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+TIME_ZONE = 'Europe/Moscow'
+
 USE_I18N = True
 
 USE_L10N = True
@@ -203,6 +205,17 @@ LOGGING = {
             'level': 'WARNING',
             'handlers': ['sentry'],
             'propagate': False,
+<<<<<<< 6d3f682d407cda623349616004132584c0dbfe94
+=======
+        },
+        'prd': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        },
+        'cat': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+>>>>>>> Develop lock/release for testStands
         }
     }
 }

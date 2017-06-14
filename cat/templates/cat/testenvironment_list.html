@@ -24,6 +24,7 @@
                                 <th>Environment</th>
                                 <th>Product</th>
                                 <th>Status</th>
+                                <th>Expire time (min)</th>
                                 {% if perms.cat.change_testenvironment %}
                                     <th>Edit</th>
                                 {% endif %}
@@ -36,7 +37,8 @@
                                 <td><a href="{% url 'test-env-detail' rec.pk %}">{{ rec.name }}</a></td>
                                 <td>{{ rec.env }}</td>
                                 <td>{{ rec.prd }}</td>
-                                <td>{{ rec.get_status_display }}</td>
+                                <td>{{ rec.status }}</td>
+                                <td>{{ rec.expire }}</td>
                                 {% if perms.cat.change_testenvironment %}
                                 <td>
                                     {% buttons %}
