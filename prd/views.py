@@ -134,7 +134,7 @@ class ProductReleaseList(ListView):
 class ReleaseBuildList(ListView):
     def get_queryset(self):
         self.release = get_object_or_404(Release, pk=self.kwargs['pk'])
-        return Build.objects.filter(release=self.release).order_by('-date_released', '-created')
+        return Build.objects.filter(release=self.release).order_by('-date_released')
 
     def get_context_data(self, **kwargs):
         context = super(ReleaseBuildList, self).get_context_data(**kwargs)
