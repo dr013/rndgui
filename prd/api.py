@@ -109,19 +109,6 @@ class JiraProject:
         else:
             return False
 
-    def create_version(self, version_name, start=datetime.datetime.now().isoformat(), released=False, archived=False,
-                       release_date=None, description=None):
-
-        version = self.check_version(version_name)
-        if not version:
-            logger.info("Create version {ver} in Jira {prj}".format(ver=version_name, prj=self.project))
-            version = self.jira.create_version(name=version_name, project=self.project, description=description,
-                                               archived=archived, releaseDate=release_date, start=start)
-        else:
-            logger.info("Found version {ver} in Jira {prj}".format(ver=version_name, prj=self.project))
-
-        return version
-
     def check_version(self, version):
         versions = self.jira.project_versions(self.project)
         find_version = [x.name for x in versions]
@@ -130,6 +117,18 @@ class JiraProject:
             return x[version]
         else:
             return False
+
+    def create_version(self, version_name, start=datetime.datetime.now().isoformat(), released=False, archived=False,
+                       description=None):
+
+        version = self.check_version(version_name)
+        if not version:
+            logger.info("Create version {ver} in Jira {prj}".format(ver=version_name, prj=self.project))
+            version = self.jira.create_version(name=version_name, project=self.project.key, description=description,
+                                               released=released, archived=archived, startDate=start)
+        else:
+            logger.info("Found version {ver} in Jira {prj}".format(ver=version_name, prj=self.project))
+        return version
 
     def move_version(self, version_id, after_id):
         res = self.jira.move_version(after_id, version_id)
