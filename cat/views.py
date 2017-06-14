@@ -35,7 +35,7 @@ class TestEnvDetail(DetailView):
 
 class UpdateTestEnv(UpdateView):
     model = TestEnvironment
-    fields = ['name', 'env', 'prd', 'status']
+    fields = ['name', 'env', 'prd', 'expire']
     success_message = 'Test env was updated successfully.'
     template_name = "cat/testenvironment_form.html"
 
@@ -51,7 +51,7 @@ class UpdateTestEnv(UpdateView):
 
 class CreateTestEnv(CreateView):
     model = TestEnvironment
-    fields = ['name', 'env', 'prd', 'status']
+    fields = ['name', 'env', 'prd', 'expire']
     success_message = 'Test env was created successfully.'
     template_name = "cat/testenvironment_form.html"
 
