@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from envrnmnt.models import Environment
 from prd.models import Product, Release
+from django.contrib.auth.models import User
 import logging
 import datetime
 from django.utils import timezone
@@ -43,7 +44,34 @@ class TestEnvironment(models.Model):
         else:
             return 'Busy'
 
-    def acquire(self):
+    def acquire(self, release, user=None):
+        available_stand = TestEnvironment.objects.all().filter(is_active=True)
+        for stand in available_stand:
+            logger.info("Check stand [{st}]:".format(st=stand.name))
+            usage_info = UsageLog.objects.all().filter(stand=stand)
+
+            if usage_info.count() > 0:
+                last_usage_stand = usage_info.order_by('-started_at')[0]
+
+                if 'busy' in last_usage_stand.status:
+                    logger.info("Stand [{st}] - is busy".format(st=stand.name))
+                else:
+                    logger.info("Stand [{st}] - is free, can use it".format(st=stand.name))
+                    # TODO add run jenkins task at selected stand, and return task name
+                    task = 'CI task'
+                    use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
+                    use.save()
+                    break
+
+            else:
+                logger.info("Stand [{st}] - is free and it can use now".format(st=stand.name))
+                # TODO add run jenkins task at selected stand, and return task name
+                task = 'CI task'
+                use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
+                use.save()
+                break
+
+    def auto_acquire(self, user=None):
         available_stand = TestEnvironment.objects.all().filter(is_active=True)
         for stand in available_stand:
             logger.info("Check stand [{st}]:".format(st=stand.name))
@@ -60,14 +88,13 @@ class TestEnvironment(models.Model):
                     logger.info("Stand [{st}] - is free, can use it".format(st=stand.name))
                     # TODO add run jenkins task at selected stand, and return task name
                     task = 'CI task'
-                    use = UsageLog(stand=stand, release=release, status='busy', task=task)
+                    use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
                     use.save()
-
             else:
                 logger.info("Stand [{st}] - is free and it can use now".format(st=stand.name))
                 # TODO add run jenkins task at selected stand, and return task name
                 task = 'CI task'
-                use = UsageLog(stand=stand, release=release, status='busy', task=task)
+                use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
                 use.save()
 
     def release(self, hash, status='completed'):
@@ -115,6 +142,7 @@ class UsageLog(models.Model):
     task = models.CharField('Task', max_length=200, null=True, blank=True)
     #   TODO change call func _create_hash to common.func.create_hash
     hash = models.CharField(max_length=10, default=_create_hash, editable=False, unique=True)
+    author = models.ForeignKey(User, null=True, blank=True)
 
     def __str__(self):
         return '{name}::{status}'.format(name=self.stand, status=self.status)

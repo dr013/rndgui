@@ -17,3 +17,4 @@ gunicorn
 setproctitle
 six
 flower
+python-jenkins==0.4.14
