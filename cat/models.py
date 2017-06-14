@@ -10,6 +10,7 @@ from django.utils import timezone
 from binascii import hexlify
 import os
 
+
 STATUSES = (
     ('completed', 'Completed'),
     ('busy', 'Busy'),
@@ -33,9 +34,6 @@ class TestEnvironment(models.Model):
 
     def get_absolute_url(self):
         return reverse('test-env-detail', kwargs={'pk': self.pk})
-
-    def get_fields(self):
-        return [(field.verbose_name, field._get_val_from_obj(self)) for field in self.__class__._meta.fields]
 
     @property
     def status(self):
@@ -102,6 +100,7 @@ class TestEnvironment(models.Model):
                                                                                             ex=print_expire_date))
 
 
+#   TODO remove this
 def _create_hash():
     """This function generate 10 character long hash"""
     return hexlify(os.urandom(5))
@@ -114,6 +113,7 @@ class UsageLog(models.Model):
     started_at = models.DateTimeField(verbose_name='Start time', auto_now_add=True)
     finished_at = models.DateTimeField(verbose_name='Finish time', null=True, blank=True)
     task = models.CharField('Task', max_length=200, null=True, blank=True)
+    #   TODO change call func _create_hash to common.func.create_hash
     hash = models.CharField(max_length=10, default=_create_hash, editable=False, unique=True)
 
     def __str__(self):
