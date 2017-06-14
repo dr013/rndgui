@@ -16,3 +16,4 @@ redis
 gunicorn
 setproctitle
 six
+python-jenkins==0.4.14

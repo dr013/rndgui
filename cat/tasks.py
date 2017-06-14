@@ -2,16 +2,16 @@
 from .models import *
 
 
-def getFreeServer():
+def get_stand():
     env = TestEnvironment()
-    env.acquire()
+    env.auto_acquire()
 
 
-def releaseServer(hash):
+def release_stand(rec_hash):
     env = TestEnvironment()
-    env.release(hash=hash)
+    env.release(hash=rec_hash)
 
 
-def autoRelease():
+def auto_release_stand():
     env = TestEnvironment()
     env.auto_release()

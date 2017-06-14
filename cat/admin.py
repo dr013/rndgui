@@ -12,7 +12,7 @@ class TestEnvironmentAdmin(admin.ModelAdmin):
 
 class UsageLogAdmin(admin.ModelAdmin):
     list_filter = ['stand', ]
-    list_display = ['id', 'stand', 'release', 'status', 'started_at', 'task', 'hash', 'finished_at']
+    list_display = ['id', 'stand', 'release', 'status', 'started_at', 'task', 'hash', 'finished_at', 'author']
 
 
 admin.site.register(TestEnvironment, TestEnvironmentAdmin)

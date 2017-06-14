@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^test-env-delete/(?P<pk>[0-9]+)/$', views.DeleteTestEnv.as_view(), name='test-env-delete'),
     # Env
     url(r'^env/(?P<pk>[0-9]+)/$', EnvDetail.as_view(), name='env-detail'),
+    url(r'^get-one-stand$', views.acquire_env, name='get-one-stand')
 ]
 
