@@ -123,6 +123,7 @@ def collect_static():
     print(green('Collect static'))
     with virtualenv():
         run("python manage.py collectstatic -l --noinput")
+        run("cp -r rndgui/rndgui/static /srv/")
 
 
 def clean_pyc():
