@@ -98,6 +98,8 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+TIME_ZONE = 'Europe/Moscow'
+
 USE_I18N = True
 
 USE_L10N = True
@@ -177,6 +179,10 @@ LOGGING = {
             'propagate': False,
         },
         'prd': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        },
+        'cat': {
             'handlers': ['console', 'file'],
             'level': 'DEBUG',
         }
