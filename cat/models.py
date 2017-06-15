@@ -9,7 +9,9 @@ import logging
 import datetime
 from django.utils import timezone
 from binascii import hexlify
+from common.jenkins_wrapper import JenkinsWrapper
 import os
+from django.conf import settings
 
 
 STATUSES = (
@@ -19,7 +21,7 @@ STATUSES = (
 )
 
 # Get an instance of a logger
-logger = logging.getLogger('cat')
+logger = logging.getLogger(__name__)
 
 
 # Create your models here.
@@ -40,11 +42,11 @@ class TestEnvironment(models.Model):
     def status(self):
         data = UsageLog.objects.all().filter(stand=self).order_by('-started_at')[0]
         if ("fail" in data.status) or ("completed" in data.status):
-            return 'Free'
+            return 'Ready'
         else:
             return 'Busy'
 
-    def acquire(self, release, user=None):
+    def acquire_manual(self, release, user=None):
         available_stand = TestEnvironment.objects.all().filter(is_active=True)
         for stand in available_stand:
             logger.info("Check stand [{st}]:".format(st=stand.name))
@@ -57,26 +59,31 @@ class TestEnvironment(models.Model):
                     logger.info("Stand [{st}] - is busy".format(st=stand.name))
                 else:
                     logger.info("Stand [{st}] - is free, can use it".format(st=stand.name))
-                    # TODO add run jenkins task at selected stand, and return task name
-                    task = 'CI task'
+                    jenkins = JenkinsWrapper()
+                    task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
+                                             param={'RELEASE': release, 'HOST': stand.name})
                     use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
                     use.save()
                     break
-
             else:
                 logger.info("Stand [{st}] - is free and it can use now".format(st=stand.name))
-                # TODO add run jenkins task at selected stand, and return task name
-                task = 'CI task'
+                jenkins = JenkinsWrapper()
+                task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
+                                         param={'RELEASE': release, 'HOST': stand.name})
                 use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
                 use.save()
                 break
+            return stand
 
-    def auto_acquire(self, user=None):
+    def acquire(self, user=None):
+        acquire_stand = ''
         available_stand = TestEnvironment.objects.all().filter(is_active=True)
         for stand in available_stand:
             logger.info("Check stand [{st}]:".format(st=stand.name))
+
             #   TODO get Release by 'stand.product'
             release = Release.objects.get(pk=1)
+
             usage_info = UsageLog.objects.all().filter(stand=stand)
 
             if usage_info.count() > 0:
@@ -86,29 +93,39 @@ class TestEnvironment(models.Model):
                     logger.info("Stand [{st}] - is busy".format(st=stand.name))
                 else:
                     logger.info("Stand [{st}] - is free, can use it".format(st=stand.name))
-                    # TODO add run jenkins task at selected stand, and return task name
-                    task = 'CI task'
+                    jenkins = JenkinsWrapper()
+                    task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
+                                             param={'RELEASE': release.name, 'HOST': stand.name})
                     use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
                     use.save()
+                    acquire_stand = stand
+                    break
             else:
                 logger.info("Stand [{st}] - is free and it can use now".format(st=stand.name))
-                # TODO add run jenkins task at selected stand, and return task name
-                task = 'CI task'
+                jenkins = JenkinsWrapper()
+                task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
+                                         param={'RELEASE': release.name, 'HOST': stand.name})
                 use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
                 use.save()
+                acquire_stand = stand
+                break
+        return acquire_stand
 
     def release(self, hash, status='completed'):
         try:
+            jenkins = JenkinsWrapper()
             usage_info = UsageLog.objects.get(hash=hash)
             usage_info.finished_at = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
             usage_info.status = status
             usage_info.save()
+            jenkins.stop_build(task_url=usage_info.task)
             logger.info("Stand [{st}] - is released".format(st=usage_info.stand))
         except UsageLog.DoesNotExist:
             logger.error("Log record with hash [{h}] not found!".format(h=hash))
 
     def auto_release(self):
         usage_info = UsageLog.objects.all().filter(status='busy')
+        jenkins = JenkinsWrapper()
         for usage_stand in usage_info:
             start_time = datetime.datetime.strftime(usage_stand.started_at, "%H:%M:%S %d/%m")
             logger.info("Check busy's stand [{st}], started at {tm}:".format(st=usage_stand.stand,
@@ -122,6 +139,7 @@ class TestEnvironment(models.Model):
                 usage_stand.status = 'fail'
                 usage_stand.finished_at = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
                 usage_stand.save()
+                jenkins.stop_build(task_url=usage_stand.task)
             else:
                 logger.info("End time [{ex}] for stand [{st}] is not out. Continue.".format(st=stand.name,
                                                                                             ex=print_expire_date))

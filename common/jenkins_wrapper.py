@@ -1,9 +1,7 @@
 import jenkins
 import logging
-
-JENKINS_HOST = 'http://jenkins2.bt.bpc.in:8080/'
-JENKINS_USER = 'dorontcov'
-JENKINS_PASS = 'V6LqKu5F'
+from django.conf import settings
+import requests
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -12,27 +10,34 @@ logger = logging.getLogger(__name__)
 class JenkinsWrapper:
     def __init__(self):
         try:
-            self.server = jenkins.Jenkins(JENKINS_HOST, username=JENKINS_USER, password=JENKINS_PASS)
+            self.server = jenkins.Jenkins(settings.JENKINS_HOST,
+                                          username=settings.JENKINS_USER,
+                                          password=settings.JENKINS_PASS)
             self.user = self.server.get_whoami()
         except jenkins.JenkinsException:
-            logger.error("Could not connect to jenkins host - {h}".format(h=JENKINS_HOST))
+            logger.error("Could not connect to jenkins host - {h}".format(h=settings.JENKINS_HOST))
 
     def check_build_perm(self, task):
         # TODO check job permissions
-        return self.server.get_job_info(name=task)
+        pass
 
     def run_build(self, task, param):
+        result = ''
         try:
-            return self.server.build_job(name=task, parameters=param)
+            next_build = self.server.get_job_info(task)['nextBuildNumber']
+            self.server.build_job(name=task, parameters=param)
+            result = '{j}job/{t}/{b}/'.format(j=settings.JENKINS_HOST, t=task, b=next_build)
         except jenkins.JenkinsException, err:
             logger.error("Auth error - {e}".format(e=err))
-            print err.message
-            return False
+        return result
 
+    def stop_build(self, task_url):
+        try:
+            url = '{u}stop'.format(u=task_url)
+            auth = (settings.JENKINS_USER, settings.JENKINS_PASS)
+            req = requests.post(url=url, auth=auth)
+        except requests.HTTPError, err:
+            logger.error("HTTP error - {e}".format(e=err))
 
 if __name__ in '__main__':
-    task1 = 'test.host.deploy'
-    task2 = 'test.django'
-    j = JenkinsWrapper()
-    print j.run_build(task=task1, param={'PROJECT': 'backoffice_test_ci'})
-
+    pass

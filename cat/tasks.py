@@ -4,7 +4,7 @@ from .models import *
 
 def get_stand():
     env = TestEnvironment()
-    env.auto_acquire()
+    env.acquire()
 
 
 def release_stand(rec_hash):
