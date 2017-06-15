@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import logging
 import datetime
 from django.utils import timezone
+
 from common.jenkins_wrapper import JenkinsWrapper
 from common.func import create_hash
 from django.conf import settings
@@ -121,7 +122,7 @@ class TestEnvironment(models.Model):
         for usage_stand in usage_info:
             start_time = datetime.datetime.strftime(usage_stand.started_at, "%H:%M:%S %d/%m")
             logger.info("Run check used stand [{st}], started at {tm}:".format(st=usage_stand.stand,
-                                                                             tm=start_time))
+                                                                               tm=start_time))
             stand = TestEnvironment.objects.get(name=usage_stand.stand)
             expire_data = usage_stand.started_at + datetime.timedelta(minutes=int(stand.expire))
             print_expire_date = datetime.datetime.strftime(expire_data, "%d/%m %H:%M:%S")
