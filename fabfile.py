@@ -122,7 +122,7 @@ def collect_static():
     require('environment', provided_by=[production1, production2, dev])
     print(green('Collect static'))
     with virtualenv():
-        run("python manage.py collectstatic -l --noinput")
+        run("python manage.py collectstatic --noinput")
         run("cp -r rndgui/rndgui/static /srv/")
 
 
