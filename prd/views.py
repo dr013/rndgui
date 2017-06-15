@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+import json
 # from django.forms import formset_factory
 from django import forms
 from django.contrib import messages
@@ -284,5 +284,6 @@ class ReleaseCreate(CreateView):
 def rest_product(request, product):
     data = get_object_or_404(Product, jira=product.upper())
 
-    qs_json = {"title": data.title}
-    return JsonResponse(qs_json, safe=False)
+    qs_json = {"title": data.title, 'jira': data.jira, 'owner': data.owner.username, 'desc': data.desc}
+
+    return JsonResponse(qs_json)
