@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth.decorators import login_required, permission_required
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse_lazy
 # from django.forms import formset_factory
 from django import forms
-
-from prd.forms import ReleaseForm, ProductForm
-from .models import *
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core import serializers
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+
+from prd.forms import ProductForm
+from .models import *
 
 # Get an instance of a logger
 logger = logging.getLogger("prd")
@@ -278,3 +279,10 @@ class ReleaseCreate(CreateView):
         user = self.request.user
         form.instance.author = user
         return super(ReleaseCreate, self).form_valid(form)
+
+
+def rest_product(request, product):
+    data = get_object_or_404(Product, jira=product.upper())
+
+    qs_json = {"title": data.title}
+    return JsonResponse(qs_json, safe=False)
