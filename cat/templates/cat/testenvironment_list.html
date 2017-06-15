@@ -24,7 +24,9 @@
                                 <th>Environment</th>
                                 <th>Product</th>
                                 <th>Status</th>
-                                <th>Expire time (min)</th>
+                                <th>Expire time, (min)</th>
+                                <th>Statistic</th>
+                                <th>Force release</th>
                                 {% if perms.cat.change_testenvironment %}
                                     <th>Edit</th>
                                 {% endif %}
@@ -39,12 +41,22 @@
                                 <td>{{ rec.prd }}</td>
                                 <td>{{ rec.status }}</td>
                                 <td>{{ rec.expire }}</td>
+                                <td><a href="{% url 'usage-stand-log' rec.name %}">View stat</a></td>
+                                <td>
+                                    {% if rec.hash %}
+                                        {% buttons %}
+                                            <a href="{% url 'release-stand-param' rec.hash %}"
+                                               class="btn btn-danger btn-sm">{% bootstrap_icon icon %}UnLock
+                                            </a>
+                                        {% endbuttons %}
+                                    {% endif %}
+                                </td>
                                 {% if perms.cat.change_testenvironment %}
                                 <td>
                                     {% buttons %}
-                                    <a href="{% url 'test-env-update' rec.pk %}"
-                                       class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}
-                                    </a>
+                                        <a href="{% url 'test-env-update' rec.pk %}"
+                                           class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}
+                                        </a>
                                     {% endbuttons %}
                                 </td>
                                 {% endif %}
@@ -52,7 +64,7 @@
                                     <td>
                                         {% buttons %}
                                         <a href="{% url 'test-env-delete' rec.pk %}"
-                                           class="btn btn-warning btn-sm">{% bootstrap_icon "remove" %}
+                                           class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}
                                         </a>
                                         {% endbuttons %}
                                     </td>

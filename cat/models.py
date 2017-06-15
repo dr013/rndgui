@@ -8,9 +8,8 @@ from django.contrib.auth.models import User
 import logging
 import datetime
 from django.utils import timezone
-from binascii import hexlify
 from common.jenkins_wrapper import JenkinsWrapper
-import os
+from common.func import create_hash
 from django.conf import settings
 
 
@@ -26,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 # Create your models here.
 class TestEnvironment(models.Model):
-    name = models.CharField('Name', max_length=200)
+    name = models.CharField('Name', max_length=200, unique=True)
     env = models.ForeignKey(Environment, verbose_name='Environment')
     prd = models.ForeignKey(Product, verbose_name='Product', null=True, blank=True)
     expire = models.CharField('Expire time', max_length=200, default=120)
@@ -46,45 +45,27 @@ class TestEnvironment(models.Model):
         else:
             return 'Busy'
 
-    def acquire_manual(self, release, user=None):
-        available_stand = TestEnvironment.objects.all().filter(is_active=True)
-        for stand in available_stand:
-            logger.info("Check stand [{st}]:".format(st=stand.name))
-            usage_info = UsageLog.objects.all().filter(stand=stand)
+    @property
+    def hash(self):
+        data = UsageLog.objects.all().filter(stand=self).order_by('-started_at')[0]
+        if ("fail" in data.status) or ("completed" in data.status):
+            return False
+        else:
+            return data.hash
 
-            if usage_info.count() > 0:
-                last_usage_stand = usage_info.order_by('-started_at')[0]
-
-                if 'busy' in last_usage_stand.status:
-                    logger.info("Stand [{st}] - is busy".format(st=stand.name))
-                else:
-                    logger.info("Stand [{st}] - is free, can use it".format(st=stand.name))
-                    jenkins = JenkinsWrapper()
-                    task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                             param={'RELEASE': release, 'HOST': stand.name})
-                    use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
-                    use.save()
-                    break
-            else:
-                logger.info("Stand [{st}] - is free and it can use now".format(st=stand.name))
-                jenkins = JenkinsWrapper()
-                task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                         param={'RELEASE': release, 'HOST': stand.name})
-                use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
-                use.save()
-                break
-            return stand
-
-    def acquire(self, user=None):
+    def acquire(self, user=None, release=None):
         acquire_stand = ''
         available_stand = TestEnvironment.objects.all().filter(is_active=True)
         for stand in available_stand:
             logger.info("Check stand [{st}]:".format(st=stand.name))
 
-            #   TODO get Release by 'stand.product'
-            release = Release.objects.get(pk=1)
+            #   TODO get Release for testing by 'stand.product'
+            if not release:
+                release = Release.objects.get(pk=1)
 
             usage_info = UsageLog.objects.all().filter(stand=stand)
+
+            stand_hash = create_hash()
 
             if usage_info.count() > 0:
                 last_usage_stand = usage_info.order_by('-started_at')[0]
@@ -92,74 +73,79 @@ class TestEnvironment(models.Model):
                 if 'busy' in last_usage_stand.status:
                     logger.info("Stand [{st}] - is busy".format(st=stand.name))
                 else:
-                    logger.info("Stand [{st}] - is free, can use it".format(st=stand.name))
+                    logger.info("Stand [{st}] - free, can use it".format(st=stand.name))
+
                     jenkins = JenkinsWrapper()
                     task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                             param={'RELEASE': release.name, 'HOST': stand.name})
-                    use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
+                                             param={'RELEASE': release.name,
+                                                    'HOST': stand.name,
+                                                    'HASH': stand_hash})
+                    use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user, hash=stand_hash)
                     use.save()
                     acquire_stand = stand
                     break
             else:
-                logger.info("Stand [{st}] - is free and it can use now".format(st=stand.name))
+                logger.info("Stand [{st}] - free and it can use now".format(st=stand.name))
                 jenkins = JenkinsWrapper()
                 task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                         param={'RELEASE': release.name, 'HOST': stand.name})
-                use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user)
+                                         param={'RELEASE': release.name,
+                                                'HOST': stand.name,
+                                                'HASH': stand_hash})
+                use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user, hash=stand_hash)
                 use.save()
                 acquire_stand = stand
                 break
         return acquire_stand
 
-    def release(self, hash, status='completed'):
+    def release(self, hash, status='completed', force=False):
+        result = False
         try:
-            jenkins = JenkinsWrapper()
             usage_info = UsageLog.objects.get(hash=hash)
             usage_info.finished_at = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
+            if force:
+                jenkins = JenkinsWrapper()
+                jenkins.stop_build(task_url=usage_info.task)
+                status = 'fail'
             usage_info.status = status
             usage_info.save()
-            jenkins.stop_build(task_url=usage_info.task)
-            logger.info("Stand [{st}] - is released".format(st=usage_info.stand))
+
+            logger.info("Stand [{st}] - was released".format(st=usage_info.stand))
+            result = usage_info.stand
         except UsageLog.DoesNotExist:
-            logger.error("Log record with hash [{h}] not found!".format(h=hash))
+            logger.error("Log record with hash [{h}] was not found!".format(h=hash))
+        return result
 
     def auto_release(self):
         usage_info = UsageLog.objects.all().filter(status='busy')
         jenkins = JenkinsWrapper()
         for usage_stand in usage_info:
             start_time = datetime.datetime.strftime(usage_stand.started_at, "%H:%M:%S %d/%m")
-            logger.info("Check busy's stand [{st}], started at {tm}:".format(st=usage_stand.stand,
+            logger.info("Run check used stand [{st}], started at {tm}:".format(st=usage_stand.stand,
                                                                              tm=start_time))
             stand = TestEnvironment.objects.get(name=usage_stand.stand)
             expire_data = usage_stand.started_at + datetime.timedelta(minutes=int(stand.expire))
             print_expire_date = datetime.datetime.strftime(expire_data, "%d/%m %H:%M:%S")
             if expire_data < timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone()):
-                logger.info("End time [{ex}] fot stand [{st}] is over. Abort work.".format(st=stand.name,
-                                                                                           ex=print_expire_date))
+                logger.info("End time [{ex}] for stand [{st}] is over. "
+                            "The work will be abort.".format(st=stand.name,
+                                                             ex=print_expire_date))
                 usage_stand.status = 'fail'
                 usage_stand.finished_at = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
                 usage_stand.save()
                 jenkins.stop_build(task_url=usage_stand.task)
             else:
-                logger.info("End time [{ex}] for stand [{st}] is not out. Continue.".format(st=stand.name,
-                                                                                            ex=print_expire_date))
-
-
-#   TODO remove this
-def _create_hash():
-    """This function generate 10 character long hash"""
-    return hexlify(os.urandom(5))
+                logger.info("End time [{ex}] for stand [{st}] is not out. Continue work.".format(st=stand.name,
+                                                                                                 ex=print_expire_date))
 
 
 class UsageLog(models.Model):
-    stand = models.ForeignKey(TestEnvironment, verbose_name='TestEnvironment')
+    stand = models.ForeignKey(TestEnvironment, verbose_name='Environment')
     release = models.ForeignKey(Release, verbose_name='Release')
     status = models.CharField('Statuses', choices=STATUSES, max_length=200, default='busy')
     started_at = models.DateTimeField(verbose_name='Start time', auto_now_add=True)
     finished_at = models.DateTimeField(verbose_name='Finish time', null=True, blank=True)
     task = models.CharField('Task', max_length=200, null=True, blank=True)
-    #   TODO change call func _create_hash to common.func.create_hash
-    hash = models.CharField(max_length=10, default=_create_hash, editable=False, unique=True)
+    hash = models.CharField(max_length=10, editable=False, unique=True)
     author = models.ForeignKey(User, null=True, blank=True)
 
     def __str__(self):
