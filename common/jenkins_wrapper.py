@@ -22,6 +22,12 @@ class JenkinsWrapper:
         pass
 
     def run_build(self, task, param):
+        """
+            Run Jenkins task via python-jenkins package
+            :param task: jenkins task name
+            :param param: jenkins param, e.g param={'param1': 'test value 1', 'param2': 'test value 2'}
+            :return:
+        """
         result = ''
         try:
             next_build = self.server.get_job_info(task)['nextBuildNumber']

@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.urls import reverse_lazy
-from django.shortcuts import HttpResponseRedirect
-from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
+from django.shortcuts import HttpResponseRedirect, get_object_or_404
+from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView, TemplateView
 from .models import *
 from django.contrib import messages
+from django.http import JsonResponse
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
+
 # Create your views here.
-
-
 class TestEnvList(ListView):
     model = TestEnvironment
     context_object_name = 'tenv'
@@ -66,10 +70,61 @@ class CreateTestEnv(CreateView):
         return context
 
 
-def acquire_env(request):
+def acquire_stand(request):
     model = TestEnvironment()
     #   TODO get Release by 'stand.product'
     release = Release.objects.get(pk=1)
-    model.acquire_manual(user=request.user, release=release)
+    model.acquire(user=request.user, release=release)
     #   TODO add 'human'-response
     return HttpResponseRedirect('/test-env/test-env-list')
+
+
+def release_stand(request):
+    """
+        View method for accept request from jenkins task to release autoTest server
+        :param request: GET param 'hash=' and 'force='
+        :return: true or false by result of released
+    """
+    model = TestEnvironment()
+    data = False
+    force = False
+    if "hash" in request.GET:
+        hash_param = request.GET['hash']
+        logger.info("Request release's stand by hash [h]".format(h=hash_param))
+        if 'force' in request.GET:
+            logger.info("At request find [force] key. Jenkins task will be aborted".format(h=hash_param))
+            force = True
+        data = model.release(hash=hash_param, force=force)
+    return JsonResponse(data, safe=False)
+
+
+def release_stand_hash(request, hash):
+    """
+        View for release stand from UI interface
+        :param request: django build-in parameter of HTTP request
+        :param hash: stand-hash parameter
+        :return: redirect to AutoTest list
+    """
+    model = TestEnvironment()
+    logger.info("Manual request release's stand by hash [{h}]".format(h=hash))
+    data = model.release(hash=hash, force=True)
+    if data:
+        message = 'Stand [{st}] was released!'.format(st=data)
+        messages.success(request, message)
+    else:
+        message = 'Something went wrong!'
+        messages.error(request, message)
+
+    return HttpResponseRedirect('/test-env/test-env-list')
+
+
+class UsageLogByStand(TemplateView):
+    model = UsageLog
+    template_name = 'cat/usagelog_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UsageLogByStand, self).get_context_data(**kwargs)
+        usage_log = UsageLog.objects.filter(stand__name=kwargs['stand_name']).order_by('-started_at')
+        context['usage_log'] = usage_log
+        context['stand_name'] = kwargs['stand_name']
+        return context
