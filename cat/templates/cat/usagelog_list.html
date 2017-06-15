@@ -24,20 +24,20 @@
                             <th>Author</th>
                         </tr>
                 {% endif %}
-                <tr>
-                    <td>{{ rec.release }}</td>
-                    <td>{{ rec.task }}</td>
+                <tr {% if rec.status == 'fail' %} class="bg-danger" {% endif %}>
+                    <td>{{ rec.release.name }}</td>
+                    <td><a href="{{ rec.task }}">{{ rec.task }}</a></td>
                     <td>{{ rec.started_at }}</td>
                     <td>{{ rec.get_status_display }}</td>
                     <td>{{ rec.finished_at }}</td>
-                    <td>{{ rec.author }}</td>
+                    <td>{{ rec.author.get_full_name }}</td>
 
                 </tr>
             {% if forloop.last %}
                 </table>
             {% endif %}
             {% empty %}
-            <p>No Environment yet.</p>
+            <p>No usage log yet.</p>
         </div>
         {% endfor %}
     </div>

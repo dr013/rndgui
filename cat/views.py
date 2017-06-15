@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.urls import reverse_lazy
-from django.shortcuts import HttpResponseRedirect, get_object_or_404
+from django.shortcuts import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView, TemplateView
 from .models import *
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponse
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -41,7 +41,7 @@ class TestEnvDetail(DetailView):
 class UpdateTestEnv(UpdateView):
     model = TestEnvironment
     fields = ['name', 'env', 'prd', 'expire']
-    success_message = 'Test env was updated successfully.'
+    success_message = 'Test stand was updated successfully.'
     template_name = "cat/testenvironment_form.html"
 
     def form_valid(self, request, *args, **kwargs):
@@ -57,7 +57,7 @@ class UpdateTestEnv(UpdateView):
 class CreateTestEnv(CreateView):
     model = TestEnvironment
     fields = ['name', 'env', 'prd', 'expire']
-    success_message = 'Test env was created successfully.'
+    success_message = 'Test stand was created successfully.'
     template_name = "cat/testenvironment_form.html"
 
     def form_valid(self, request, *args, **kwargs):
@@ -86,7 +86,7 @@ def release_stand(request):
         :return: true or false by result of released
     """
     model = TestEnvironment()
-    data = False
+    data = ''
     force = False
     if "hash" in request.GET:
         hash_param = request.GET['hash']
@@ -95,7 +95,7 @@ def release_stand(request):
             logger.info("At request find [force] key. Jenkins task will be aborted".format(h=hash_param))
             force = True
         data = model.release(hash=hash_param, force=force)
-    return JsonResponse(data, safe=False)
+    return HttpResponse(data)
 
 
 def release_stand_hash(request, hash):

@@ -39,19 +39,25 @@ class TestEnvironment(models.Model):
 
     @property
     def status(self):
-        data = UsageLog.objects.all().filter(stand=self).order_by('-started_at')[0]
-        if ("fail" in data.status) or ("completed" in data.status):
-            return 'Ready'
+        data = UsageLog.objects.all().filter(stand=self).order_by('-started_at').first()
+        if data:
+            if ("fail" in data.status) or ("completed" in data.status):
+                return 'Ready'
+            else:
+                return 'Busy'
         else:
-            return 'Busy'
+            return "Ready"
 
     @property
     def hash(self):
-        data = UsageLog.objects.all().filter(stand=self).order_by('-started_at')[0]
-        if ("fail" in data.status) or ("completed" in data.status):
-            return False
+        data = UsageLog.objects.all().filter(stand=self).order_by('-started_at').first()
+        if data:
+            if ("fail" in data.status) or ("completed" in data.status):
+                return False
+            else:
+                return data.hash
         else:
-            return data.hash
+            return False
 
     def acquire(self, user=None, release=None):
         acquire_stand = ''
