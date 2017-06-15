@@ -123,7 +123,7 @@ def collect_static():
     print(green('Collect static'))
     with virtualenv():
         run("python manage.py collectstatic --noinput")
-        run("cp -r rndgui/rndgui/static /srv/")
+        run("cp -r rndgui/static /srv/")
 
 
 def clean_pyc():
@@ -148,4 +148,4 @@ def set_dev_config():
 def run_dev_server():
     print (green('Run dev server'))
     with virtualenv():
-        run('[ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || python manage.py runserver sv2.bpc.in:8000 &')
+        run('[ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || nohup /srv/rndgui/venv/bin/python manage.py runserver sv2.bpc.in:8000 &')
