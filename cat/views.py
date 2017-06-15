@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.urls import reverse_lazy
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView, TemplateView
 from .models import *
+from .forms import ReleaseForm
 from django.contrib import messages
 from django.http import HttpResponse
 
@@ -72,11 +73,22 @@ class CreateTestEnv(CreateView):
 
 def acquire_stand(request):
     model = TestEnvironment()
-    #   TODO get Release by 'stand.product'
-    release = Release.objects.get(pk=1)
-    model.acquire(user=request.user, release=release)
-    #   TODO add 'human'-response
-    return HttpResponseRedirect('/test-env/test-env-list')
+    if request.method == "POST":
+        form = ReleaseForm(data=request.POST)
+        if form.is_valid():
+            release = Release.objects.get(pk=request.POST['release'])
+            stand = model.acquire(user=request.user, release=release)
+            if stand:
+                message = 'Stand [{st}] was acquire for testing release [{r}]'.format(st=stand.name,
+                                                                                       r=release)
+                messages.success(request, message)
+            else:
+                message = 'No free stands!'
+                messages.error(request, message)
+            return HttpResponseRedirect('/test-env/test-env-list')
+    else:
+        form = ReleaseForm()
+        return render(request, 'cat/release_form.html', locals())
 
 
 def release_stand(request):
