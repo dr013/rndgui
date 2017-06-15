@@ -72,3 +72,9 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
+
+# Jenkins settings
+JENKINS_HOST = 'http://jenkins2.bt.bpc.in:8080/'
+JENKINS_USER = ''
+JENKINS_PASS = ''
+JENKINS_BUILD_TASK = ''

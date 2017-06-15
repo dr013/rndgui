@@ -70,6 +70,6 @@ def acquire_env(request):
     model = TestEnvironment()
     #   TODO get Release by 'stand.product'
     release = Release.objects.get(pk=1)
-    model.acquire(user=request.user, release=release)
+    model.acquire_manual(user=request.user, release=release)
     #   TODO add 'human'-response
     return HttpResponseRedirect('/test-env/test-env-list')
