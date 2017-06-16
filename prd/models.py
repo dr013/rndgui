@@ -113,7 +113,7 @@ class Product(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     specification_repo = models.IntegerField(_("Specifications repository"), null=True, blank=True,
-                                             help_text="Gitlab repostitory for product specifications",
+                                             help_text="Gitlab repository for product specifications",
                                              choices=gitlab_project_list())
     history = HistoricalRecords()
 

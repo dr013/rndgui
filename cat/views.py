@@ -84,7 +84,7 @@ def acquire_stand(request):
                 messages.success(request, message)
             else:
                 message = 'No free stands!'
-                messages.error(request, message)
+                messages.info(request, message)
             return HttpResponseRedirect('/test-env/test-env-list')
     else:
         form = ReleaseForm()
@@ -125,7 +125,7 @@ def release_stand_hash(request, hash):
         messages.success(request, message)
     else:
         message = 'Something went wrong!'
-        messages.error(request, message)
+        messages.info(request, message)
 
     return HttpResponseRedirect('/test-env/test-env-list')
 

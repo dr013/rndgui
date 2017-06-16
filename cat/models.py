@@ -30,7 +30,6 @@ class TestEnvironment(models.Model):
     env = models.ForeignKey(Environment, verbose_name='Environment')
     prd = models.ForeignKey(Product, verbose_name='Product', null=True, blank=True)
     expire = models.CharField('Expire time', max_length=200, default=120)
-    is_active = models.BooleanField("Is active", default=True)
 
     class Meta:
         permissions = (
@@ -43,6 +42,11 @@ class TestEnvironment(models.Model):
 
     def get_absolute_url(self):
         return reverse('test-env-detail', kwargs={'pk': self.pk})
+
+    @property
+    def is_active(self):
+        env = Environment.objects.all().filter(name=self.env).values('is_active')
+        return env[0]['is_active']
 
     @property
     def status(self):
@@ -68,26 +72,42 @@ class TestEnvironment(models.Model):
 
     def acquire(self, user=None, release=None):
         acquire_stand = ''
-        available_stand = TestEnvironment.objects.all().filter(is_active=True)
-        for stand in available_stand:
+        all_stands = self.__class__.objects.all()
+        for stand in all_stands:
             logger.info("Check stand [{st}]:".format(st=stand.name))
+            if stand.is_active:
 
-            #   TODO get Release for testing by 'stand.product'
-            if not release:
-                release = Release.objects.get(pk=1)
+                if not release:
+                    release = self.get_release_for_test(stand.prd)
 
-            usage_info = UsageLog.objects.all().filter(stand=stand)
+                usage_info = UsageLog.objects.all().filter(stand=stand)
 
-            stand_hash = create_hash()
+                stand_hash = create_hash()
 
-            if usage_info.count() > 0:
-                last_usage_stand = usage_info.order_by('-started_at')[0]
+                if usage_info.count() > 0:
+                    last_usage_stand = usage_info.order_by('-started_at')[0]
 
-                if 'busy' in last_usage_stand.status:
-                    logger.info("Stand [{st}] - is busy".format(st=stand.name))
+                    if 'busy' in last_usage_stand.status:
+                        logger.info("Stand [{st}] - is busy".format(st=stand.name))
+                    else:
+                        logger.info("Stand [{st}] - free, can use it".format(st=stand.name))
+
+                        jenkins = JenkinsWrapper()
+                        task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
+                                                 param={'RELEASE': release.name,
+                                                        'HOST': stand.name,
+                                                        'HASH': stand_hash})
+                        use = UsageLog(stand=stand,
+                                       release=release,
+                                       status='busy',
+                                       task=task,
+                                       author=user,
+                                       hash=stand_hash)
+                        use.save()
+                        acquire_stand = stand
+                        break
                 else:
-                    logger.info("Stand [{st}] - free, can use it".format(st=stand.name))
-
+                    logger.info("Stand [{st}] - free and it can use now".format(st=stand.name))
                     jenkins = JenkinsWrapper()
                     task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
                                              param={'RELEASE': release.name,
@@ -98,17 +118,13 @@ class TestEnvironment(models.Model):
                     acquire_stand = stand
                     break
             else:
-                logger.info("Stand [{st}] - free and it can use now".format(st=stand.name))
-                jenkins = JenkinsWrapper()
-                task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                         param={'RELEASE': release.name,
-                                                'HOST': stand.name,
-                                                'HASH': stand_hash})
-                use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user, hash=stand_hash)
-                use.save()
-                acquire_stand = stand
-                break
+                logger.info("Stand [{st}] - is disabled".format(st=stand.name))
         return acquire_stand
+
+    def get_release_for_test(self, product):
+        logger.info("Get Release for testing by product [{p}]".format(p=product.name))
+        #   TODO get Release for testing by 'stand.prd'
+        return Release.objects.get(pk=1)
 
     def release(self, hash, status='completed', force=False):
         result = False
