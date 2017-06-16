@@ -24,12 +24,15 @@
                         </div>
                         <div class="form-group">
                             <select name="part_{{ rec.pk }}" class="form-control" title="">
-                                <option value="" selected>--------- </option>
+
                                 {% for rev_part in rev_list %}
                                     {% if rev_part.pk == rec.pk %}
+                                        {% if rev_part.count > 1 %}
+                                            <option value="" selected>---------</option>
+                                        {% endif %}
                                         {% for rev in  rev_part.revision_list %}
-                                            {{ rec }}
-                                            <option value="{{ rev.id }}">
+                                            <option value="{{ rev.id }}" {% if rev_part.count == 1 %}
+                                                    selected{% endif %}>
                                                 <b>{{ rev.short_id }}</b> => "{{ rev.message|truncatechars:150 }}"
                                                 by {{ rev.author_name }} at {{ rev.authored_date }}</option>
                                         {% endfor %}

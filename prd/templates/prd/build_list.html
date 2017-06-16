@@ -30,14 +30,14 @@
                 <tr {% if rec.released %}class="success"{% endif %}>
                     <td>{% if rec.released %}
                         {% if perms.prd.add_hotfix and rec.name != '0' %}
-                            <a href="{% url 'hotfix-create' rec.pk %}" class="btn btn-success"
+                            <a href="{% url 'hotfix-create' rec.pk %}" class="btn btn-success btn-sm"
                                role="button">{% bootstrap_icon 'plus' %}Issue hotfix</a>
                             {% elif rec.name == '0' %}
                             Technical build
                         {% endif %}
                     {% else %}
                         {% if perms.prd.add_build %}
-                            <a href="{% url 'build-create' product.name %}?build={{ rec.pk }}" class="btn btn-primary"
+                            <a href="{% url 'build-create' product.name %}?build={{ rec.pk }}" class="btn btn-primary btn-sm"
                                role="button">{% bootstrap_icon 'plus' %}Issue build</a>
                         {% endif %}
                     {% endif %}
