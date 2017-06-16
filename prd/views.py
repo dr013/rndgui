@@ -36,13 +36,13 @@ CHOICE = (
 
 
 class BuildIssueForm(forms.Form):
-    release = forms.ChoiceField(choices=CHOICE)
+    release = forms.ChoiceField(choices=CHOICE, disabled=True)
     build = forms.IntegerField(widget=forms.HiddenInput())
 
     def __init__(self, product, *args, **kwargs):
         super(BuildIssueForm, self).__init__(*args, **kwargs)
         self.fields['release'] = forms.ChoiceField(
-            choices=[(o.id, str(o)) for o in Release.objects.filter(product__jira=product)]
+            choices=[(o.id, str(o)) for o in Release.objects.filter(product__jira=product)], disabled=True
         )
 
 
@@ -67,14 +67,16 @@ def create_build(request, product):
         prev_data = Build.objects.get(release=build.release, name=str(int(build.name) - 1)).date_released
         pk = build.pk
         product_obj = Product.objects.get(jira=product.upper())
-        form = BuildIssueForm(product=product.upper(), initial={'build': pk})
+        form = BuildIssueForm(product=product.upper(), initial={'build': pk, 'release': build.release.pk})
         release_part = ReleasePart.objects.filter(product=product_obj)
         rev_list = []
         for rec in release_part:
+            revision_list = GitLab().get_revision_list(project_id=rec.gitlab_id,
+                                                       ref_name=build.release.dev_branch,
+                                                       since=prev_data)
             rev_list.append({'pk': rec.id,
-                             'revision_list': GitLab().get_revision_list(project_id=rec.gitlab_id,
-                                                                         ref_name=build.release.dev_branch,
-                                                                         since=prev_data)})
+                             'revision_list': revision_list,
+                             'count': len(revision_list)})
     elif request.method == "POST":
 
         build = Build.objects.get(pk=request.POST['build'])
