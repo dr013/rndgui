@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-{% block title %}:AutoTest servers list{% endblock %}
-{% block header %}AutoTest servers list:{% endblock %}
+{% block title %}:List of stands{% endblock %}
+{% block header %}List of available stands:{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -9,8 +9,9 @@
             <div class="panel panel-default">
                 <div class="panel-footer">
                     {% buttons %}
-                    <a href="{% url 'test-env-add' %}" class="btn btn-primary"
-                       role="button">{% bootstrap_icon 'plus' %} Add new Test server</a>
+                        <a href="{% url 'test-env-add' %}" class="btn btn-primary" role="button">
+                            {% bootstrap_icon 'plus' %} Add new stand
+                        </a>
                     {% endbuttons %}
                 </div>
             </div>
