@@ -21,16 +21,21 @@ import gitlab
 
 GITLAB_URL = 'http://gitlab.bt.bpc.in'
 GITLAB_TOKEN = 'SasnDpte7dhAMgNAFPLA'
-project_id = 470  # devops/back
+# project_id = 470  # devops/back
+project_id = 24  # oltp/adapter
 tag = 'v2.14.0'
 new_tag = 'v2.14.2'
 gl = gitlab.Gitlab(GITLAB_URL, GITLAB_TOKEN)
 project = gl.projects.get(project_id)
 
-tags = project.tags.list()
-tag_list = [x.name for x in tags]
-for rec in tags:
-    print rec
+# tags = project.tags.list()
+# tag_list = [x.name for x in tags]
+# for rec in tags:
+#     print rec
 
 # create tag function
-tag_create = project.tags.create({'tag_name': new_tag, 'ref': 'future'}, sudo='kazakov')
+# tag_create = project.tags.create({'tag_name': new_tag, 'ref': 'future'}, sudo='kazakov')
+
+# commits
+commits = project.commits.list(ref_name='2.5-develop')[0:1]
+print commits

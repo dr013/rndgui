@@ -58,6 +58,8 @@ class GitLab:
         logger.info('Ref name: {}'.format(ref_name))
         logger.info(str(since))
         commits = project.commits.list(ref_name=ref_name, since=str(since), all=True)
+        if not commits:
+            commits = project.commits.list(ref_name=ref_name)[0:1]
 
         return commits
 
