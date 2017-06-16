@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^product-add/$', login_required(views.CreateProduct.as_view()), name='product-create'),
     url(r'^product-update/(?P<pk>[0-9]+)/$', login_required(views.UpdateProduct.as_view()), name='product-update'),
     url(r'^product-delete/(?P<pk>[0-9]+)/$', login_required(views.DeleteProduct.as_view()), name='product-delete'),
+    url(r'^restapi/(?P<product>[\w-]+)/$', views.rest_product, name='product-restapi'),
     # Release
     url(r'^release-list/$', views.ReleaseList.as_view(), name='release-list'),
     url(r'^release-detail/$', views.ReleaseDetail.as_view(), name='release-detail'),

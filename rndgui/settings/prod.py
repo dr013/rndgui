@@ -8,7 +8,7 @@ AUTH_URL = "http://sv2-web.bt.bpc.in/auth/"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gui',
         'USER': 'gui',
         'PASSWORD': 'gui1',

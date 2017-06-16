@@ -11,7 +11,14 @@
     <meta name="author" content="Evgeny Kryukov<krukov@bpcbt.com>">
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/dashboard.css" %}">
+
     <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %}"/>
+
+    <link rel="apple-touch-icon" href="{% static "ico/icon-research.png" %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static "ico/icon-research.png" %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static "ico/icon-research.png" %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static "ico/icon-research.png" %}">
+
     {% block css %}{% endblock %}
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{% static "js/jquery-1.11.0.min.js" %}"></script>
@@ -128,6 +135,7 @@
             <span class="text-muted"><a href="https://confluence.bpcbt.com/display/SVCI/">Confluence</a> | </span>
             {% if user.is_staff %}
                 <span class="text-muted"><a href="http://gitlab.bt.bpc.in/DevOps/rndgui/environments">Deploy Control Panel</a> |</span>
+                <span class="text-muted"><a href="http://sv2-web.bt.bpc.in:5555">Celery Monitoring</a> |</span>
             {% endif %}
         </p>
     </div>
