@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-{% block title %}:Environment list{% endblock %}
-{% block header %}Environment list{% endblock %}
+{% block title %}:List of Environments{% endblock %}
+{% block header %}List of Environments:{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
@@ -33,7 +33,7 @@
                                 {% endif %}
                             </tr>
                     {% endif %}
-                            <tr>
+                            <tr {% if rec.is_active == False %} style="color:grey;" {% endif %}>
                                 <td><a href="{% url 'env-detail' rec.pk %}">{{ rec.name }}</a></td>
                                 <td>{{ rec.is_active}}</td>
                                 <td>
@@ -76,7 +76,7 @@
                                     <td>
                                         {% buttons %}
                                             <a href="{% url 'env-delete' rec.pk %}"
-                                               class="btn btn-warning btn-sm">{% bootstrap_icon "remove" %}
+                                               class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}
                                             </a>
                                         {% endbuttons %}
                                     </td>

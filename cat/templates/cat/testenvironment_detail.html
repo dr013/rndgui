@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-{% block title %}:Test server detail {{ object.title }}{% endblock %}
-{% block header %}{{ object.title }}{% endblock %}
+{% block title %}:Details of stand{% endblock %}
+{% block header %}Details of stand - [{{ object.name }}]{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a href="{% url list_url %}" class="btn btn-success active" role="button">Back to Test servers
-                        list</a>
+                    <a href="{% url list_url %}" class="btn btn-success active" role="button">
+                        Back to list of stands
+                    </a>
                 </div>
             </div>
             <table class="table table-responsive table-bordered">
                 <tr align="center" class="bg-warning">
-                    <th colspan="3" class="bg-success">The test env info</th>
+                    <th colspan="3" class="bg-success">Stand info</th>
                 </tr>
                 <tr>
                     <th>ID: </th> <td>{{ object.pk }}</td>
