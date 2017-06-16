@@ -26,7 +26,9 @@
                                 <th>Status</th>
                                 <th>Expire time, (min)</th>
                                 <th>Statistic</th>
-                                <th>Force release</th>
+                                {% if perms.cat.can_unlock %}
+                                    <th>Force release</th>
+                                {% endif %}
                                 {% if perms.cat.change_testenvironment %}
                                     <th>Edit</th>
                                 {% endif %}
@@ -42,15 +44,17 @@
                                 <td>{{ rec.status }}</td>
                                 <td>{{ rec.expire }}</td>
                                 <td><a href="{% url 'usage-stand-log' rec.name %}">View stat</a></td>
-                                <td>
-                                    {% if rec.hash %}
-                                        {% buttons %}
-                                            <a href="{% url 'release-stand-param' rec.hash %}"
-                                               class="btn btn-danger btn-sm">{% bootstrap_icon icon %}UnLock
-                                            </a>
-                                        {% endbuttons %}
-                                    {% endif %}
-                                </td>
+                                {% if perms.cat.can_unlock %}
+                                    <td>
+                                        {% if rec.hash %}
+                                            {% buttons %}
+                                                <a href="{% url 'release-stand-param' rec.hash %}"
+                                                   class="btn btn-danger btn-sm">{% bootstrap_icon icon %}UnLock
+                                                </a>
+                                            {% endbuttons %}
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
                                 {% if perms.cat.change_testenvironment %}
                                 <td>
                                     {% buttons %}

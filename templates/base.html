@@ -68,10 +68,10 @@
                         {% endif %}
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'env-list' %}">Environments</a></li>
-                        <li role="separator" class="divider"></li>
+                        <!--li role="separator" class="divider"></li>
                         <li><a href="{% url 'dbinstance-list' %}">DataBase Instance(Oracle)</a></li>
                         <li><a href="{% url 'webinstance-list' %}">Weblogic Instance</a></li>
-                        <li><a href="{% url 'stlninstance-list' %}">Standalone Instance</a></li>
+                        <li><a href="{% url 'stlninstance-list' %}">Standalone Instance</a></li-->
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -82,9 +82,11 @@
                             <li><a href="{% url 'test-env-add' %}">Add new AutoTest server</a></li>
                         {% endif %}
                         <li role="separator" class="divider"></li>
-                        <li><a href="{% url 'test-env-list' %}">List AutoTest servers</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{% url 'get-one-stand' %}">Run AutoTest</a></li>
+                        <li><a href="{% url 'test-env-list' %}">List of AutoTest servers</a></li>
+                        {% if perms.cat.can_run %}
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'get-one-stand' %}">Run Manual Test</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 {% if user.is_staff %}
