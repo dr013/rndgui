@@ -77,10 +77,9 @@ def acquire_stand(request):
         form = ReleaseForm(data=request.POST)
         if form.is_valid():
             release = Release.objects.get(pk=request.POST['release'])
-            stand = model.acquire(user=request.user, release=release)
+            stand = model.acquire(user=request.user, release=release.name)
             if stand:
-                message = 'Stand [{st}] was acquire for testing release [{r}]'.format(st=stand.name,
-                                                                                       r=release)
+                message = 'Stand [{st}] was acquire for testing release [{r}]'.format(st=stand.name, r=release.name)
                 messages.success(request, message)
             else:
                 message = 'No free stands!'

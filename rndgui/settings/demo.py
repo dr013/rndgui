@@ -71,3 +71,5 @@ JENKINS_HOST = 'http://jenkins2.bt.bpc.in:8080/'
 JENKINS_USER = 'jira-system'
 JENKINS_PASS = '3WqOGzrj9G'
 JENKINS_BUILD_TASK = 'test.host.deploy'
+
+SERVICE_HOST = 'http://sv2.bpc.in'

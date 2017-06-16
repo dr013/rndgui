@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 from envrnmnt.models import Environment
 from prd.models import Product, Release
 from django.contrib.auth.models import User
 import logging
 import datetime
 from django.utils import timezone
+import requests
 from common.jenkins_wrapper import JenkinsWrapper
 from common.func import create_hash
 from django.conf import settings
@@ -71,17 +73,13 @@ class TestEnvironment(models.Model):
 
     def acquire(self, user=None, release=None):
         acquire_stand = ''
+        stand_hash = create_hash()
         all_stands = self.__class__.objects.all()
         for stand in all_stands:
             logger.info("Check stand [{st}]:".format(st=stand.name))
             if stand.is_active:
 
-                if not release:
-                    release = self.get_release_for_test(stand.prd)
-
                 usage_info = UsageLog.objects.all().filter(stand=stand)
-
-                stand_hash = create_hash()
 
                 if usage_info.count() > 0:
                     last_usage_stand = usage_info.order_by('-started_at')[0]
@@ -91,13 +89,16 @@ class TestEnvironment(models.Model):
                     else:
                         logger.info("Stand [{st}] - free, can use it".format(st=stand.name))
 
+                        if not release:
+                            release = self.get_release_for_test(stand.prd)
+
                         jenkins = JenkinsWrapper()
                         task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                                 param={'RELEASE': release.name,
+                                                 param={'RELEASE': release,
                                                         'HOST': stand.name,
                                                         'HASH': stand_hash})
                         use = UsageLog(stand=stand,
-                                       release=release,
+                                       release=get_object_or_404(Release, name=release),
                                        status='busy',
                                        task=task,
                                        author=user,
@@ -107,12 +108,19 @@ class TestEnvironment(models.Model):
                         break
                 else:
                     logger.info("Stand [{st}] - free and it can use now".format(st=stand.name))
+                    if not release:
+                        release = self.get_release_for_test(stand.prd)
                     jenkins = JenkinsWrapper()
                     task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                             param={'RELEASE': release.name,
+                                             param={'RELEASE': release,
                                                     'HOST': stand.name,
                                                     'HASH': stand_hash})
-                    use = UsageLog(stand=stand, release=release, status='busy', task=task, author=user, hash=stand_hash)
+                    use = UsageLog(stand=stand,
+                                   release=get_object_or_404(Release, name=release),
+                                   status='busy',
+                                   task=task,
+                                   author=user,
+                                   hash=stand_hash)
                     use.save()
                     acquire_stand = stand
                     break
@@ -120,10 +128,17 @@ class TestEnvironment(models.Model):
                 logger.info("Stand [{st}] - is disabled".format(st=stand.name))
         return acquire_stand
 
+    #   TODO update get Release for testing
     def get_release_for_test(self, product):
         logger.info("Get Release for testing by product [{p}]".format(p=product.name))
-        #   TODO get Release for testing by 'stand.prd'
-        return Release.objects.get(pk=1)
+        url = '{h}/r-carousel/api/get/?project=core&product={p}'.format(h=settings.SERVICE_HOST,
+                                                                        p=product.name)
+        response = requests.get(url=url)
+        data = response.json()
+        if data:
+            logger.debug(str(data))
+            logger.info("Release for testing is [{r}]".format(r=data['release']))
+            return data['release']
 
     def release(self, hash, status='completed', force=False):
         result = False
@@ -149,8 +164,9 @@ class TestEnvironment(models.Model):
         for usage_stand in usage_info:
             start_time = datetime.datetime.strftime(usage_stand.started_at, "%H:%M:%S %d/%m")
             logger.info("Run check used stand [{st}], started at {tm}:".format(st=usage_stand.stand,
-                                                                             tm=start_time))
-            stand = TestEnvironment.objects.get(name=usage_stand.stand)
+                                                                               tm=start_time))
+            stand = self.__class__.objects.get(name=usage_stand.stand)
+
             expire_data = usage_stand.started_at + datetime.timedelta(minutes=int(stand.expire))
             print_expire_date = datetime.datetime.strftime(expire_data, "%d/%m %H:%M:%S")
             if expire_data < timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone()):
