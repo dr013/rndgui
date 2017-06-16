@@ -33,7 +33,7 @@
                                 {% endif %}
                             </tr>
                     {% endif %}
-                            <tr {% if rec.is_active == False %} style="color:grey;" {% endif %}>
+                            <tr {% if rec.is_active == False %} style="color:#d3d3d3;" {% endif %}>
                                 <td><a href="{% url 'env-detail' rec.pk %}">{{ rec.name }}</a></td>
                                 <td>{{ rec.is_active}}</td>
                                 <td>

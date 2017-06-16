@@ -23,6 +23,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Environment</th>
+                                <th>Active</th>
                                 <th>Product</th>
                                 <th>Status</th>
                                 <th>Expire time, (min)</th>
@@ -38,9 +39,10 @@
                                 {% endif %}
                             </tr>
                     {% endif %}
-                            <tr>
+                            <tr {% if rec.is_active == False %} style="color:#d3d3d3;" {% endif %}>
                                 <td><a href="{% url 'test-env-detail' rec.pk %}">{{ rec.name }}</a></td>
                                 <td>{{ rec.env }}</td>
+                                <td>{{ rec.is_active }}</td>
                                 <td>{{ rec.prd }}</td>
                                 <td>{{ rec.status }}</td>
                                 <td>{{ rec.expire }}</td>
