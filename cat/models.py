@@ -32,6 +32,12 @@ class TestEnvironment(models.Model):
     expire = models.CharField('Expire time', max_length=200, default=120)
     is_active = models.BooleanField("Is active", default=True)
 
+    class Meta:
+        permissions = (
+            ("can_unlock", "Can force unlock stand"),
+            ("can_run", "Can manual run stand"),
+        )
+
     def __str__(self):
         return self.name
 
