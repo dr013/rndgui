@@ -302,9 +302,9 @@ class HotFix(models.Model):
     build = models.ForeignKey(Build)
     jira = models.CharField(_("Jira task for hotfix"), max_length=20, null=True, blank=True)
     author = models.ForeignKey(User)
-    date_released = models.DateField(_("HotFix date"))
-    created = models.DateField(_("Created"), auto_now_add=True)
-    updated = models.DateField(_("Updated"), auto_now=True)
+    date_released = models.DateTimeField(_("HotFix date"), auto_now_add=True)
+    created = models.DateTimeField(_("Created"), auto_now_add=True)
+    updated = models.DateTimeField(_("Updated"), auto_now=True)
     history = HistoricalRecords()
 
     def __str__(self):
@@ -374,3 +374,12 @@ class BuildRevision(models.Model):
 
     def __str__(self):
         return '{build}={release_part}'.format(build=self.build, release_part=self.release_part)
+
+
+class HotFixRevision(models.Model):
+    hotfix = models.ForeignKey(HotFix)
+    release_part = models.ForeignKey(ReleasePart)
+    revision = models.CharField(_("Git revision"), max_length=40, null=True, blank=True)
+
+    def __str__(self):
+        return '{hotfix}={release_part}'.format(hotfix=self.hotfix, release_part=self.release_part)
