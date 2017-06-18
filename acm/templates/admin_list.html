@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}:Admins list{% endblock %}
+{% block header %}Admins list{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                {% for rec in user_list %}
+                    {% if forloop.first %}
+                        <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                    {% endif %}
+                <tr class="success">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ rec.get_full_name }}</td>
+                    <td><a href="mailto:{{ rec.email }}">{{ rec.email }}</a></td>
+                </tr>
+                {% if forloop.last %}
+                    </table>
+                {% endif %}
+                    {% empty %}
+                    <p>No Admins yet.</p>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}
