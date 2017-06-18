@@ -289,3 +289,5 @@ def rest_product(request, product):
     qs_json = {"title": data.title, 'jira': data.jira, 'owner': data.owner.username, 'desc': data.desc}
 
     return JsonResponse(qs_json)
+
+

@@ -6,7 +6,7 @@ import logging
 import urllib
 # noinspection PyCompatibility
 import urllib2
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.db.models import Q
 from .models import Institution
 from prd.models import jira_project_list
@@ -272,3 +272,10 @@ def tofirstdayinisoweek(year, week):
 class GroupDetailView(DetailView):
     model = Institution
 
+
+class AdminList(ListView):
+    model = User
+    template_name = 'admin_list.html'
+
+    def get_queryset(self):
+        return User.objects.filter(is_superuser=True).order_by('date_joined')
