@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from prd.models import Product, Release, Build, HotFix, ReleasePart, BuildRevision
+from prd.models import Product, Release, Build, HotFix, ReleasePart, BuildRevision, HotFixRevision
 from simple_history.admin import SimpleHistoryAdmin
 
 
@@ -29,9 +29,13 @@ class BuildRevisionAdmin(SimpleHistoryAdmin):
     list_filter = ('build__release__product',)
 
 
+class HotFixRevisionAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Release, ReleaseAdmin)
 admin.site.register(Build, BuildAdmin)
 admin.site.register(HotFix, SimpleHistoryAdmin)
 admin.site.register(ReleasePart, SimpleHistoryAdmin)
 admin.site.register(BuildRevision, BuildRevisionAdmin)
+admin.site.register(HotFixRevision, HotFixRevisionAdmin)
