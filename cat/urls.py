@@ -13,8 +13,8 @@ urlpatterns = [
     # Env
     url(r'^env/(?P<pk>[0-9]+)/$', EnvDetail.as_view(), name='env-detail'),
     url(r'^get-one-stand$', views.acquire_stand, name='get-one-stand'),
-    url(r'^release-stand/(?P<hash>[a-zA-Z0-9]+)$', views.release_stand_hash, name='release-stand-param'),
-    url(r'^release-stand/$', views.release_stand, name='release-stand'),
+    url(r'^release-stand/(?P<hash_code>[a-zA-Z0-9]+)$', views.release_stand_hash, name='release-stand-param'),
+    url(r'^release-stand/$', views.release_stand_api, name='release-stand'),
     # UsageLog
     url(r'^usage-stand-log/(?P<stand_name>[a-zA-Z0-9-]+)$', views.UsageLogByStand.as_view(), name='usage-stand-log'),
 

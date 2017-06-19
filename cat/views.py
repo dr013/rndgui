@@ -5,6 +5,7 @@ from django.shortcuts import HttpResponseRedirect, render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView, TemplateView
 from .models import *
 from .forms import ReleaseForm
+from .tasks import get_stand, release_stand
 from django.contrib import messages
 from django.http import HttpResponse
 
@@ -77,7 +78,7 @@ def acquire_stand(request):
         form = ReleaseForm(data=request.POST)
         if form.is_valid():
             release = Release.objects.get(pk=request.POST['release'])
-            stand = model.acquire(user=request.user, release=release.name)
+            stand = get_stand(release=release.name)
             if stand:
                 message = 'Stand [{st}] was acquire for testing release [{r}]'.format(st=stand.name, r=release.name)
                 messages.success(request, message)
@@ -90,13 +91,12 @@ def acquire_stand(request):
         return render(request, 'cat/release_form.html', locals())
 
 
-def release_stand(request):
+def release_stand_api(request):
     """
         View method for accept request from jenkins task to release autoTest server
         :param request: GET param 'hash=' and 'force='
         :return: true or false by result of released
     """
-    model = TestEnvironment()
     data = ''
     force = False
     if "hash" in request.GET:
@@ -105,22 +105,21 @@ def release_stand(request):
         if 'force' in request.GET:
             logger.info("At request find [force] key. Jenkins task will be aborted".format(h=hash_param))
             force = True
-        data = model.release(hash=hash_param, force=force)
-    return HttpResponse(data)
+        data = release_stand(hash_code=hash_param, force=force)
+    return HttpResponse(data.stand)
 
 
-def release_stand_hash(request, hash):
+def release_stand_hash(request, hash_code):
     """
         View for release stand from UI interface
         :param request: django build-in parameter of HTTP request
-        :param hash: stand-hash parameter
-        :return: redirect to AutoTest list
-    """
-    model = TestEnvironment()
-    logger.info("Manual request release's stand by hash [{h}]".format(h=hash))
-    data = model.release(hash=hash, force=True)
+        :param hash_code: stand-hash parameter
+        :return: redirect to AutoTest list    """
+
+    logger.info("Manual request release's stand by hash [{h}]".format(h=hash_code))
+    data = release_stand(hash_code=hash_code, force=True)
     if data:
-        message = 'Stand [{st}] was released!'.format(st=data)
+        message = 'Stand [{st}] was released!'.format(st=data.stand)
         messages.success(request, message)
     else:
         message = 'Something went wrong!'
