@@ -214,7 +214,7 @@ class HotFixCreate(CreateView):
 
     def get_initial(self):
         self.build = Build.objects.get(pk=self.kwargs.get('pk'))
-        hotfix = HotFix.objects.filter(build=self.build)
+        hotfix = HotFix.objects.filter(build=self.build).order_by('-date_released')
         logger.debug(
             'HotFix current number for build {bld} is {cnt}'.format(bld=self.build.full_name, cnt=hotfix.count()))
         if hotfix.count() == 0:
