@@ -28,7 +28,7 @@ def sync_hotfix(prod_jira):
             membership.save()
             print "created user ", author.username
 
-        hotfix, created = HotFix.objects.get_or_create(name=rec['hotfix'], build=build)
+        hotfix, created = HotFix.objects.get_or_create(name=rec['hotfix'], build=build, author=author)
         if created:
             hotfix.jira = rec['hotfix_task']
             hotfix.author = author
