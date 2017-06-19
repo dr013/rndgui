@@ -20,7 +20,6 @@
                         <tr>
                             <th>Action</th>
                             <th>Name</th>
-                            <th>Release</th>
                             <th>Build Jira Task</th>
                             <th>Release Date</th>
                             <th>Author</th>
@@ -42,7 +41,6 @@
                         {% endif %}
                     {% endif %}
                     <td>{{ rec.full_name }}</td>
-                    <td>{{ rec.release.name }}</td>
                     <td>{{ rec.get_jira_url|safe }} </td>
                     <td>{% if rec.date_released %}
                         {{ rec.date_released|date }}
@@ -57,19 +55,19 @@
                             <thead>
                             <tr>
                                 <th>&nbsp;</th>
-                                <th>Hotfix</th>
-                                <th>Author</th>
-                                <th>Jira HotFix task</th>
+                                <th>Hotfix name</th>
+                                <th>HotFix Jira task</th>
                                 <th>Release Date</th>
+                                <th>Author</th>
                             </tr>
                             </thead>
                         {% endif %}
                         <tr>
                             <td>&nbsp;</td>
                             <td>{{ hotfix.full_name }}</td>
-                            <td>{{ hotfix.author.get_full_name }}</td>
                             <td>{{ hotfix.get_jira_url|safe }}</td>
                             <td>{{ hotfix.date_released|date }}</td>
+                            <td>{{ hotfix.author.get_full_name }}</td>
                         </tr>
                     {% endfor %}
                 {% endif %}
