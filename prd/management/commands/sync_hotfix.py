@@ -36,7 +36,11 @@ def sync_hotfix(prod_jira):
             hotfix.save()
         for rec2 in rec['component']:
             if  'name' in rec2 and 'revision' in rec2:
-                release_part = ReleasePart.objects.get(product=product_obj, name=rec2['name'])
+                try:
+                    release_part = ReleasePart.objects.get(product=product_obj, name=rec2['name'])
+                except ReleasePart.DoesNotExist:
+                    print rec2['name'], ' - skip'
+                    continue
                 hotfix_rev = HotFixRevision(hotfix=hotfix, revision=rec2['revision'], release_part=release_part)
                 hotfix_rev.save()
 
