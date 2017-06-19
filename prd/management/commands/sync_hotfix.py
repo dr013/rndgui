@@ -3,16 +3,16 @@ from pymongo import MongoClient
 from django.contrib.auth.models import User
 
 from acm.models import Membership
-from prd.models import Product, Build, Release, BuildRevision, ReleasePart, HotFix, HotFixRevision
+from prd.models import Product, Build, ReleasePart, HotFix, HotFixRevision
 
 
-def sync_hotfix(release, prod_jira):
+def sync_hotfix(prod_jira):
     client = MongoClient('mongodb://sv2.bpc.in:27017')
     db = client['ci']
     product = 'sv'
     project = 'core'
 
-    product_obj = Product.objects.get(jira=project.upper())
+    product_obj = Product.objects.get(jira=prod_jira)
     curs = db.hotfix_list.find({'product': product, 'project': project}).sort('date_hotfix')
 
     for rec in curs:
@@ -21,7 +21,7 @@ def sync_hotfix(release, prod_jira):
 
         # if user in list - author = user
 
-        author, created = User.objects.get_or_create(username=rec['author'])
+        author, created = User.objects.get_or_create(username=rec['author'], email='{}@bpcbt.com'.format(rec['author']))
         if created:
             membership = Membership(is_head=False, group_id=1, user=author)
             membership.save()
@@ -51,7 +51,7 @@ class Command(BaseCommand):
         try:
             product = Product.objects.get(jira=jira)
             self.stdout.write('Product found {}'.format(product.title))
-            sync_hotfix(release, jira)
+            sync_hotfix(jira)
 
         except Product.DoesNotExist:
             raise CommandError('Product "%s" does not exist' % jira)
