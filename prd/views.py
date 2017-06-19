@@ -220,7 +220,7 @@ class HotFixCreate(CreateView):
         if hotfix.count() == 0:
             hotfix_num = '1'
         else:
-            hotfix_num = str(int(hotfix.name) + 1)
+            hotfix_num = str(int(hotfix[0].name) + 1)
         return {
             'build': self.build,
             'name': hotfix_num
