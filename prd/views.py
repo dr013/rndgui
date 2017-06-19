@@ -225,6 +225,10 @@ class HotFixCreate(CreateView):
             'build': self.build,
             'name': hotfix_num
         }
+    def get_context_data(self, **kwargs):
+        context = super(HotFixCreate, self).get_context_data(**kwargs)
+        context['build'] = self.build
+        return context
 
     def form_valid(self, form):
         obj = form.save(commit=False)
