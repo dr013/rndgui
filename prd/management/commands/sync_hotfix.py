@@ -17,7 +17,8 @@ def sync_hotfix(prod_jira):
 
     for rec in curs:
         print (rec['release'], rec['build'], rec['hotfix'])
-        build = Build.objects.get(release__product__jira=project.upper(), release__name=rec['release'])
+        build = Build.objects.get(release__product__jira=project.upper(), release__name=rec['release'],
+                                  name=rec['build'])
 
         # if user in list - author = user
 
@@ -47,7 +48,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         jira = options['product'].upper()
-        release = options['release']
         try:
             product = Product.objects.get(jira=jira)
             self.stdout.write('Product found {}'.format(product.title))
