@@ -35,9 +35,10 @@ def sync_hotfix(prod_jira):
             hotfix.date_released = rec['date_hotfix']
             hotfix.save()
         for rec2 in rec['component']:
-            release_part = ReleasePart.objects.get(product=product_obj, name=rec2['name'])
-            hotfix_rev = HotFixRevision(hotfix=hotfix, revision=rec2['revision'], release_part=release_part)
-            hotfix_rev.save()
+            if  'name' in rec2 and 'revision' in rec2:
+                release_part = ReleasePart.objects.get(product=product_obj, name=rec2['name'])
+                hotfix_rev = HotFixRevision(hotfix=hotfix, revision=rec2['revision'], release_part=release_part)
+                hotfix_rev.save()
 
 
 class Command(BaseCommand):
