@@ -1,0 +1,8255 @@
+[
+{
+    "model": "prd.product",
+    "pk": 1,
+    "fields": {
+        "title": "SmartVista BackOffice",
+        "desc": " ",
+        "wiki_url": "https://confluence.bpcbt.com/display/SVBO2/",
+        "jira": "CORE",
+        "inst": 1,
+        "owner": 2,
+        "created": "2017-06-07",
+        "updated": "2017-06-07",
+        "specification_repo": 186
+    }
+},
+{
+    "model": "prd.product",
+    "pk": 2,
+    "fields": {
+        "title": "SmartVista Notification Gateway",
+        "desc": " ",
+        "wiki_url": "https://confluence.bpcbt.com/display/SVNTF/",
+        "jira": "SVNTF",
+        "inst": 1,
+        "owner": 2,
+        "created": "2017-06-08",
+        "updated": "2017-06-13",
+        "specification_repo": 559
+    }
+},
+{
+    "model": "prd.product",
+    "pk": 3,
+    "fields": {
+        "title": "SmartVista Workflow",
+        "desc": " ",
+        "wiki_url": "https://confluence.bpcbt.com/display/SVWF/",
+        "jira": "SVWF",
+        "inst": 1,
+        "owner": 2,
+        "created": "2017-06-13",
+        "updated": "2017-06-13",
+        "specification_repo": null
+    }
+},
+{
+    "model": "prd.product",
+    "pk": 4,
+    "fields": {
+        "title": "SmartVista Continuous Integration and Testing",
+        "desc": " ",
+        "wiki_url": "https://confluence.bpcbt.com/display/SVCI/",
+        "jira": "SVCI",
+        "inst": 1,
+        "owner": 1,
+        "created": "2017-06-13",
+        "updated": "2017-06-13",
+        "specification_repo": null
+    }
+},
+{
+    "model": "prd.product",
+    "pk": 5,
+    "fields": {
+        "title": "Smart Installer",
+        "desc": " ",
+        "wiki_url": "https://confluence.bpcbt.com/display/SVINST/",
+        "jira": "SVINST",
+        "inst": 1,
+        "owner": 1,
+        "created": "2017-06-13",
+        "updated": "2017-06-13",
+        "specification_repo": null
+    }
+},
+{
+    "model": "prd.product",
+    "pk": 6,
+    "fields": {
+        "title": "SmartVista Kernel",
+        "desc": "",
+        "wiki_url": "https://confluence.bpcbt.com/display/SVKRN",
+        "jira": "SVKRN",
+        "inst": 1,
+        "owner": 2,
+        "created": "2017-06-13",
+        "updated": "2017-06-13",
+        "specification_repo": null
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 3,
+    "fields": {
+        "name": "0",
+        "release": 3,
+        "jira": "CORE-9022",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2015-01-14T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 4,
+    "fields": {
+        "name": "1",
+        "release": 3,
+        "jira": "CORE-9022",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-06-03T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 5,
+    "fields": {
+        "name": "0",
+        "release": 5,
+        "jira": "CORE-9644",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-03T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 6,
+    "fields": {
+        "name": "1",
+        "release": 5,
+        "jira": "CORE-9398",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-17T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 7,
+    "fields": {
+        "name": "0",
+        "release": 6,
+        "jira": "CORE-9707",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-10T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 8,
+    "fields": {
+        "name": "1",
+        "release": 6,
+        "jira": "CORE-9708",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-28T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 9,
+    "fields": {
+        "name": "0",
+        "release": 7,
+        "jira": "CORE-10093",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-23T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 10,
+    "fields": {
+        "name": "1",
+        "release": 7,
+        "jira": "CORE-10523",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-25T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 11,
+    "fields": {
+        "name": "0",
+        "release": 8,
+        "jira": "CORE-10633",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-02T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 12,
+    "fields": {
+        "name": "1",
+        "release": 8,
+        "jira": "CORE-10634",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-30T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 13,
+    "fields": {
+        "name": "0",
+        "release": 9,
+        "jira": "CORE-11650",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-02-05T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 14,
+    "fields": {
+        "name": "1",
+        "release": 9,
+        "jira": "CORE-11642",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-02-06T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 15,
+    "fields": {
+        "name": "0",
+        "release": 10,
+        "jira": "CORE-11673",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-02-18T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 16,
+    "fields": {
+        "name": "1",
+        "release": 10,
+        "jira": "CORE-11919",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-13T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 17,
+    "fields": {
+        "name": "0",
+        "release": 12,
+        "jira": "CORE-12699",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-05-10T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 18,
+    "fields": {
+        "name": "1",
+        "release": 12,
+        "jira": "CORE-12700",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-05-26T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 19,
+    "fields": {
+        "name": "0",
+        "release": 13,
+        "jira": "SVNTF-2",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-08T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 20,
+    "fields": {
+        "name": "1",
+        "release": 13,
+        "jira": "SVNTF-3",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-08T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 21,
+    "fields": {
+        "name": "2",
+        "release": 13,
+        "jira": "SVNTF-4",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-08T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 22,
+    "fields": {
+        "name": "3",
+        "release": 13,
+        "jira": "SVNTF-9",
+        "is_active": true,
+        "released": false,
+        "author": 1,
+        "date_released": null,
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 23,
+    "fields": {
+        "name": "0",
+        "release": 15,
+        "jira": "SVNTF-12",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-08T00:00:00Z",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 24,
+    "fields": {
+        "name": "1",
+        "release": 15,
+        "jira": "SVNTF-26",
+        "is_active": true,
+        "released": false,
+        "author": 1,
+        "date_released": null,
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 25,
+    "fields": {
+        "name": "2",
+        "release": 3,
+        "jira": "CORE-5392",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-06-10T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 31,
+    "fields": {
+        "name": "3",
+        "release": 3,
+        "jira": "CORE-5679",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-06-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 32,
+    "fields": {
+        "name": "4",
+        "release": 3,
+        "jira": "CORE-5897",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-12T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 33,
+    "fields": {
+        "name": "5",
+        "release": 3,
+        "jira": "CORE-6100",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-19T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 34,
+    "fields": {
+        "name": "6",
+        "release": 3,
+        "jira": "CORE-6237",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 35,
+    "fields": {
+        "name": "7",
+        "release": 3,
+        "jira": "CORE-6343",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-29T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 36,
+    "fields": {
+        "name": "8",
+        "release": 3,
+        "jira": "CORE-13121",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-09T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 37,
+    "fields": {
+        "name": "9",
+        "release": 3,
+        "jira": "CORE-13122",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 38,
+    "fields": {
+        "name": "15",
+        "release": 3,
+        "jira": "CORE-9022",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-26T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 39,
+    "fields": {
+        "name": "14",
+        "release": 3,
+        "jira": "CORE-8942",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-16T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 40,
+    "fields": {
+        "name": "13",
+        "release": 3,
+        "jira": "CORE-8878",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-09T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 41,
+    "fields": {
+        "name": "12",
+        "release": 3,
+        "jira": "CORE-8856",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-06T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 42,
+    "fields": {
+        "name": "11",
+        "release": 3,
+        "jira": "CORE-8697",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-01T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 43,
+    "fields": {
+        "name": "10",
+        "release": 3,
+        "jira": "CORE-8567",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-25T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 44,
+    "fields": {
+        "name": "16",
+        "release": 3,
+        "jira": "CORE-9117",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-07T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 45,
+    "fields": {
+        "name": "17",
+        "release": 3,
+        "jira": "CORE-9208",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-14T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 46,
+    "fields": {
+        "name": "18",
+        "release": 3,
+        "jira": "CORE-9921",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-21T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 47,
+    "fields": {
+        "name": "19",
+        "release": 3,
+        "jira": "CORE-10004",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-31T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 48,
+    "fields": {
+        "name": "20",
+        "release": 3,
+        "jira": "CORE-10072",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-17T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 49,
+    "fields": {
+        "name": "21",
+        "release": 3,
+        "jira": "CORE-10416",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-21T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 50,
+    "fields": {
+        "name": "22",
+        "release": 3,
+        "jira": "CORE-10500",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 51,
+    "fields": {
+        "name": "23",
+        "release": 3,
+        "jira": "CORE-10593",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-05T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 52,
+    "fields": {
+        "name": "24",
+        "release": 3,
+        "jira": "CORE-10815",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-05-26T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 53,
+    "fields": {
+        "name": "25",
+        "release": 3,
+        "jira": "CORE-12273",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-05-25T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 54,
+    "fields": {
+        "name": "26",
+        "release": 3,
+        "jira": "CORE-12869",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-16T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-16"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 55,
+    "fields": {
+        "name": "1",
+        "release": 4,
+        "jira": "CORE-9024",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-06-03T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 56,
+    "fields": {
+        "name": "2",
+        "release": 4,
+        "jira": "CORE-9030",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-06-10T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 57,
+    "fields": {
+        "name": "3",
+        "release": 4,
+        "jira": "CORE-9128",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-06-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 58,
+    "fields": {
+        "name": "4",
+        "release": 4,
+        "jira": "CORE-9211",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-12T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 59,
+    "fields": {
+        "name": "5",
+        "release": 4,
+        "jira": "CORE-9416",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-19T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 60,
+    "fields": {
+        "name": "6",
+        "release": 4,
+        "jira": "CORE-9487",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 61,
+    "fields": {
+        "name": "7",
+        "release": 4,
+        "jira": "CORE-9516",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-07-29T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 62,
+    "fields": {
+        "name": "8",
+        "release": 4,
+        "jira": "CORE-9596",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-09T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 63,
+    "fields": {
+        "name": "9",
+        "release": 4,
+        "jira": "CORE-9697",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 64,
+    "fields": {
+        "name": "10",
+        "release": 4,
+        "jira": "CORE-9821",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-25T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 65,
+    "fields": {
+        "name": "11",
+        "release": 4,
+        "jira": "CORE-9861",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-01T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 66,
+    "fields": {
+        "name": "12",
+        "release": 4,
+        "jira": "CORE-9922",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-06T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 67,
+    "fields": {
+        "name": "13",
+        "release": 4,
+        "jira": "CORE-9976",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-09T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 68,
+    "fields": {
+        "name": "14",
+        "release": 4,
+        "jira": "CORE-10003",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-16T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 69,
+    "fields": {
+        "name": "15",
+        "release": 4,
+        "jira": "CORE-10080",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-26T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 70,
+    "fields": {
+        "name": "16",
+        "release": 4,
+        "jira": "CORE-10176",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-07T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 71,
+    "fields": {
+        "name": "17",
+        "release": 4,
+        "jira": "CORE-10345",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-14T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 72,
+    "fields": {
+        "name": "18",
+        "release": 4,
+        "jira": "CORE-10431",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-21T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 73,
+    "fields": {
+        "name": "19",
+        "release": 4,
+        "jira": "CORE-10502",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-31T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 74,
+    "fields": {
+        "name": "20",
+        "release": 4,
+        "jira": "CORE-10602",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-17T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 75,
+    "fields": {
+        "name": "21",
+        "release": 4,
+        "jira": "CORE-10818",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-21T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 76,
+    "fields": {
+        "name": "22",
+        "release": 4,
+        "jira": "CORE-10907",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-22T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 77,
+    "fields": {
+        "name": "23",
+        "release": 4,
+        "jira": "CORE-12058",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-05T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 78,
+    "fields": {
+        "name": "24",
+        "release": 4,
+        "jira": "CORE-12238",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-05-26T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 79,
+    "fields": {
+        "name": "2",
+        "release": 5,
+        "jira": "CORE-9793",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-01T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 80,
+    "fields": {
+        "name": "3",
+        "release": 5,
+        "jira": "CORE-9923",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-08T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 81,
+    "fields": {
+        "name": "4",
+        "release": 5,
+        "jira": "CORE-9999",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-16T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 82,
+    "fields": {
+        "name": "5",
+        "release": 5,
+        "jira": "CORE-10081",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-07T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 83,
+    "fields": {
+        "name": "6",
+        "release": 5,
+        "jira": "CORE-10347",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-31T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 84,
+    "fields": {
+        "name": "7",
+        "release": 5,
+        "jira": "CORE-10603",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-17T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 85,
+    "fields": {
+        "name": "8",
+        "release": 5,
+        "jira": "CORE-10827",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-30T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 86,
+    "fields": {
+        "name": "2",
+        "release": 6,
+        "jira": "CORE-10205",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-07T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 87,
+    "fields": {
+        "name": "3",
+        "release": 6,
+        "jira": "CORE-10352",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-13T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 88,
+    "fields": {
+        "name": "4",
+        "release": 6,
+        "jira": "CORE-10419",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-31T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 89,
+    "fields": {
+        "name": "5",
+        "release": 6,
+        "jira": "CORE-10605",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-17T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 90,
+    "fields": {
+        "name": "6",
+        "release": 6,
+        "jira": "CORE-10810",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-01-13T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 91,
+    "fields": {
+        "name": "7",
+        "release": 6,
+        "jira": "CORE-11389",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-12T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 92,
+    "fields": {
+        "name": "2",
+        "release": 7,
+        "jira": "CORE-10526",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-10T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 93,
+    "fields": {
+        "name": "3",
+        "release": 7,
+        "jira": "CORE-10741",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-21T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 94,
+    "fields": {
+        "name": "4",
+        "release": 7,
+        "jira": "CORE-10899",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-12-09T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 95,
+    "fields": {
+        "name": "5",
+        "release": 7,
+        "jira": "CORE-11094",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-24T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 96,
+    "fields": {
+        "name": "2",
+        "release": 8,
+        "jira": "CORE-11083",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-12-09T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 97,
+    "fields": {
+        "name": "3",
+        "release": 8,
+        "jira": "CORE-11157",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-12-16T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 98,
+    "fields": {
+        "name": "4",
+        "release": 8,
+        "jira": "CORE-11218",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-12-16T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 99,
+    "fields": {
+        "name": "5",
+        "release": 8,
+        "jira": "CORE-11316",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-01-13T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 100,
+    "fields": {
+        "name": "6",
+        "release": 8,
+        "jira": "CORE-11409",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-01-18T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 101,
+    "fields": {
+        "name": "7",
+        "release": 8,
+        "jira": "CORE-11488",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-02-08T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 102,
+    "fields": {
+        "name": "8",
+        "release": 8,
+        "jira": "CORE-11690",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-12T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 103,
+    "fields": {
+        "name": "9",
+        "release": 8,
+        "jira": "CORE-12342",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-01T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 104,
+    "fields": {
+        "name": "2",
+        "release": 9,
+        "jira": "CORE-11668",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-02-21T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 105,
+    "fields": {
+        "name": "3",
+        "release": 9,
+        "jira": "CORE-11813",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-13T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 106,
+    "fields": {
+        "name": "4",
+        "release": 9,
+        "jira": "CORE-11939",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-12T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 107,
+    "fields": {
+        "name": "5",
+        "release": 9,
+        "jira": "CORE-12348",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-02T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 108,
+    "fields": {
+        "name": "2",
+        "release": 10,
+        "jira": "CORE-12040",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-21T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 109,
+    "fields": {
+        "name": "3",
+        "release": 10,
+        "jira": "CORE-12039",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-06T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 110,
+    "fields": {
+        "name": "4",
+        "release": 10,
+        "jira": "CORE-12249",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-07T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 111,
+    "fields": {
+        "name": "0",
+        "release": 11,
+        "jira": "CORE-13091",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-13T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 112,
+    "fields": {
+        "name": "1",
+        "release": 11,
+        "jira": "CORE-11948",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-07T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 113,
+    "fields": {
+        "name": "2",
+        "release": 11,
+        "jira": "CORE-12268",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-14T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 114,
+    "fields": {
+        "name": "3",
+        "release": 11,
+        "jira": "CORE-12396",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-14T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 115,
+    "fields": {
+        "name": "4",
+        "release": 11,
+        "jira": "CORE-12399",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-25T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 116,
+    "fields": {
+        "name": "5",
+        "release": 11,
+        "jira": "CORE-12527",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-28T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 117,
+    "fields": {
+        "name": "6",
+        "release": 11,
+        "jira": "CORE-12595",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-05-02T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 118,
+    "fields": {
+        "name": "7",
+        "release": 11,
+        "jira": "CORE-12616",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-05-16T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 119,
+    "fields": {
+        "name": "8",
+        "release": 11,
+        "jira": "CORE-12782",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-08T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 120,
+    "fields": {
+        "name": "2",
+        "release": 12,
+        "jira": "CORE-12895",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-13T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 121,
+    "fields": {
+        "name": "3",
+        "release": 12,
+        "jira": "CORE-13119",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-13T00:00:00Z",
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 122,
+    "fields": {
+        "name": "4",
+        "release": 12,
+        "jira": "CORE-12698",
+        "is_active": true,
+        "released": false,
+        "author": 3,
+        "date_released": null,
+        "created": "2017-06-13",
+        "updated": "2017-06-13"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 123,
+    "fields": {
+        "name": "9",
+        "release": 11,
+        "jira": "CORE-13086",
+        "is_active": true,
+        "released": false,
+        "author": 3,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 124,
+    "fields": {
+        "name": "5",
+        "release": 10,
+        "jira": "CORE-13069",
+        "is_active": true,
+        "released": false,
+        "author": 3,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 125,
+    "fields": {
+        "name": "6",
+        "release": 9,
+        "jira": "CORE-12949",
+        "is_active": true,
+        "released": false,
+        "author": 3,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 126,
+    "fields": {
+        "name": "10",
+        "release": 8,
+        "jira": "CORE-12941",
+        "is_active": true,
+        "released": false,
+        "author": 3,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 127,
+    "fields": {
+        "name": "25",
+        "release": 4,
+        "jira": "CORE-12887",
+        "is_active": true,
+        "released": false,
+        "author": 3,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 128,
+    "fields": {
+        "name": "0",
+        "release": 17,
+        "jira": "CORE-13130",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-14T00:00:00Z",
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 129,
+    "fields": {
+        "name": "1",
+        "release": 17,
+        "jira": "CORE-13131",
+        "is_active": true,
+        "released": false,
+        "author": 1,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 130,
+    "fields": {
+        "name": "27",
+        "release": 3,
+        "jira": "CORE-13152",
+        "is_active": true,
+        "released": false,
+        "author": 1,
+        "date_released": null,
+        "created": "2017-06-16",
+        "updated": "2017-06-16"
+    }
+},
+{
+    "model": "prd.build",
+    "pk": 131,
+    "fields": {
+        "name": "10",
+        "release": 11,
+        "jira": "CORE-13149",
+        "is_active": true,
+        "released": false,
+        "author": 9,
+        "date_released": null,
+        "created": "2017-06-16",
+        "updated": "2017-06-16"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 3,
+    "fields": {
+        "name": "2.5",
+        "product": 1,
+        "jira": "CORE-8504",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-02-09",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 4,
+    "fields": {
+        "name": "2.6",
+        "product": 1,
+        "jira": "CORE-8791",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-06-02",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 5,
+    "fields": {
+        "name": "2.7",
+        "product": 1,
+        "jira": "CORE-9397",
+        "is_active": false,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-08-04",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 6,
+    "fields": {
+        "name": "2.8",
+        "product": 1,
+        "jira": "CORE-9706",
+        "is_active": false,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-09-28",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 7,
+    "fields": {
+        "name": "2.9",
+        "product": 1,
+        "jira": "CORE-10092",
+        "is_active": false,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-10-25",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 8,
+    "fields": {
+        "name": "2.10",
+        "product": 1,
+        "jira": "CORE-10631",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-12-08",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 9,
+    "fields": {
+        "name": "2.11",
+        "product": 1,
+        "jira": "CORE-11640",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-02-06",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 10,
+    "fields": {
+        "name": "2.12",
+        "product": 1,
+        "jira": "CORE-11671",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-03-21",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 11,
+    "fields": {
+        "name": "2.13",
+        "product": 1,
+        "jira": "CORE-11941",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-04-14",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 12,
+    "fields": {
+        "name": "2.14",
+        "product": 1,
+        "jira": "CORE-12698",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2017-06-14",
+        "created": "2017-06-08",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 13,
+    "fields": {
+        "name": "1.3",
+        "product": 2,
+        "jira": "SVNTF-1",
+        "is_active": true,
+        "released": true,
+        "author": 1,
+        "date_released": "2016-11-27",
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 15,
+    "fields": {
+        "name": "1.4",
+        "product": 2,
+        "jira": "SVNTF-11",
+        "is_active": true,
+        "released": false,
+        "author": 1,
+        "date_released": null,
+        "created": "2017-06-08",
+        "updated": "2017-06-08"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 16,
+    "fields": {
+        "name": "1.5",
+        "product": 4,
+        "jira": "SVCI-104",
+        "is_active": true,
+        "released": false,
+        "author": 1,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.release",
+    "pk": 17,
+    "fields": {
+        "name": "2.15",
+        "product": 1,
+        "jira": "CORE-13078",
+        "is_active": true,
+        "released": false,
+        "author": 1,
+        "date_released": null,
+        "created": "2017-06-14",
+        "updated": "2017-06-14"
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 1,
+    "fields": {
+        "name": "backoffice",
+        "product": 1,
+        "release": null,
+        "gitlab_id": 114
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 2,
+    "fields": {
+        "name": "svweb",
+        "product": 1,
+        "release": null,
+        "gitlab_id": 9
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 3,
+    "fields": {
+        "name": "camel",
+        "product": 1,
+        "release": null,
+        "gitlab_id": 90
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 4,
+    "fields": {
+        "name": "svfe_adapter",
+        "product": 1,
+        "release": null,
+        "gitlab_id": 24
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 5,
+    "fields": {
+        "name": "svntf",
+        "product": 2,
+        "release": null,
+        "gitlab_id": 13
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 6,
+    "fields": {
+        "name": "Main module",
+        "product": 3,
+        "release": null,
+        "gitlab_id": 457
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 7,
+    "fields": {
+        "name": "CI GUI",
+        "product": 4,
+        "release": null,
+        "gitlab_id": 548
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 8,
+    "fields": {
+        "name": "Installer",
+        "product": 5,
+        "release": null,
+        "gitlab_id": 6
+    }
+},
+{
+    "model": "prd.releasepart",
+    "pk": 9,
+    "fields": {
+        "name": "Kernel SSO",
+        "product": 6,
+        "release": null,
+        "gitlab_id": 424
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 1,
+    "fields": {
+        "build": 4,
+        "release_part": 4,
+        "revision": "29026fc1e1c2282243998e63a95ee22f0df95b1e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 2,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "380f19f25d37f3547162f911b1aeef269146efc9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 3,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "7c3d54fa7329be8dcdad5836369e97fba5333b17"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 4,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "ceb5390e9e466089a4080602bc6b120c52d2efd2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 5,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 6,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 7,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 8,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 9,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 10,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 11,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 12,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 13,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 14,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 15,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 16,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 18,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 19,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 20,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 21,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 22,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 23,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 24,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 25,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 26,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 27,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 28,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 29,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 30,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 31,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 32,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 33,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 34,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 35,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 36,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 37,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 38,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 39,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 40,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 41,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 42,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 43,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 44,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 45,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 46,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 47,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 48,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 49,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 50,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 51,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 52,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 53,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 54,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 55,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 56,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 57,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 58,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 59,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 60,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 61,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 62,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 63,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 64,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 65,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 66,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 67,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 68,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 69,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 70,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 71,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 72,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 73,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 74,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 75,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 76,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 77,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 78,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 79,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 80,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 81,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 82,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 83,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 84,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 85,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 86,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 87,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 88,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 89,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 90,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 91,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 92,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 93,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 94,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 95,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 96,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 97,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 98,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 99,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 100,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 101,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 102,
+    "fields": {
+        "build": 36,
+        "release_part": 3,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 103,
+    "fields": {
+        "build": 36,
+        "release_part": 2,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 104,
+    "fields": {
+        "build": 36,
+        "release_part": 1,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 105,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 106,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 107,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 108,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 109,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 110,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 111,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 112,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 113,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 114,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 115,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 116,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 117,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 118,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 119,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 120,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 121,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 122,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 123,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 124,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 125,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 126,
+    "fields": {
+        "build": 36,
+        "release_part": 3,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 127,
+    "fields": {
+        "build": 36,
+        "release_part": 2,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 128,
+    "fields": {
+        "build": 36,
+        "release_part": 1,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 129,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 130,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 131,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 132,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 133,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 134,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 135,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 136,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 137,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 138,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 139,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 140,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 141,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 142,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 143,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 144,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 145,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 146,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 147,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 148,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 149,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 150,
+    "fields": {
+        "build": 36,
+        "release_part": 3,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 151,
+    "fields": {
+        "build": 36,
+        "release_part": 2,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 152,
+    "fields": {
+        "build": 36,
+        "release_part": 1,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 153,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 154,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 155,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 156,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 157,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 158,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 159,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 160,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 161,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 162,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 163,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 164,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 165,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 166,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 167,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 168,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 169,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 170,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 171,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 172,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 173,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 174,
+    "fields": {
+        "build": 36,
+        "release_part": 3,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 175,
+    "fields": {
+        "build": 36,
+        "release_part": 2,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 176,
+    "fields": {
+        "build": 36,
+        "release_part": 1,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 177,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 178,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 179,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "52441"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 180,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 181,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 182,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "54195"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 183,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 184,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 185,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "55279"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 186,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 187,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 188,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 189,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 190,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 191,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "57007"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 192,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 193,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 194,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "57473"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 195,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 196,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 197,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "58891"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 198,
+    "fields": {
+        "build": 36,
+        "release_part": 3,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 199,
+    "fields": {
+        "build": 36,
+        "release_part": 2,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 200,
+    "fields": {
+        "build": 36,
+        "release_part": 1,
+        "revision": "62692"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 201,
+    "fields": {
+        "build": 37,
+        "release_part": 3,
+        "revision": "8a710b5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 202,
+    "fields": {
+        "build": 37,
+        "release_part": 2,
+        "revision": "8a710b5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 203,
+    "fields": {
+        "build": 37,
+        "release_part": 1,
+        "revision": "8a710b5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 204,
+    "fields": {
+        "build": 38,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 205,
+    "fields": {
+        "build": 38,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 206,
+    "fields": {
+        "build": 38,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 207,
+    "fields": {
+        "build": 39,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 208,
+    "fields": {
+        "build": 39,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 209,
+    "fields": {
+        "build": 39,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 210,
+    "fields": {
+        "build": 40,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 211,
+    "fields": {
+        "build": 40,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 212,
+    "fields": {
+        "build": 40,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 213,
+    "fields": {
+        "build": 41,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 214,
+    "fields": {
+        "build": 41,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 215,
+    "fields": {
+        "build": 41,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 216,
+    "fields": {
+        "build": 42,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 217,
+    "fields": {
+        "build": 42,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 218,
+    "fields": {
+        "build": 42,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 219,
+    "fields": {
+        "build": 43,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 220,
+    "fields": {
+        "build": 43,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 221,
+    "fields": {
+        "build": 43,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 222,
+    "fields": {
+        "build": 44,
+        "release_part": 3,
+        "revision": "4910f73e769a9d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 223,
+    "fields": {
+        "build": 44,
+        "release_part": 2,
+        "revision": "b05ac1c9184b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 224,
+    "fields": {
+        "build": 44,
+        "release_part": 1,
+        "revision": "9516eb9e932dac490bf90597a1ccc736be368788"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 225,
+    "fields": {
+        "build": 45,
+        "release_part": 4,
+        "revision": "3216026a61c3f6f2cec5716d47fd38978d6ca58a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 226,
+    "fields": {
+        "build": 45,
+        "release_part": 3,
+        "revision": "08069dd6009a4cc4e4315fd3aa3c959b9f8ad2ce"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 227,
+    "fields": {
+        "build": 45,
+        "release_part": 2,
+        "revision": "dd3d54d5c964793b1ab3135a6a880149eb80eae5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 228,
+    "fields": {
+        "build": 45,
+        "release_part": 1,
+        "revision": "97559d6d77e0bd7ef812747eb2808d6fcd4ff2a5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 229,
+    "fields": {
+        "build": 46,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 230,
+    "fields": {
+        "build": 46,
+        "release_part": 3,
+        "revision": "181d0fa417c614ff4eb8111ad3a9d89b48ae1db8"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 231,
+    "fields": {
+        "build": 46,
+        "release_part": 2,
+        "revision": "dd3d54d5c964793b1ab3135a6a880149eb80eae5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 232,
+    "fields": {
+        "build": 46,
+        "release_part": 1,
+        "revision": "7f73be2f2d361b7e0292db7f51a78492747da60f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 233,
+    "fields": {
+        "build": 47,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 234,
+    "fields": {
+        "build": 47,
+        "release_part": 3,
+        "revision": "227e55726917748b359666407fcfa4a4dc31733f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 235,
+    "fields": {
+        "build": 47,
+        "release_part": 2,
+        "revision": "6badef5afea4a8986b09fbc00cdc6af49dd79d9e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 236,
+    "fields": {
+        "build": 47,
+        "release_part": 1,
+        "revision": "5128bff1efee5f95e9ef6b160a7378d44ae24043"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 237,
+    "fields": {
+        "build": 48,
+        "release_part": 4,
+        "revision": "f5babc0daf31ccd07860c8502290b1d09be5e95a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 238,
+    "fields": {
+        "build": 48,
+        "release_part": 3,
+        "revision": "75f8bbdd9b4b52b25f2f18c8c35c52a219510a90"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 239,
+    "fields": {
+        "build": 48,
+        "release_part": 2,
+        "revision": "f2aa3713478e4e3590ca6a37fbd20b9ca4290c19"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 240,
+    "fields": {
+        "build": 48,
+        "release_part": 1,
+        "revision": "49788d699fa6923e5e88a3bfa0aa4ffbe62a04c7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 241,
+    "fields": {
+        "build": 49,
+        "release_part": 4,
+        "revision": "55ea45e53f4e36168c361de800ef3109d9fa9e49"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 242,
+    "fields": {
+        "build": 49,
+        "release_part": 3,
+        "revision": "336844e2d0fd4fba1fd6b5cde073d2d782537029"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 243,
+    "fields": {
+        "build": 49,
+        "release_part": 2,
+        "revision": "264b5dc8d7064bf892aec386bab47cb8daf4c643"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 244,
+    "fields": {
+        "build": 49,
+        "release_part": 1,
+        "revision": "fcd7cf540402fcc5468e0773284829e1856b2979"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 245,
+    "fields": {
+        "build": 50,
+        "release_part": 4,
+        "revision": "55ea45e53f4e36168c361de800ef3109d9fa9e49"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 246,
+    "fields": {
+        "build": 50,
+        "release_part": 3,
+        "revision": "1d35f7ba1438b7d4e34a412a8225f10540a5455f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 247,
+    "fields": {
+        "build": 50,
+        "release_part": 2,
+        "revision": "9ae977676c35f03b4484a210877107c84ba48886"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 248,
+    "fields": {
+        "build": 50,
+        "release_part": 1,
+        "revision": "bd3bd279186036183722335f998a32f62ba64873"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 249,
+    "fields": {
+        "build": 51,
+        "release_part": 4,
+        "revision": "55ea45e53f4e36168c361de800ef3109d9fa9e49"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 250,
+    "fields": {
+        "build": 51,
+        "release_part": 3,
+        "revision": "a20edb50aaf8636d297b5bb7c4366b1ff4eac9a4"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 251,
+    "fields": {
+        "build": 51,
+        "release_part": 2,
+        "revision": "86df15898ab05ee5b103ce4de9a1e8feb309398d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 252,
+    "fields": {
+        "build": 51,
+        "release_part": 1,
+        "revision": "5f94a3a1721ba37a74dead290c1b7ba9fc48b0d9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 253,
+    "fields": {
+        "build": 52,
+        "release_part": 4,
+        "revision": "da0fdea5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 254,
+    "fields": {
+        "build": 52,
+        "release_part": 3,
+        "revision": "6a4380a8"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 255,
+    "fields": {
+        "build": 52,
+        "release_part": 2,
+        "revision": "41809295"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 256,
+    "fields": {
+        "build": 52,
+        "release_part": 1,
+        "revision": "dcdc31f4"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 257,
+    "fields": {
+        "build": 53,
+        "release_part": 4,
+        "revision": "16132f31"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 258,
+    "fields": {
+        "build": 53,
+        "release_part": 3,
+        "revision": "bc83399c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 259,
+    "fields": {
+        "build": 53,
+        "release_part": 2,
+        "revision": "b6956171"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 260,
+    "fields": {
+        "build": 53,
+        "release_part": 1,
+        "revision": "01ac0703"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 261,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "3a6e8a91772"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 262,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "3c606a000"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 263,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "d67e3ba5bc7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 264,
+    "fields": {
+        "build": 4,
+        "release_part": 3,
+        "revision": "3a6e8a91772"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 265,
+    "fields": {
+        "build": 4,
+        "release_part": 2,
+        "revision": "3c606a000"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 266,
+    "fields": {
+        "build": 4,
+        "release_part": 1,
+        "revision": "d67e3ba5bc7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 267,
+    "fields": {
+        "build": 25,
+        "release_part": 3,
+        "revision": "5bc2d6a206d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 268,
+    "fields": {
+        "build": 25,
+        "release_part": 2,
+        "revision": "6f97ae60a548d6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 269,
+    "fields": {
+        "build": 25,
+        "release_part": 1,
+        "revision": "feb48962d3e935cc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 270,
+    "fields": {
+        "build": 31,
+        "release_part": 3,
+        "revision": "9a4951f9ddf3228208"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 271,
+    "fields": {
+        "build": 31,
+        "release_part": 2,
+        "revision": "412696b11a6905"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 272,
+    "fields": {
+        "build": 31,
+        "release_part": 1,
+        "revision": "3b42f7bede1dca651c09f8431a54a1ad73939e9d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 273,
+    "fields": {
+        "build": 32,
+        "release_part": 3,
+        "revision": "c38c0d7758a8e7bdd6bc5c30f6b03c29130bcd2c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 274,
+    "fields": {
+        "build": 32,
+        "release_part": 2,
+        "revision": "7911f53e589dba0d82ded16f3ef98e546ce36232"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 275,
+    "fields": {
+        "build": 32,
+        "release_part": 1,
+        "revision": "2d6e5a719e9d652c22de80e36cedf194898f6569"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 276,
+    "fields": {
+        "build": 33,
+        "release_part": 3,
+        "revision": "bcdf3cceeb1b91207cde5f21fdd0fee6e5adbd5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 277,
+    "fields": {
+        "build": 33,
+        "release_part": 2,
+        "revision": "213056c2f52ce4ec9fcd615e51f2591ee6b566f7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 278,
+    "fields": {
+        "build": 33,
+        "release_part": 1,
+        "revision": "4c435b27c3931245695a42036db7555f46464ef9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 279,
+    "fields": {
+        "build": 34,
+        "release_part": 3,
+        "revision": "bcdf3cceeb1b91207cde5f21fdd0fee6e5adbd5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 280,
+    "fields": {
+        "build": 34,
+        "release_part": 2,
+        "revision": "e03b438638f088106520ca35f10cf4b59ce0daa5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 281,
+    "fields": {
+        "build": 34,
+        "release_part": 1,
+        "revision": "83e366a5fcb09ee59351391e7520ea4a6c7ecb07"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 282,
+    "fields": {
+        "build": 35,
+        "release_part": 3,
+        "revision": "bcdf3cceeb1b91207cde5f21fdd0fee6e5adbd5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 283,
+    "fields": {
+        "build": 35,
+        "release_part": 2,
+        "revision": "e03b438638f088106520ca35f10cf4b59ce0daa5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 284,
+    "fields": {
+        "build": 35,
+        "release_part": 1,
+        "revision": "d22b371b8299ff5837a1929eecf110c74973332b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 285,
+    "fields": {
+        "build": 36,
+        "release_part": 4,
+        "revision": "f60f6bc9228a0aed8e61ff85224624034b3f273c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 286,
+    "fields": {
+        "build": 36,
+        "release_part": 3,
+        "revision": "c89a39f4a41f4cfbf464fdda8e93370660287c41"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 287,
+    "fields": {
+        "build": 36,
+        "release_part": 2,
+        "revision": "4f13860b70eef6e85d3eebb5b3a5d0fe45263f86"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 288,
+    "fields": {
+        "build": 36,
+        "release_part": 1,
+        "revision": "1f5173d65b9a41a4e7ff3f42daf8fa55f523d973"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 289,
+    "fields": {
+        "build": 37,
+        "release_part": 4,
+        "revision": "3216026a61c3f6f2cec5716d47fd38978d6ca58a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 290,
+    "fields": {
+        "build": 37,
+        "release_part": 3,
+        "revision": "182f2a5570e01311f53fec87082008a49b77534e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 291,
+    "fields": {
+        "build": 37,
+        "release_part": 2,
+        "revision": "a9612d97652f43f941be9abeb9d425eda8052bfb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 292,
+    "fields": {
+        "build": 37,
+        "release_part": 1,
+        "revision": "6614fc50cbbfc2a8bdb7e73533db327ae8951f45"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 293,
+    "fields": {
+        "build": 43,
+        "release_part": 4,
+        "revision": "3216026a61c3f6f2cec5716d47fd38978d6ca58a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 294,
+    "fields": {
+        "build": 43,
+        "release_part": 3,
+        "revision": "7b07a4142df87ed2bddf84dccb275e62023d36ed"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 295,
+    "fields": {
+        "build": 43,
+        "release_part": 2,
+        "revision": "571e8e6f7cb07a9dbab8acc94f066b6a5a65234f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 296,
+    "fields": {
+        "build": 43,
+        "release_part": 1,
+        "revision": "779a4538626062ffd3224b5145a3c8968b9dff78"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 297,
+    "fields": {
+        "build": 42,
+        "release_part": 4,
+        "revision": "3216026a61c3f6f2cec5716d47fd38978d6ca58a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 298,
+    "fields": {
+        "build": 42,
+        "release_part": 3,
+        "revision": "efbeb76df24eacbd747b51ed77575ed39f70fea1"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 299,
+    "fields": {
+        "build": 42,
+        "release_part": 2,
+        "revision": "664213d7e7fdb67c97d53ca3c770a2bab2fc7d93"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 300,
+    "fields": {
+        "build": 42,
+        "release_part": 1,
+        "revision": "7eb9cceda2fbea587cf745d22d5438c7916757f8"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 301,
+    "fields": {
+        "build": 41,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 302,
+    "fields": {
+        "build": 41,
+        "release_part": 3,
+        "revision": "661c07ba1b568e47798f4acebc64b5b8a3279de9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 303,
+    "fields": {
+        "build": 41,
+        "release_part": 2,
+        "revision": "ea51753fec855add881df8206ace7d5c6e41b550"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 304,
+    "fields": {
+        "build": 41,
+        "release_part": 1,
+        "revision": "d0a64d305884e63109a1902cd39017592153ecf2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 305,
+    "fields": {
+        "build": 40,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 306,
+    "fields": {
+        "build": 40,
+        "release_part": 3,
+        "revision": "661c07ba1b568e47798f4acebc64b5b8a3279de9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 307,
+    "fields": {
+        "build": 40,
+        "release_part": 2,
+        "revision": "37d7dc2256d8abec99e0a09fb818b11e9eaf4f43"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 308,
+    "fields": {
+        "build": 40,
+        "release_part": 1,
+        "revision": "e32eb7a53b770eb3ea95d758be67f3ff4c59cfa7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 309,
+    "fields": {
+        "build": 39,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 310,
+    "fields": {
+        "build": 39,
+        "release_part": 3,
+        "revision": "9e4c2c5709543baf6e4244ba96bba3d1af96361b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 311,
+    "fields": {
+        "build": 39,
+        "release_part": 2,
+        "revision": "221569eeb7adc46dd67c9b8c8481a4efa6b543c1"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 312,
+    "fields": {
+        "build": 39,
+        "release_part": 1,
+        "revision": "866468731c196328647077dfb4aee954641eff26"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 313,
+    "fields": {
+        "build": 38,
+        "release_part": 4,
+        "revision": "5c4bd5803344da2cca32808cfd983b078a2374e6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 314,
+    "fields": {
+        "build": 38,
+        "release_part": 3,
+        "revision": "56463f8105404c4ad312a4516311d90b057b35c0"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 315,
+    "fields": {
+        "build": 38,
+        "release_part": 2,
+        "revision": "c54e812d384c45219718febae4da900ecec3ad72"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 316,
+    "fields": {
+        "build": 38,
+        "release_part": 1,
+        "revision": "5497b23cedc6ecfdf55047e254c0f244943f35ba"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 317,
+    "fields": {
+        "build": 44,
+        "release_part": 4,
+        "revision": "4bccb9e71ae48b99e749fe0d5c09dcbe3d1cef88"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 318,
+    "fields": {
+        "build": 44,
+        "release_part": 3,
+        "revision": "9201689bd4d240815ca16de36744b9691ea8d8f5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 319,
+    "fields": {
+        "build": 44,
+        "release_part": 2,
+        "revision": "b34ec7cd53fbbb0ea5ce7b5cc359575d278e7383"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 320,
+    "fields": {
+        "build": 44,
+        "release_part": 1,
+        "revision": "78edcff0b5803a299eb824d6da97ccb3505a6c62"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 321,
+    "fields": {
+        "build": 45,
+        "release_part": 4,
+        "revision": "f1a581eb6cd86e269afac81f01c2854309b6399d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 322,
+    "fields": {
+        "build": 45,
+        "release_part": 3,
+        "revision": "9201689bd4d240815ca16de36744b9691ea8d8f5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 323,
+    "fields": {
+        "build": 45,
+        "release_part": 2,
+        "revision": "29bbcb496b5e144ef969085af16389c7c11807b5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 324,
+    "fields": {
+        "build": 45,
+        "release_part": 1,
+        "revision": "fcb5130817c0088b3cfa5539240927aedc071890"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 325,
+    "fields": {
+        "build": 46,
+        "release_part": 4,
+        "revision": "008eeb6d42476f9f9b1212082c2e6163add62a86"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 326,
+    "fields": {
+        "build": 46,
+        "release_part": 3,
+        "revision": "90a2237f74e8a84c7f504803033b849409c957da"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 327,
+    "fields": {
+        "build": 46,
+        "release_part": 2,
+        "revision": "09a66e257656844c98a4675595a905e52e5d1613"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 328,
+    "fields": {
+        "build": 46,
+        "release_part": 1,
+        "revision": "8819395a6a69793542c21e02a8cbb6f5d509c2fd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 329,
+    "fields": {
+        "build": 47,
+        "release_part": 4,
+        "revision": "e3a51d0b5c9a57e4cde60d37df4688ef8bda6b3e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 330,
+    "fields": {
+        "build": 47,
+        "release_part": 3,
+        "revision": "1723a14a48271b5c50fac30f25e95b6113312fdf"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 331,
+    "fields": {
+        "build": 47,
+        "release_part": 2,
+        "revision": "e3a51d0b5c9a57e4cde60d37df4688ef8bda6b3e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 332,
+    "fields": {
+        "build": 47,
+        "release_part": 1,
+        "revision": "9fa0e3bda1f47e0e3e1ff64ae4b448b3e5e5ee78"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 333,
+    "fields": {
+        "build": 48,
+        "release_part": 4,
+        "revision": "bbea94635152ecc771483e8058cda3e3cd4515eb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 334,
+    "fields": {
+        "build": 48,
+        "release_part": 3,
+        "revision": "1a7db5399f991e3ca0011b964150d80e955b0ea4"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 335,
+    "fields": {
+        "build": 48,
+        "release_part": 2,
+        "revision": "e8a2ed5aac6c7fa43a4feb0c8e0afd3a072a0b79"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 336,
+    "fields": {
+        "build": 48,
+        "release_part": 1,
+        "revision": "978ca54cd032f4758a58312a5441c37db5acbfbd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 337,
+    "fields": {
+        "build": 49,
+        "release_part": 4,
+        "revision": "bbea94635152ecc771483e8058cda3e3cd4515eb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 338,
+    "fields": {
+        "build": 49,
+        "release_part": 3,
+        "revision": "ad26339fc2f99603431eec5f0bec6988f89acb08"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 339,
+    "fields": {
+        "build": 49,
+        "release_part": 2,
+        "revision": "746af7d0433ecf87d26a679769e700cd5bf2d1eb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 340,
+    "fields": {
+        "build": 49,
+        "release_part": 1,
+        "revision": "8e9ea15ccf333fe8496ed8b6d683bfbc583bdf95"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 341,
+    "fields": {
+        "build": 50,
+        "release_part": 4,
+        "revision": "aed2fdfe"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 342,
+    "fields": {
+        "build": 50,
+        "release_part": 3,
+        "revision": "5b996431"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 343,
+    "fields": {
+        "build": 50,
+        "release_part": 2,
+        "revision": "d3d4471e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 344,
+    "fields": {
+        "build": 50,
+        "release_part": 1,
+        "revision": "010b449d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 345,
+    "fields": {
+        "build": 51,
+        "release_part": 4,
+        "revision": "aed2fdfe"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 346,
+    "fields": {
+        "build": 51,
+        "release_part": 3,
+        "revision": "ea2deded"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 347,
+    "fields": {
+        "build": 51,
+        "release_part": 2,
+        "revision": "c8322d08"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 348,
+    "fields": {
+        "build": 51,
+        "release_part": 1,
+        "revision": "cfd184e7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 349,
+    "fields": {
+        "build": 52,
+        "release_part": 4,
+        "revision": "20923ded"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 350,
+    "fields": {
+        "build": 52,
+        "release_part": 3,
+        "revision": "263a0edc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 351,
+    "fields": {
+        "build": 52,
+        "release_part": 2,
+        "revision": "10da8e4f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 352,
+    "fields": {
+        "build": 52,
+        "release_part": 1,
+        "revision": "f38ffe6e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 353,
+    "fields": {
+        "build": 55,
+        "release_part": 3,
+        "revision": "3a6e8a91772"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 354,
+    "fields": {
+        "build": 55,
+        "release_part": 2,
+        "revision": "3c606a000"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 355,
+    "fields": {
+        "build": 55,
+        "release_part": 1,
+        "revision": "d67e3ba5bc7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 356,
+    "fields": {
+        "build": 56,
+        "release_part": 3,
+        "revision": "5bc2d6a206d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 357,
+    "fields": {
+        "build": 56,
+        "release_part": 2,
+        "revision": "6f97ae60a548d6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 358,
+    "fields": {
+        "build": 56,
+        "release_part": 1,
+        "revision": "feb48962d3e935cc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 359,
+    "fields": {
+        "build": 57,
+        "release_part": 3,
+        "revision": "9a4951f9ddf3228208"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 360,
+    "fields": {
+        "build": 57,
+        "release_part": 2,
+        "revision": "412696b11a6905"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 361,
+    "fields": {
+        "build": 57,
+        "release_part": 1,
+        "revision": "3b42f7bede1dca651c09f8431a54a1ad73939e9d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 362,
+    "fields": {
+        "build": 58,
+        "release_part": 3,
+        "revision": "c38c0d7758a8e7bdd6bc5c30f6b03c29130bcd2c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 363,
+    "fields": {
+        "build": 58,
+        "release_part": 2,
+        "revision": "7911f53e589dba0d82ded16f3ef98e546ce36232"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 364,
+    "fields": {
+        "build": 58,
+        "release_part": 1,
+        "revision": "2d6e5a719e9d652c22de80e36cedf194898f6569"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 365,
+    "fields": {
+        "build": 59,
+        "release_part": 3,
+        "revision": "bcdf3cceeb1b91207cde5f21fdd0fee6e5adbd5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 366,
+    "fields": {
+        "build": 59,
+        "release_part": 2,
+        "revision": "213056c2f52ce4ec9fcd615e51f2591ee6b566f7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 367,
+    "fields": {
+        "build": 59,
+        "release_part": 1,
+        "revision": "4c435b27c3931245695a42036db7555f46464ef9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 368,
+    "fields": {
+        "build": 60,
+        "release_part": 3,
+        "revision": "bcdf3cceeb1b91207cde5f21fdd0fee6e5adbd5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 369,
+    "fields": {
+        "build": 60,
+        "release_part": 2,
+        "revision": "e03b438638f088106520ca35f10cf4b59ce0daa5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 370,
+    "fields": {
+        "build": 60,
+        "release_part": 1,
+        "revision": "83e366a5fcb09ee59351391e7520ea4a6c7ecb07"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 371,
+    "fields": {
+        "build": 61,
+        "release_part": 3,
+        "revision": "bcdf3cceeb1b91207cde5f21fdd0fee6e5adbd5b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 372,
+    "fields": {
+        "build": 61,
+        "release_part": 2,
+        "revision": "e03b438638f088106520ca35f10cf4b59ce0daa5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 373,
+    "fields": {
+        "build": 61,
+        "release_part": 1,
+        "revision": "d22b371b8299ff5837a1929eecf110c74973332b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 374,
+    "fields": {
+        "build": 62,
+        "release_part": 4,
+        "revision": "f60f6bc9228a0aed8e61ff85224624034b3f273c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 375,
+    "fields": {
+        "build": 62,
+        "release_part": 3,
+        "revision": "c89a39f4a41f4cfbf464fdda8e93370660287c41"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 376,
+    "fields": {
+        "build": 62,
+        "release_part": 2,
+        "revision": "4f13860b70eef6e85d3eebb5b3a5d0fe45263f86"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 377,
+    "fields": {
+        "build": 62,
+        "release_part": 1,
+        "revision": "1f5173d65b9a41a4e7ff3f42daf8fa55f523d973"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 378,
+    "fields": {
+        "build": 63,
+        "release_part": 4,
+        "revision": "3216026a61c3f6f2cec5716d47fd38978d6ca58a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 379,
+    "fields": {
+        "build": 63,
+        "release_part": 3,
+        "revision": "182f2a5570e01311f53fec87082008a49b77534e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 380,
+    "fields": {
+        "build": 63,
+        "release_part": 2,
+        "revision": "a9612d97652f43f941be9abeb9d425eda8052bfb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 381,
+    "fields": {
+        "build": 63,
+        "release_part": 1,
+        "revision": "6614fc50cbbfc2a8bdb7e73533db327ae8951f45"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 382,
+    "fields": {
+        "build": 64,
+        "release_part": 4,
+        "revision": "3216026a61c3f6f2cec5716d47fd38978d6ca58a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 383,
+    "fields": {
+        "build": 64,
+        "release_part": 3,
+        "revision": "7b07a4142df87ed2bddf84dccb275e62023d36ed"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 384,
+    "fields": {
+        "build": 64,
+        "release_part": 2,
+        "revision": "571e8e6f7cb07a9dbab8acc94f066b6a5a65234f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 385,
+    "fields": {
+        "build": 64,
+        "release_part": 1,
+        "revision": "779a4538626062ffd3224b5145a3c8968b9dff78"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 386,
+    "fields": {
+        "build": 65,
+        "release_part": 4,
+        "revision": "3216026a61c3f6f2cec5716d47fd38978d6ca58a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 387,
+    "fields": {
+        "build": 65,
+        "release_part": 3,
+        "revision": "efbeb76df24eacbd747b51ed77575ed39f70fea1"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 388,
+    "fields": {
+        "build": 65,
+        "release_part": 2,
+        "revision": "664213d7e7fdb67c97d53ca3c770a2bab2fc7d93"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 389,
+    "fields": {
+        "build": 65,
+        "release_part": 1,
+        "revision": "7eb9cceda2fbea587cf745d22d5438c7916757f8"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 390,
+    "fields": {
+        "build": 66,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 391,
+    "fields": {
+        "build": 66,
+        "release_part": 3,
+        "revision": "661c07ba1b568e47798f4acebc64b5b8a3279de9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 392,
+    "fields": {
+        "build": 66,
+        "release_part": 2,
+        "revision": "ea51753fec855add881df8206ace7d5c6e41b550"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 393,
+    "fields": {
+        "build": 66,
+        "release_part": 1,
+        "revision": "d0a64d305884e63109a1902cd39017592153ecf2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 394,
+    "fields": {
+        "build": 67,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 395,
+    "fields": {
+        "build": 67,
+        "release_part": 3,
+        "revision": "661c07ba1b568e47798f4acebc64b5b8a3279de9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 396,
+    "fields": {
+        "build": 67,
+        "release_part": 2,
+        "revision": "37d7dc2256d8abec99e0a09fb818b11e9eaf4f43"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 397,
+    "fields": {
+        "build": 67,
+        "release_part": 1,
+        "revision": "e32eb7a53b770eb3ea95d758be67f3ff4c59cfa7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 398,
+    "fields": {
+        "build": 68,
+        "release_part": 4,
+        "revision": "b16ab778ff47fae50213be5ea677be52a92957f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 399,
+    "fields": {
+        "build": 68,
+        "release_part": 3,
+        "revision": "9e4c2c5709543baf6e4244ba96bba3d1af96361b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 400,
+    "fields": {
+        "build": 68,
+        "release_part": 2,
+        "revision": "221569eeb7adc46dd67c9b8c8481a4efa6b543c1"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 401,
+    "fields": {
+        "build": 68,
+        "release_part": 1,
+        "revision": "866468731c196328647077dfb4aee954641eff26"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 402,
+    "fields": {
+        "build": 69,
+        "release_part": 4,
+        "revision": "5c4bd5803344da2cca32808cfd983b078a2374e6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 403,
+    "fields": {
+        "build": 69,
+        "release_part": 3,
+        "revision": "56463f8105404c4ad312a4516311d90b057b35c0"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 404,
+    "fields": {
+        "build": 69,
+        "release_part": 2,
+        "revision": "c54e812d384c45219718febae4da900ecec3ad72"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 405,
+    "fields": {
+        "build": 69,
+        "release_part": 1,
+        "revision": "5497b23cedc6ecfdf55047e254c0f244943f35ba"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 406,
+    "fields": {
+        "build": 70,
+        "release_part": 4,
+        "revision": "4bccb9e71ae48b99e749fe0d5c09dcbe3d1cef88"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 407,
+    "fields": {
+        "build": 70,
+        "release_part": 3,
+        "revision": "9201689bd4d240815ca16de36744b9691ea8d8f5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 408,
+    "fields": {
+        "build": 70,
+        "release_part": 2,
+        "revision": "b34ec7cd53fbbb0ea5ce7b5cc359575d278e7383"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 409,
+    "fields": {
+        "build": 70,
+        "release_part": 1,
+        "revision": "78edcff0b5803a299eb824d6da97ccb3505a6c62"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 410,
+    "fields": {
+        "build": 71,
+        "release_part": 4,
+        "revision": "f1a581eb6cd86e269afac81f01c2854309b6399d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 411,
+    "fields": {
+        "build": 71,
+        "release_part": 3,
+        "revision": "9201689bd4d240815ca16de36744b9691ea8d8f5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 412,
+    "fields": {
+        "build": 71,
+        "release_part": 2,
+        "revision": "29bbcb496b5e144ef969085af16389c7c11807b5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 413,
+    "fields": {
+        "build": 71,
+        "release_part": 1,
+        "revision": "fcb5130817c0088b3cfa5539240927aedc071890"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 414,
+    "fields": {
+        "build": 72,
+        "release_part": 4,
+        "revision": "008eeb6d42476f9f9b1212082c2e6163add62a86"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 415,
+    "fields": {
+        "build": 72,
+        "release_part": 3,
+        "revision": "90a2237f74e8a84c7f504803033b849409c957da"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 416,
+    "fields": {
+        "build": 72,
+        "release_part": 2,
+        "revision": "09a66e257656844c98a4675595a905e52e5d1613"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 417,
+    "fields": {
+        "build": 72,
+        "release_part": 1,
+        "revision": "8819395a6a69793542c21e02a8cbb6f5d509c2fd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 418,
+    "fields": {
+        "build": 73,
+        "release_part": 4,
+        "revision": "e3a51d0b5c9a57e4cde60d37df4688ef8bda6b3e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 419,
+    "fields": {
+        "build": 73,
+        "release_part": 3,
+        "revision": "1723a14a48271b5c50fac30f25e95b6113312fdf"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 420,
+    "fields": {
+        "build": 73,
+        "release_part": 2,
+        "revision": "e3a51d0b5c9a57e4cde60d37df4688ef8bda6b3e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 421,
+    "fields": {
+        "build": 73,
+        "release_part": 1,
+        "revision": "9fa0e3bda1f47e0e3e1ff64ae4b448b3e5e5ee78"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 422,
+    "fields": {
+        "build": 74,
+        "release_part": 4,
+        "revision": "bbea94635152ecc771483e8058cda3e3cd4515eb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 423,
+    "fields": {
+        "build": 74,
+        "release_part": 3,
+        "revision": "1a7db5399f991e3ca0011b964150d80e955b0ea4"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 424,
+    "fields": {
+        "build": 74,
+        "release_part": 2,
+        "revision": "e8a2ed5aac6c7fa43a4feb0c8e0afd3a072a0b79"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 425,
+    "fields": {
+        "build": 74,
+        "release_part": 1,
+        "revision": "978ca54cd032f4758a58312a5441c37db5acbfbd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 426,
+    "fields": {
+        "build": 75,
+        "release_part": 4,
+        "revision": "bbea94635152ecc771483e8058cda3e3cd4515eb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 427,
+    "fields": {
+        "build": 75,
+        "release_part": 3,
+        "revision": "ad26339fc2f99603431eec5f0bec6988f89acb08"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 428,
+    "fields": {
+        "build": 75,
+        "release_part": 2,
+        "revision": "746af7d0433ecf87d26a679769e700cd5bf2d1eb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 429,
+    "fields": {
+        "build": 75,
+        "release_part": 1,
+        "revision": "8e9ea15ccf333fe8496ed8b6d683bfbc583bdf95"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 430,
+    "fields": {
+        "build": 76,
+        "release_part": 4,
+        "revision": "aed2fdfe"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 431,
+    "fields": {
+        "build": 76,
+        "release_part": 3,
+        "revision": "5b996431"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 432,
+    "fields": {
+        "build": 76,
+        "release_part": 2,
+        "revision": "d3d4471e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 433,
+    "fields": {
+        "build": 76,
+        "release_part": 1,
+        "revision": "010b449d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 434,
+    "fields": {
+        "build": 77,
+        "release_part": 4,
+        "revision": "aed2fdfe"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 435,
+    "fields": {
+        "build": 77,
+        "release_part": 3,
+        "revision": "ea2deded"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 436,
+    "fields": {
+        "build": 77,
+        "release_part": 2,
+        "revision": "c8322d08"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 437,
+    "fields": {
+        "build": 77,
+        "release_part": 1,
+        "revision": "cfd184e7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 438,
+    "fields": {
+        "build": 78,
+        "release_part": 4,
+        "revision": "20923ded"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 439,
+    "fields": {
+        "build": 78,
+        "release_part": 3,
+        "revision": "263a0edc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 440,
+    "fields": {
+        "build": 78,
+        "release_part": 2,
+        "revision": "10da8e4f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 441,
+    "fields": {
+        "build": 78,
+        "release_part": 1,
+        "revision": "f38ffe6e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 442,
+    "fields": {
+        "build": 5,
+        "release_part": 3,
+        "revision": "61c5302"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 443,
+    "fields": {
+        "build": 5,
+        "release_part": 2,
+        "revision": "433d0e5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 444,
+    "fields": {
+        "build": 5,
+        "release_part": 1,
+        "revision": "26e0731"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 445,
+    "fields": {
+        "build": 6,
+        "release_part": 4,
+        "revision": "425b751657e6bb8f2d13dc9476fedab5b5bb0e4c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 446,
+    "fields": {
+        "build": 6,
+        "release_part": 3,
+        "revision": "771a7479b7adb28a16ca451ec487b25c73fc261a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 447,
+    "fields": {
+        "build": 6,
+        "release_part": 2,
+        "revision": "fca3b238f05bc8f8f646c390bec8159903c8c821"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 448,
+    "fields": {
+        "build": 6,
+        "release_part": 1,
+        "revision": "42bb8dd9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 449,
+    "fields": {
+        "build": 79,
+        "release_part": 4,
+        "revision": "425b751657e6bb8f2d13dc9476fedab5b5bb0e4c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 450,
+    "fields": {
+        "build": 79,
+        "release_part": 3,
+        "revision": "c44afeec6e4eac7f96f2e734ff6ec10f9a9e22c6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 451,
+    "fields": {
+        "build": 79,
+        "release_part": 2,
+        "revision": "d2cbbead9442f695f31045ad79b19e8ba5ed8716"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 452,
+    "fields": {
+        "build": 79,
+        "release_part": 1,
+        "revision": "f2b94311a0b32f4753ab5c0cd1ff06bced9a0dcd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 453,
+    "fields": {
+        "build": 80,
+        "release_part": 4,
+        "revision": "075e82084176283571f8aec8a1275ac6a004fe92"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 454,
+    "fields": {
+        "build": 80,
+        "release_part": 3,
+        "revision": "ce28d922240ce1b9f67d3ee5f00e0dee12852a5e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 455,
+    "fields": {
+        "build": 80,
+        "release_part": 2,
+        "revision": "c0fc4953712a154423d518ffb86a12cdc2e5a7aa"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 456,
+    "fields": {
+        "build": 80,
+        "release_part": 1,
+        "revision": "226f11acb597731977ee55338454747f60a274fa"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 457,
+    "fields": {
+        "build": 81,
+        "release_part": 4,
+        "revision": "075e82084176283571f8aec8a1275ac6a004fe92"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 458,
+    "fields": {
+        "build": 81,
+        "release_part": 3,
+        "revision": "62242776696df4892d5c8fa17e2fc218661ec61c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 459,
+    "fields": {
+        "build": 81,
+        "release_part": 2,
+        "revision": "1511ff1026656e11b19745ced974f8bbd1e6b8de"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 460,
+    "fields": {
+        "build": 81,
+        "release_part": 1,
+        "revision": "a10595798abd19845b5305291f8bfe4b7552930a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 461,
+    "fields": {
+        "build": 82,
+        "release_part": 4,
+        "revision": "1a40a0e0088c8eab4a3b354b86134a9ef579d274"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 462,
+    "fields": {
+        "build": 82,
+        "release_part": 3,
+        "revision": "4e56a3ba1ecbcfae259785984a433a61a17f672f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 463,
+    "fields": {
+        "build": 82,
+        "release_part": 2,
+        "revision": "b43adf9cabd47af97c70753b387994b96eaaa403"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 464,
+    "fields": {
+        "build": 82,
+        "release_part": 1,
+        "revision": "9cfe5bfbbd238043e3267237fcd46906a24f86c3"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 465,
+    "fields": {
+        "build": 83,
+        "release_part": 4,
+        "revision": "ffa3ec33676c86a477032a4a9cfc559741f17fa1"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 466,
+    "fields": {
+        "build": 83,
+        "release_part": 3,
+        "revision": "eb4a9e94855573f6bd55c9d1ece61af9951bd986"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 467,
+    "fields": {
+        "build": 83,
+        "release_part": 2,
+        "revision": "71d750fb549253cb02c1682bcc5529d06c74b58d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 468,
+    "fields": {
+        "build": 83,
+        "release_part": 1,
+        "revision": "e6491119d8d946baf6f79d8d47afff9bd92dc027"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 469,
+    "fields": {
+        "build": 84,
+        "release_part": 4,
+        "revision": "06af69c5c636949370e3bc628cde7e8bb9fd169c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 470,
+    "fields": {
+        "build": 84,
+        "release_part": 3,
+        "revision": "6ca26963222ffb83962a1cf51a6b1a6bba13ad45"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 471,
+    "fields": {
+        "build": 84,
+        "release_part": 2,
+        "revision": "843fe4b609b31ef320ea1aa66600ec95a12300cd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 472,
+    "fields": {
+        "build": 84,
+        "release_part": 1,
+        "revision": "7741e7deabbd60fd67edb4f5602947263c6273cd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 473,
+    "fields": {
+        "build": 85,
+        "release_part": 4,
+        "revision": "06af69c5c636949370e3bc628cde7e8bb9fd169c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 474,
+    "fields": {
+        "build": 85,
+        "release_part": 3,
+        "revision": "fa075e99353e6d6e0f9a3ca78a6f35b80fd351d7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 475,
+    "fields": {
+        "build": 85,
+        "release_part": 2,
+        "revision": "d463969505f1c9750655a7fc690c8d464db3cd5d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 476,
+    "fields": {
+        "build": 85,
+        "release_part": 1,
+        "revision": "6267db79f456de594be8136dfef7050d1e977174"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 477,
+    "fields": {
+        "build": 7,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 478,
+    "fields": {
+        "build": 7,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 479,
+    "fields": {
+        "build": 7,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 480,
+    "fields": {
+        "build": 8,
+        "release_part": 4,
+        "revision": "a2568b95992"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 481,
+    "fields": {
+        "build": 8,
+        "release_part": 3,
+        "revision": "9b4794113e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 482,
+    "fields": {
+        "build": 8,
+        "release_part": 2,
+        "revision": "e35059c314d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 483,
+    "fields": {
+        "build": 8,
+        "release_part": 1,
+        "revision": " 903bf020"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 484,
+    "fields": {
+        "build": 86,
+        "release_part": 4,
+        "revision": "a2568b95992f07ecc28032eb40a0bc1bc6ba6fcb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 485,
+    "fields": {
+        "build": 86,
+        "release_part": 3,
+        "revision": "24ba9aea5ee1c1b6b0a3b1397c02a3c8c615f91e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 486,
+    "fields": {
+        "build": 86,
+        "release_part": 2,
+        "revision": "8855d093d51f8378ce9ddde1923a26e798a9d8f5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 487,
+    "fields": {
+        "build": 86,
+        "release_part": 1,
+        "revision": "be59cee6ab723c4d9308db5fd68f0fae0c4d9e54"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 488,
+    "fields": {
+        "build": 87,
+        "release_part": 4,
+        "revision": "affcf9466072354d1917cf7759f34caa7189c477"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 489,
+    "fields": {
+        "build": 87,
+        "release_part": 3,
+        "revision": "1fe6b8e250ae7e3156d9ccd5eb4980962d4bef34"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 490,
+    "fields": {
+        "build": 87,
+        "release_part": 2,
+        "revision": "9aebfbeac1088a89d25aadfdd740003596b85bda"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 491,
+    "fields": {
+        "build": 87,
+        "release_part": 1,
+        "revision": "2f2c52c72dc50b122dc369c31c98981c47af3a8d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 492,
+    "fields": {
+        "build": 88,
+        "release_part": 4,
+        "revision": "aa1c41cd5f317d23bc6d66cd8039833fd4361103"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 493,
+    "fields": {
+        "build": 88,
+        "release_part": 3,
+        "revision": "fe7b089596619fab4604ee9a2628a67e3a9be47e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 494,
+    "fields": {
+        "build": 88,
+        "release_part": 2,
+        "revision": "a4517e975431f323eff7e2208711b5a74e6dc082"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 495,
+    "fields": {
+        "build": 88,
+        "release_part": 1,
+        "revision": "260c109298c74f2baba290e4c8b1824858907afc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 496,
+    "fields": {
+        "build": 89,
+        "release_part": 4,
+        "revision": "99274c5655cad05b94c15de819803e5e5af58600"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 497,
+    "fields": {
+        "build": 89,
+        "release_part": 3,
+        "revision": "23320f8f3b6ce75035b42fad926b426fa7ee9627"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 498,
+    "fields": {
+        "build": 89,
+        "release_part": 2,
+        "revision": "d9b895547240bdfd09bd6559fb4502a5c6aa1239"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 499,
+    "fields": {
+        "build": 89,
+        "release_part": 1,
+        "revision": "025c549e45a0642d282eedb0478b7e684c504144"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 500,
+    "fields": {
+        "build": 90,
+        "release_part": 4,
+        "revision": "65bdfbcc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 501,
+    "fields": {
+        "build": 90,
+        "release_part": 3,
+        "revision": "3962a66c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 502,
+    "fields": {
+        "build": 90,
+        "release_part": 2,
+        "revision": "f519252d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 503,
+    "fields": {
+        "build": 90,
+        "release_part": 1,
+        "revision": "c1ee69a5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 504,
+    "fields": {
+        "build": 91,
+        "release_part": 4,
+        "revision": "b72b002e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 505,
+    "fields": {
+        "build": 91,
+        "release_part": 3,
+        "revision": "e14d5470"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 506,
+    "fields": {
+        "build": 91,
+        "release_part": 2,
+        "revision": "72c6f81f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 507,
+    "fields": {
+        "build": 91,
+        "release_part": 1,
+        "revision": "7a42a63b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 508,
+    "fields": {
+        "build": 9,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 509,
+    "fields": {
+        "build": 9,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 510,
+    "fields": {
+        "build": 9,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 511,
+    "fields": {
+        "build": 10,
+        "release_part": 4,
+        "revision": "c47aa3f84c41ba3c293513a85839ea17ae594f51"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 512,
+    "fields": {
+        "build": 10,
+        "release_part": 3,
+        "revision": "e1aaa672bce7fa62cd156fd3b0f97b65891ed92b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 513,
+    "fields": {
+        "build": 10,
+        "release_part": 2,
+        "revision": "9e864698f0498a35ff6c3d310261cc108590ccb6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 514,
+    "fields": {
+        "build": 10,
+        "release_part": 1,
+        "revision": "c2971e00a8dfe317caa3d9a51f21355d462f9430"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 515,
+    "fields": {
+        "build": 92,
+        "release_part": 4,
+        "revision": "ea8485366d3d1b8694e9a531db1a425772cc2d7b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 516,
+    "fields": {
+        "build": 92,
+        "release_part": 3,
+        "revision": "734308a7d9ef9d497b2e61894e7aac11183e6916"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 517,
+    "fields": {
+        "build": 92,
+        "release_part": 2,
+        "revision": "60354cf2b24f61ee2ca82006aba9c2715dcdbed3"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 518,
+    "fields": {
+        "build": 92,
+        "release_part": 1,
+        "revision": "53b3f4489e92220f2924d29dbae676aa808402f6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 519,
+    "fields": {
+        "build": 93,
+        "release_part": 4,
+        "revision": "ea8485366d3d1b8694e9a531db1a425772cc2d7b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 520,
+    "fields": {
+        "build": 93,
+        "release_part": 3,
+        "revision": "e833175d6978531be50fe5743fe064f8738620cf"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 521,
+    "fields": {
+        "build": 93,
+        "release_part": 2,
+        "revision": "3b912c25a3e36a7d8ea2d37d6e7432cd7fcd28c2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 522,
+    "fields": {
+        "build": 93,
+        "release_part": 1,
+        "revision": "dd2f890c2e644717363e3d17cf3e4d367736b532"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 523,
+    "fields": {
+        "build": 94,
+        "release_part": 4,
+        "revision": "ea8485366d3d1b8694e9a531db1a425772cc2d7b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 524,
+    "fields": {
+        "build": 94,
+        "release_part": 3,
+        "revision": "3f0cd0b269fa9642db4c647063415e9e2ce7a622"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 525,
+    "fields": {
+        "build": 94,
+        "release_part": 2,
+        "revision": "4400d3048ed7f6cdc236c63d0986de4802256926"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 526,
+    "fields": {
+        "build": 94,
+        "release_part": 1,
+        "revision": "2155678a72d3fa37a8ca5bb656f1d4193689c7cd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 527,
+    "fields": {
+        "build": 95,
+        "release_part": 4,
+        "revision": "8236c44b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 528,
+    "fields": {
+        "build": 95,
+        "release_part": 3,
+        "revision": "57016b86"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 529,
+    "fields": {
+        "build": 95,
+        "release_part": 2,
+        "revision": "c898a8ad"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 530,
+    "fields": {
+        "build": 95,
+        "release_part": 1,
+        "revision": "bccf7d04"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 531,
+    "fields": {
+        "build": 11,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 532,
+    "fields": {
+        "build": 11,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 533,
+    "fields": {
+        "build": 11,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 534,
+    "fields": {
+        "build": 12,
+        "release_part": 4,
+        "revision": "7edfb7f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 535,
+    "fields": {
+        "build": 12,
+        "release_part": 3,
+        "revision": "3e6f87b6"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 536,
+    "fields": {
+        "build": 12,
+        "release_part": 2,
+        "revision": "a58ba3a5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 537,
+    "fields": {
+        "build": 12,
+        "release_part": 1,
+        "revision": "22c5c647"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 538,
+    "fields": {
+        "build": 96,
+        "release_part": 4,
+        "revision": "4cc6ffaaff3270c56df9275a37f11d24914bbda3"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 539,
+    "fields": {
+        "build": 96,
+        "release_part": 3,
+        "revision": "e790c96e2280c10cde9040996d6b8780853bcd1e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 540,
+    "fields": {
+        "build": 96,
+        "release_part": 2,
+        "revision": "2238deba8a1664b2ab2391ffc403ca4348961987"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 541,
+    "fields": {
+        "build": 96,
+        "release_part": 1,
+        "revision": "37e53b932f6e6935724cebaed53e66b5fa9a16c9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 542,
+    "fields": {
+        "build": 97,
+        "release_part": 4,
+        "revision": "d6d7d024b53028b5e9aeafbd6f2e38b9cef2f442"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 543,
+    "fields": {
+        "build": 97,
+        "release_part": 3,
+        "revision": "ab9074149ec78619a38bb642c388b6c60ac3e698"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 544,
+    "fields": {
+        "build": 97,
+        "release_part": 2,
+        "revision": "7f1095aebb3a190e302fdef65908f1e3db139567"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 545,
+    "fields": {
+        "build": 97,
+        "release_part": 1,
+        "revision": "9a3209844dcbed41d43879a53883eea960e4d5bc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 546,
+    "fields": {
+        "build": 98,
+        "release_part": 4,
+        "revision": "d6d7d024"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 547,
+    "fields": {
+        "build": 98,
+        "release_part": 3,
+        "revision": "d528f48b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 548,
+    "fields": {
+        "build": 98,
+        "release_part": 2,
+        "revision": "a449f41d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 549,
+    "fields": {
+        "build": 98,
+        "release_part": 1,
+        "revision": "1d248f4d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 550,
+    "fields": {
+        "build": 99,
+        "release_part": 4,
+        "revision": "d6d7d024"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 551,
+    "fields": {
+        "build": 99,
+        "release_part": 3,
+        "revision": "d528f48b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 552,
+    "fields": {
+        "build": 99,
+        "release_part": 2,
+        "revision": "c5927d6b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 553,
+    "fields": {
+        "build": 99,
+        "release_part": 1,
+        "revision": "a7609c81"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 554,
+    "fields": {
+        "build": 100,
+        "release_part": 4,
+        "revision": "d6d7d024"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 555,
+    "fields": {
+        "build": 100,
+        "release_part": 3,
+        "revision": "73dc1b8b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 556,
+    "fields": {
+        "build": 100,
+        "release_part": 2,
+        "revision": "5bd71812"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 557,
+    "fields": {
+        "build": 100,
+        "release_part": 1,
+        "revision": "fccd4efa"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 558,
+    "fields": {
+        "build": 101,
+        "release_part": 4,
+        "revision": "77dfd7bf"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 559,
+    "fields": {
+        "build": 101,
+        "release_part": 3,
+        "revision": "ad67d0fe"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 560,
+    "fields": {
+        "build": 101,
+        "release_part": 2,
+        "revision": "5b3ce425"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 561,
+    "fields": {
+        "build": 101,
+        "release_part": 1,
+        "revision": "e39d0a00"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 562,
+    "fields": {
+        "build": 102,
+        "release_part": 4,
+        "revision": "1cddfda2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 563,
+    "fields": {
+        "build": 102,
+        "release_part": 3,
+        "revision": "9533d265"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 564,
+    "fields": {
+        "build": 102,
+        "release_part": 2,
+        "revision": "6906a59d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 565,
+    "fields": {
+        "build": 102,
+        "release_part": 1,
+        "revision": "e5ff320f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 566,
+    "fields": {
+        "build": 103,
+        "release_part": 4,
+        "revision": "bcb728a5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 567,
+    "fields": {
+        "build": 103,
+        "release_part": 3,
+        "revision": "00feae51"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 568,
+    "fields": {
+        "build": 103,
+        "release_part": 2,
+        "revision": "63425d4b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 569,
+    "fields": {
+        "build": 103,
+        "release_part": 1,
+        "revision": "c5dc4820"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 570,
+    "fields": {
+        "build": 13,
+        "release_part": 3,
+        "revision": "ba6015f28"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 571,
+    "fields": {
+        "build": 13,
+        "release_part": 2,
+        "revision": "52a1667db"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 572,
+    "fields": {
+        "build": 13,
+        "release_part": 1,
+        "revision": "2ce21149"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 573,
+    "fields": {
+        "build": 14,
+        "release_part": 4,
+        "revision": "c3d48f91"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 574,
+    "fields": {
+        "build": 14,
+        "release_part": 3,
+        "revision": "ba6015f2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 575,
+    "fields": {
+        "build": 14,
+        "release_part": 2,
+        "revision": "b711a50f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 576,
+    "fields": {
+        "build": 14,
+        "release_part": 1,
+        "revision": "b5e9a087"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 577,
+    "fields": {
+        "build": 104,
+        "release_part": 4,
+        "revision": "1b192333"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 578,
+    "fields": {
+        "build": 104,
+        "release_part": 3,
+        "revision": "c332522f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 579,
+    "fields": {
+        "build": 104,
+        "release_part": 2,
+        "revision": "81f1e068"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 580,
+    "fields": {
+        "build": 104,
+        "release_part": 1,
+        "revision": "eb6600cb"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 581,
+    "fields": {
+        "build": 105,
+        "release_part": 4,
+        "revision": "1b192333fc0295b4d57d2b181de31b18c3c96b97"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 582,
+    "fields": {
+        "build": 105,
+        "release_part": 3,
+        "revision": "1a04fa0ee989c1c48188548ed81b397b45d02b9f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 583,
+    "fields": {
+        "build": 105,
+        "release_part": 2,
+        "revision": "45a3247f05f64a3c293f1b2c93d53d25a3470eb3"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 584,
+    "fields": {
+        "build": 105,
+        "release_part": 1,
+        "revision": "dc0288fa5c189c84d0e85edeafd25b1af00ddc9a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 585,
+    "fields": {
+        "build": 106,
+        "release_part": 4,
+        "revision": "7e64f3a8"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 586,
+    "fields": {
+        "build": 106,
+        "release_part": 3,
+        "revision": "33540993"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 587,
+    "fields": {
+        "build": 106,
+        "release_part": 2,
+        "revision": "28b3c29a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 588,
+    "fields": {
+        "build": 106,
+        "release_part": 1,
+        "revision": "34f01eaf"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 589,
+    "fields": {
+        "build": 107,
+        "release_part": 4,
+        "revision": "6fbe5fdc"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 590,
+    "fields": {
+        "build": 107,
+        "release_part": 3,
+        "revision": "aab3252a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 591,
+    "fields": {
+        "build": 107,
+        "release_part": 2,
+        "revision": "2fa46a62"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 592,
+    "fields": {
+        "build": 107,
+        "release_part": 1,
+        "revision": "eb1e1e1c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 593,
+    "fields": {
+        "build": 15,
+        "release_part": 4,
+        "revision": "dd08a5e669bb1aee2c8e7f67771356b65e24e8ef"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 594,
+    "fields": {
+        "build": 15,
+        "release_part": 3,
+        "revision": "2126dabb36d14b9f9786aa937581e8137f9a0e93"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 595,
+    "fields": {
+        "build": 15,
+        "release_part": 2,
+        "revision": "82efa85fd0570a91669856e0a4b28b2fd4eaf79f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 596,
+    "fields": {
+        "build": 15,
+        "release_part": 1,
+        "revision": "742839d446be34ba7611e05170240df5e6275672"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 597,
+    "fields": {
+        "build": 16,
+        "release_part": 4,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 598,
+    "fields": {
+        "build": 16,
+        "release_part": 3,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 599,
+    "fields": {
+        "build": 16,
+        "release_part": 2,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 600,
+    "fields": {
+        "build": 16,
+        "release_part": 1,
+        "revision": null
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 601,
+    "fields": {
+        "build": 108,
+        "release_part": 4,
+        "revision": "b88640b9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 602,
+    "fields": {
+        "build": 108,
+        "release_part": 3,
+        "revision": "9c96cd4e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 603,
+    "fields": {
+        "build": 108,
+        "release_part": 2,
+        "revision": "d546042a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 604,
+    "fields": {
+        "build": 108,
+        "release_part": 1,
+        "revision": "4b04d07c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 605,
+    "fields": {
+        "build": 109,
+        "release_part": 4,
+        "revision": "b88640b9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 606,
+    "fields": {
+        "build": 109,
+        "release_part": 3,
+        "revision": "372cfa6d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 607,
+    "fields": {
+        "build": 109,
+        "release_part": 2,
+        "revision": "852f22c4"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 608,
+    "fields": {
+        "build": 109,
+        "release_part": 1,
+        "revision": "1ce6004a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 609,
+    "fields": {
+        "build": 110,
+        "release_part": 4,
+        "revision": "bceba1b1"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 610,
+    "fields": {
+        "build": 110,
+        "release_part": 3,
+        "revision": "01881e56"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 611,
+    "fields": {
+        "build": 110,
+        "release_part": 2,
+        "revision": "35ab8cdf"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 612,
+    "fields": {
+        "build": 110,
+        "release_part": 1,
+        "revision": "0dfb24f5"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 613,
+    "fields": {
+        "build": 111,
+        "release_part": 4,
+        "revision": "127db7b405fd11477b50d1c0999cbc1966d963a2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 614,
+    "fields": {
+        "build": 111,
+        "release_part": 3,
+        "revision": "8232a000c6e9c87a961dba387862601b3c4af1fa"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 615,
+    "fields": {
+        "build": 111,
+        "release_part": 2,
+        "revision": "63b739a78e81e41213831dbc88759f454e88e022"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 616,
+    "fields": {
+        "build": 111,
+        "release_part": 1,
+        "revision": "9ae6669a80a2804d55616f6fa085b8c2cf75ac46"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 617,
+    "fields": {
+        "build": 112,
+        "release_part": 4,
+        "revision": "b4126efa"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 618,
+    "fields": {
+        "build": 112,
+        "release_part": 3,
+        "revision": "18760b55"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 619,
+    "fields": {
+        "build": 112,
+        "release_part": 2,
+        "revision": "4f5fd066"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 620,
+    "fields": {
+        "build": 112,
+        "release_part": 1,
+        "revision": "53ca9d0e"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 621,
+    "fields": {
+        "build": 113,
+        "release_part": 4,
+        "revision": "31eedb47"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 622,
+    "fields": {
+        "build": 113,
+        "release_part": 3,
+        "revision": "18760b55"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 623,
+    "fields": {
+        "build": 113,
+        "release_part": 2,
+        "revision": "fbc0270f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 624,
+    "fields": {
+        "build": 113,
+        "release_part": 1,
+        "revision": "6434b13a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 625,
+    "fields": {
+        "build": 114,
+        "release_part": 4,
+        "revision": "31eedb47f0cc1860b4101e5f654e6fa52497ac03"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 626,
+    "fields": {
+        "build": 114,
+        "release_part": 3,
+        "revision": "18760b5504787c87e63e2fc16405072244bb8d5d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 627,
+    "fields": {
+        "build": 114,
+        "release_part": 2,
+        "revision": "ecc6810b4fbc3d8dd6f86ac38efb9036684025d9"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 628,
+    "fields": {
+        "build": 114,
+        "release_part": 1,
+        "revision": "78ad56897d76f2da302820c3772009c32645a04c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 629,
+    "fields": {
+        "build": 115,
+        "release_part": 4,
+        "revision": "31eedb47f0cc1860b4101e5f654e6fa52497ac03"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 630,
+    "fields": {
+        "build": 115,
+        "release_part": 3,
+        "revision": "e2aa2a2bc50b783691abc4aaccb61588cb1daaa7"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 631,
+    "fields": {
+        "build": 115,
+        "release_part": 2,
+        "revision": "48f6f23f86fdf4a0ace53d06dd9cfaba107d636c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 632,
+    "fields": {
+        "build": 115,
+        "release_part": 1,
+        "revision": "1c0a925b644eba069d8ff0d6a2e035f7582514b0"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 633,
+    "fields": {
+        "build": 116,
+        "release_part": 4,
+        "revision": "0e72a84de4b4a3ce841400dd2f56355f62828535"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 634,
+    "fields": {
+        "build": 116,
+        "release_part": 3,
+        "revision": "62fe3d9f04fd3403bb2599ddc9f02f3793c14a2d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 635,
+    "fields": {
+        "build": 116,
+        "release_part": 2,
+        "revision": "1686e1c8a07aa9f636e83f49db662b0344043970"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 636,
+    "fields": {
+        "build": 116,
+        "release_part": 1,
+        "revision": "3b4de75f5960a2389d1c32d95e913571c5722b05"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 637,
+    "fields": {
+        "build": 117,
+        "release_part": 4,
+        "revision": "0e72a84d"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 638,
+    "fields": {
+        "build": 117,
+        "release_part": 3,
+        "revision": "62fe3d9f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 639,
+    "fields": {
+        "build": 117,
+        "release_part": 2,
+        "revision": "1686e1c8"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 640,
+    "fields": {
+        "build": 117,
+        "release_part": 1,
+        "revision": "dbe52e3c"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 641,
+    "fields": {
+        "build": 118,
+        "release_part": 4,
+        "revision": "c9835e46"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 642,
+    "fields": {
+        "build": 118,
+        "release_part": 3,
+        "revision": "0993a2c3"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 643,
+    "fields": {
+        "build": 118,
+        "release_part": 2,
+        "revision": "76ec2220"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 644,
+    "fields": {
+        "build": 118,
+        "release_part": 1,
+        "revision": "96e92816"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 645,
+    "fields": {
+        "build": 119,
+        "release_part": 4,
+        "revision": "bf4e9bd0"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 646,
+    "fields": {
+        "build": 119,
+        "release_part": 3,
+        "revision": "d3ce0816"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 647,
+    "fields": {
+        "build": 119,
+        "release_part": 2,
+        "revision": "e702ad37"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 648,
+    "fields": {
+        "build": 119,
+        "release_part": 1,
+        "revision": "ad406229"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 649,
+    "fields": {
+        "build": 17,
+        "release_part": 4,
+        "revision": "127db7b405fd11477b50d1c0999cbc1966d963a2"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 650,
+    "fields": {
+        "build": 17,
+        "release_part": 3,
+        "revision": "8232a000c6e9c87a961dba387862601b3c4af1fa"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 651,
+    "fields": {
+        "build": 17,
+        "release_part": 2,
+        "revision": "63b739a78e81e41213831dbc88759f454e88e022"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 652,
+    "fields": {
+        "build": 17,
+        "release_part": 1,
+        "revision": "9ae6669a80a2804d55616f6fa085b8c2cf75ac46"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 653,
+    "fields": {
+        "build": 18,
+        "release_part": 4,
+        "revision": "be647f5afbd9a52c05332130bdbfde4d883b6b59"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 654,
+    "fields": {
+        "build": 18,
+        "release_part": 3,
+        "revision": "3972b70b7deabe1e29902e6fa69d71a16b416931"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 655,
+    "fields": {
+        "build": 18,
+        "release_part": 2,
+        "revision": "b75916784110bbff48f95f3cae1333d87920374a"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 656,
+    "fields": {
+        "build": 18,
+        "release_part": 1,
+        "revision": "9848d53f591b0d05422f7f12c7ac8aa79b260a58"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 657,
+    "fields": {
+        "build": 120,
+        "release_part": 4,
+        "revision": "be647f5afbd9a52c05332130bdbfde4d883b6b59"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 658,
+    "fields": {
+        "build": 120,
+        "release_part": 3,
+        "revision": "ae5ddd39d0e19449d7b1e47288a8ac0b641e81d0"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 659,
+    "fields": {
+        "build": 120,
+        "release_part": 2,
+        "revision": "341ab82587ed0a68eb8dae37c01eae394e5963dd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 660,
+    "fields": {
+        "build": 120,
+        "release_part": 1,
+        "revision": "bac079b2eea3a9db5c19c3ed72ebfccfcfebd946"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 661,
+    "fields": {
+        "build": 121,
+        "release_part": 4,
+        "revision": "be647f5afbd9a52c05332130bdbfde4d883b6b59"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 662,
+    "fields": {
+        "build": 121,
+        "release_part": 3,
+        "revision": "ae5ddd39d0e19449d7b1e47288a8ac0b641e81d0"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 663,
+    "fields": {
+        "build": 121,
+        "release_part": 2,
+        "revision": "341ab82587ed0a68eb8dae37c01eae394e5963dd"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 664,
+    "fields": {
+        "build": 121,
+        "release_part": 1,
+        "revision": "0d4b1aacd67062d9cc2eb47d36d8b9405a2bbf49"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 665,
+    "fields": {
+        "build": 54,
+        "release_part": 4,
+        "revision": "2b4651835a838b132bebf4fa42a204f46f982f6b"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 666,
+    "fields": {
+        "build": 54,
+        "release_part": 3,
+        "revision": "a3b1b557fdf9e35404c78d88c402a839e6496a1f"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 667,
+    "fields": {
+        "build": 54,
+        "release_part": 2,
+        "revision": "7d082bd5d6e70aa21f381181ab9bd09f2de07cff"
+    }
+},
+{
+    "model": "prd.buildrevision",
+    "pk": 668,
+    "fields": {
+        "build": 54,
+        "release_part": 1,
+        "revision": "fce4d3536acad515ba9a20fafeb0c82ae423d8dc"
+    }
+}
+]
