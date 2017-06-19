@@ -115,6 +115,7 @@ def migrate():
     require('environment', provided_by=[production1, production2, dev])
     print(green('Migrate database'))
     with virtualenv():
+        run('python manage.py dumpdata > /srv/backup/`date +"%Y_%m_%d"`_prod.json')
         run("python manage.py migrate")
 
 
