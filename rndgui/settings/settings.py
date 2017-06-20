@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'cat',
     'envrnmnt',
+    'django_celery_results',
+    'django_celery_beat',
     'jra'
 ]
 
@@ -215,3 +217,6 @@ JIRA_PASS = '3WqOGzrj9G'
 CELERY_RESULT_BACKEND = 'django-db'
 
 ADMINS = [('Sergey Dorontsov', 'dorontcov@bpcbt.com'), ('Evgeniy Kryukov', 'krukov@bpcbt.com')]
+
+# store schedule in the DB:
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
