@@ -7,8 +7,8 @@ from .models import *
 from .forms import ReleaseForm
 from .tasks import get_stand, release_stand
 from django.contrib import messages
-from django.http import HttpResponse
-
+from django.http import HttpResponse, JsonResponse
+from envrnmnt.serializers import EnvironmentSerializer
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -138,3 +138,10 @@ class UsageLogByStand(TemplateView):
         context['usage_log'] = usage_log
         context['stand_name'] = kwargs['stand_name']
         return context
+
+
+def rest_stand(request, stand_name):
+    stand = TestEnvironment.objects.get(name=stand_name)
+    env = Environment.objects.get(pk=stand.pk)
+    json = EnvironmentSerializer(env)
+    return JsonResponse(json.data, safe=False)

@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'envrnmnt',
     'django_celery_results',
     'django_celery_beat',
-    'jra'
+    'jra',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -218,5 +219,9 @@ CELERY_RESULT_BACKEND = 'django-db'
 
 ADMINS = [('Sergey Dorontsov', 'dorontcov@bpcbt.com'), ('Evgeniy Kryukov', 'krukov@bpcbt.com')]
 
-# store schedule in the DB:
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 10
+}
