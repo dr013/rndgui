@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 {% block title %}:HotFix issue{% endblock %}
-{% block header %}HotFix issue{% endblock %}
+{% block header %}HotFix issue for build {{ build.full_name }}{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a href="#" class="btn btn-success active" role="button">Back
+                    <a href="{% url 'build-list-by-release' build.release.pk %}" class="btn btn-success active" role="button">Back
                         to release builds list</a>
                 </div>
             </div>

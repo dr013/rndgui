@@ -64,8 +64,13 @@ def login_view(request):
                     login(request, user)
                 else:
                     # create user from LDAP
-                    user = User.objects.create_user(username=user_arr['username'], email=user_arr['email'],
-                                                    password=password)
+                    try:
+                        user = User.objects.get(username=user_arr['username'])
+                        user.email = user_arr['email']
+                        user.set_password(password)
+                    except User.DoesNotExist:
+                        user = User.objects.create_user(username=user_arr['username'], email=user_arr['email'],
+                                                        password=password)
                     user.first_name = user_arr["first_name"]
                     user.last_name = user_arr["last_name"]
                     user.save()
@@ -139,6 +144,7 @@ def tofirstdayinisoweek(year, week):
     if datetime.date(year, 1, 4).isoweekday() > 4:
         ret -= datetime.timedelta(days=7)
     return ret, week
+
 
 # def timesheet_week(username, start_date=datetime.date.today()):
 #     return get_user_week_timesheet(username, start_date)

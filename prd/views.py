@@ -214,17 +214,21 @@ class HotFixCreate(CreateView):
 
     def get_initial(self):
         self.build = Build.objects.get(pk=self.kwargs.get('pk'))
-        hotfix = HotFix.objects.filter(build=self.build)
+        hotfix = HotFix.objects.filter(build=self.build).order_by('-date_released')
         logger.debug(
             'HotFix current number for build {bld} is {cnt}'.format(bld=self.build.full_name, cnt=hotfix.count()))
         if hotfix.count() == 0:
             hotfix_num = '1'
         else:
-            hotfix_num = str(int(hotfix.name) + 1)
+            hotfix_num = str(int(hotfix[0].name) + 1)
         return {
             'build': self.build,
             'name': hotfix_num
         }
+    def get_context_data(self, **kwargs):
+        context = super(HotFixCreate, self).get_context_data(**kwargs)
+        context['build'] = self.build
+        return context
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -237,7 +241,9 @@ class HotFixCreate(CreateView):
         for rec in release_part:
             gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=self.build.full_name,
                                          desc=tag_desc, user=obj.author)
-            logger.debug(str(gitlab))
+            gitlab.set_release_description(
+                '{tag} = for {jira}. {desc}'.format(tag=tag_name, jira=obj.jira, desc=tag_desc))
+            print gitlab, dir(gitlab)
         return super(HotFixCreate, self).form_valid(form)
 
     def get_success_url(self, **kwargs):
@@ -289,5 +295,3 @@ def rest_product(request, product):
     qs_json = {"title": data.title, 'jira': data.jira, 'owner': data.owner.username, 'desc': data.desc}
 
     return JsonResponse(qs_json)
-
-
