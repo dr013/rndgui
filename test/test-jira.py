@@ -45,3 +45,20 @@ for key, value in field_dict.iteritems():
 # issue = jira.issue('CORE-13121')
 # transitions = jira.transitions(issue)
 # print transitions
+
+project = jira.project('CORE')
+version = jira.project_versions(project)
+print [x.name for x in version]
+# for rec in version:
+#     print rec
+#     print rec.released
+#     print rec.name
+#     print rec.archived
+#     print '='*30
+issue = jira.issue('CORE-13121')
+transitions = jira.transitions(issue)
+print transitions
+
+filter = jira.favourite_filters()
+for rec in filter:
+    print rec, rec.id, rec.jql

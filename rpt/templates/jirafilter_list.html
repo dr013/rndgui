@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}:Jira task list filters{% endblock %}
+{% block header %}Jira task list filters{% endblock %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            {% if perms.rpt.add_jirafilter %}
+                <a href="{% url 'jira-filter-add' %}" class="btn btn-primary"
+                   role="button">{% bootstrap_icon 'plus' %}Add new Jira Filter</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="table-responsive">
+    {% for rec in object_list %}
+        {% if forloop.first %}
+            <table class="table">
+            <thead>
+            <tr>
+                <th>Action</th>
+                <th>Name</th>
+                <th>Build Jira Task</th>
+                <th>Release Date</th>
+                <th>Author</th>
+            </tr>
+            </thead>
+        {% endif %}
+    {% empty %}
+        Not yet saved Jira Filters
+    {% endfor %}
+{% endblock %}

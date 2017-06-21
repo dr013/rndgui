@@ -77,7 +77,7 @@ def login_view(request):
 
                     messages.add_message(request, messages.SUCCESS, _('New user {} was created.'.format(user.username)))
                     login(request, user)
-                messages.add_message(request, messages.INFO, 'Success login in LDAP!')
+                messages.add_message(request, messages.INFO, 'Success login with LDAP!')
                 return redirect('start')
             else:
                 # without LDAP

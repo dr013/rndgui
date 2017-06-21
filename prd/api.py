@@ -94,10 +94,10 @@ class GitLab:
 
 # noinspection PyCompatibility
 class JiraProject:
-    def __init__(self, project=None):
+    def __init__(self, project=None, user=settings.JIRA_USER, password=settings.JIRA_PASS):
         self.logger = logging.getLogger('jira')
-        self.user = settings.JIRA_USER
-        self.password = settings.JIRA_PASS
+        self.user = user
+        self.password = password
         self.jira = None
         self.project = project
         self.connect_jira()
@@ -195,16 +195,15 @@ class JiraProject:
         if "customfield_10067" in fields:  # Affects to Release Notes
             params["customfield_10067"] = {"value": "No"}
 
-        print '#' * 40
-        print params
         res = self.jira.create_issue(fields=params)
 
         return res
 
     def create_release_task(self, release):
         summary = "Release {}".format(release)
+        version_number = '{rel}.0'.format(rel=release)
 
-        res = self.create_task(summary, release)
+        res = self.create_task(summary, version_number)
         return res
 
     def create_sub_task(self, parent, build):
@@ -344,3 +343,8 @@ class JiraProject:
         obj_list = self.jira.createmeta(projectKeys=self.project, expand='projects.issuetypes')
         issue_type = [x['name'] for x in obj_list['projects'][0]['issuetypes']]
         return issue_type
+
+    def get_favorive_filter(self):
+        return self.jira.favourite_filters()
+
+
