@@ -1,10 +1,11 @@
-
+from celery import task
 from .models import *
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 
+@task()
 def get_stand(release=None):
     #   get all exists stands from the db
     all_stands = TestEnvironment.objects.all()
@@ -20,6 +21,7 @@ def get_stand(release=None):
             logger.info("Stand [{st}] - is disabled".format(st=stand.name))
 
 
+@task()
 def release_stand(hash_code, force=False):
     #   try get 'busy' stand by hash
     try:
@@ -29,6 +31,7 @@ def release_stand(hash_code, force=False):
         logger.error("Log record with hash [{h}] was not found!".format(h=hash_code))
 
 
+@task()
 def auto_release_stand():
     #   get all 'busy' stands
     busy_stands_arr = UsageLog.objects.all().filter(status='busy')
