@@ -241,9 +241,6 @@ class HotFixCreate(CreateView):
         for rec in release_part:
             gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=self.build.full_name,
                                          desc=tag_desc, user=obj.author)
-            gitlab.set_release_description(
-                '{tag} = for {jira}. {desc}'.format(tag=tag_name, jira=obj.jira, desc=tag_desc))
-            print gitlab, dir(gitlab)
         return super(HotFixCreate, self).form_valid(form)
 
     def get_success_url(self, **kwargs):

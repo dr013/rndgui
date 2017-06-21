@@ -45,7 +45,7 @@ def login_view(request):
 
         if form.is_valid():
 
-            username = form.cleaned_data["username"]
+            username = form.cleaned_data["username"].lower()
             password = form.cleaned_data["password"]
 
             if form.cleaned_data['is_ldap']:
