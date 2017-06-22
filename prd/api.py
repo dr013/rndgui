@@ -159,8 +159,10 @@ class JiraProject:
             "versions": [{"id": self.get_version_id(version_number)}]
         }
         fields = self.get_required_field(self.project.key, 'Task')
+
         if "customfield_10024" in fields:
-            params["customfield_10024"] = "Core"
+            params["customfield_10024"] = {"value": "Core"}
+
         res = self.jira.create_issue(fields=params)
         return res
 
