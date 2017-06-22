@@ -307,6 +307,10 @@ class HotFix(models.Model):
     updated = models.DateTimeField(_("Updated"), auto_now=True)
     history = HistoricalRecords()
 
+    class Meta:
+        verbose_name = "HotFix"
+        unique_together = ['build', 'name']
+
     def __str__(self):
         return "{build}.{hotfix}".format(build=self.build, hotfix=self.name)
 
