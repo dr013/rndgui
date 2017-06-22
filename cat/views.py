@@ -80,7 +80,7 @@ def acquire_stand(request):
             release = Release.objects.get(pk=request.POST['release'])
             stand = get_stand(release=release.name)
             if stand:
-                message = 'Stand [{st}] was acquire for testing release [{r}]'.format(st=stand.name, r=release.name)
+                message = 'Stand [{st}] was acquire for testing release [{r}]'.format(st=stand, r=release.name)
                 messages.success(request, message)
             else:
                 message = 'No free stands!'
@@ -101,12 +101,15 @@ def release_stand_api(request):
     force = False
     if "hash" in request.GET:
         hash_param = request.GET['hash']
-        logger.info("Request release's stand by hash [h]".format(h=hash_param))
+        logger.info("Request release's stand by hash [{h}]".format(h=hash_param))
         if 'force' in request.GET:
             logger.info("At request find [force] key. Jenkins task will be aborted".format(h=hash_param))
             force = True
         data = release_stand(hash_code=hash_param, force=force)
-    return HttpResponse(data.stand)
+        if data:
+            return HttpResponse(data.stand)
+        else:
+            return False
 
 
 def release_stand_hash(request, hash_code):

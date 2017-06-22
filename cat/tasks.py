@@ -16,7 +16,7 @@ def get_stand(release=None):
             #  try acquire stand
             res = stand.acquire(release=release)
             if res:
-                return res
+                return res.name
         else:
             logger.info("Stand [{st}] - is disabled".format(st=stand.name))
 
