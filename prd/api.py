@@ -66,12 +66,12 @@ class GitLab:
 
 # noinspection PyCompatibility
 class JiraProject:
-    def __init__(self, project):
+    def __init__(self, project=None):
         self.logger = logging.getLogger('jira')
         self.user = settings.JIRA_USER
         self.password = settings.JIRA_PASS
         self.jira = None
-        self.project = None
+        self.project = project
         self.connect_jira()
         if project:
             self.set_project(project)
