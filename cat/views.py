@@ -97,9 +97,9 @@ def release_stand_api(request):
         :param request: GET param 'hash=' and 'force='
         :return: true or false by result of released
     """
-    data = ''
+    data = ""
     force = False
-    if "hash" in request.GET:
+    if "hash" in request.GET and request.GET['hash']:
         hash_param = request.GET['hash']
         logger.info("Request release's stand by hash [{h}]".format(h=hash_param))
         if 'force' in request.GET:
@@ -109,7 +109,10 @@ def release_stand_api(request):
         if data:
             return HttpResponse(data.stand)
         else:
-            return False
+            return HttpResponse(data)
+    else:
+        logger.info("Request release's stand did't has hash parameter")
+        return HttpResponse(data)
 
 
 def release_stand_hash(request, hash_code):
