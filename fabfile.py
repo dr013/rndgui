@@ -62,11 +62,12 @@ def deploy():
         set_dev_config()
     migrate()
     if env.environment == 'production':
-        # stop_webserver()
+        stop_webserver()
         clean_pyc()
         collect_static()
-        # start_webserver()
+        start_webserver()
         # touch_reload()
+        status_webserver()
     elif 'develop' in env.environment:
         run_dev_server()
 
@@ -136,8 +137,21 @@ def clean_pyc():
 
 def stop_webserver():
     require('environment', provided_by=[production1, production2, dev])
-    print(green('Stop uwsgi'))
-    sudo("/etc/init.d/uwsgi stop")
+    print(green('Stop Supervisord'))
+    sudo("service supervisord stop")
+
+
+def start_webserver():
+    require('environment', provided_by=[production1, production2, dev])
+    print(green('Stop Supervisord'))
+    sudo("service supervisord start")
+    sudo("service nginx restart")
+
+
+def status_webserver():
+    require('environment', provided_by=[production1, production2, dev])
+    print(green('Status Supervisord'))
+    sudo("service supervisord status")
 
 
 def set_dev_config():
@@ -149,4 +163,5 @@ def set_dev_config():
 def run_dev_server():
     print (green('Run dev server'))
     with virtualenv():
-        run('[ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || nohup /srv/rndgui/venv/bin/python manage.py runserver sv2.bpc.in:8000 &')
+        run(
+            '[ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || nohup /srv/rndgui/venv/bin/python manage.py runserver sv2.bpc.in:8000 &')
