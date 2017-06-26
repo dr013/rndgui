@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 2.14
+=======
+1.6.42:
+    - Admin model for Build - add inline Revision Form
+>>>>>>> v1.6.42
