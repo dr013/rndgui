@@ -30,7 +30,7 @@
                                         {% if rev_part.count > 1 %}
                                             <option value="" selected>---------</option>
                                         {% endif %}
-                                        {% for rev in  rev_part.revision_list %}
+                                        {% for rev in rev_part.revision_list %}
                                             <option value="{{ rev.id }}" {% if rev_part.count == 1 %}
                                                     selected{% endif %}>
                                                 <b>{{ rev.short_id }}</b> => "{{ rev.message|truncatechars:150 }}"
