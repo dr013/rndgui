@@ -66,12 +66,12 @@ class GitLab:
 
 # noinspection PyCompatibility
 class JiraProject:
-    def __init__(self, project):
+    def __init__(self, project=None):
         self.logger = logging.getLogger('jira')
         self.user = settings.JIRA_USER
         self.password = settings.JIRA_PASS
         self.jira = None
-        self.project = None
+        self.project = project
         self.connect_jira()
         if project:
             self.set_project(project)
@@ -159,8 +159,10 @@ class JiraProject:
             "versions": [{"id": self.get_version_id(version_number)}]
         }
         fields = self.get_required_field(self.project.key, 'Task')
+
         if "customfield_10024" in fields:
-            params["customfield_10024"] = "Core"
+            params["customfield_10024"] = {"value": "Core"}
+
         res = self.jira.create_issue(fields=params)
         return res
 

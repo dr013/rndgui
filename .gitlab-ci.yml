@@ -22,7 +22,7 @@ deploy_dev:
         - sleep 60
         - curl http://sv2.bpc.in:8000
     only:
-        - master
+        - demo
     tags:
         - rnd
 

@@ -29,13 +29,20 @@ class BuildRevisionAdmin(SimpleHistoryAdmin):
     list_filter = ('build__release__product',)
 
 
-class HotFixRevisionAdmin(admin.ModelAdmin):
-    pass
+class HotFixRevisionInline(admin.TabularInline):
+    model = HotFixRevision
+
+
+class HotFixAdmin(SimpleHistoryAdmin):
+    list_display = ['full_name', 'build', 'jira', 'author', 'date_released']
+    inlines = [
+        HotFixRevisionInline
+    ]
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Release, ReleaseAdmin)
 admin.site.register(Build, BuildAdmin)
-admin.site.register(HotFix, SimpleHistoryAdmin)
+admin.site.register(HotFix, HotFixAdmin)
 admin.site.register(ReleasePart, SimpleHistoryAdmin)
 admin.site.register(BuildRevision, BuildRevisionAdmin)
-admin.site.register(HotFixRevision, HotFixRevisionAdmin)

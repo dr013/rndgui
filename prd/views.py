@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import json
+
 # from django.forms import formset_factory
+from celery import shared_task
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core import serializers
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -31,9 +31,19 @@ class BuildList(ListView):
 
 
 CHOICE = (
-    ('-1', '2.14.1'),
+    ('-1', '1.1.1'),
 )
 
+
+@shared_task()
+def create_gitlab_tag(gitlab_project_id, tag_name, tag_desc, build_full_name, author):
+    GitLab().create_tag(project_id=gitlab_project_id, tag=tag_name, ref=build_full_name, desc=tag_desc, user=author)
+
+
+@shared_task
+def jira_add_comment(jira_task, comment):
+    jira = JiraProject()
+    jira.add_comment(jira_task, comment)
 
 class BuildIssueForm(forms.Form):
     release = forms.ChoiceField(choices=CHOICE, disabled=True)
@@ -225,6 +235,7 @@ class HotFixCreate(CreateView):
             'build': self.build,
             'name': hotfix_num
         }
+
     def get_context_data(self, **kwargs):
         context = super(HotFixCreate, self).get_context_data(**kwargs)
         context['build'] = self.build
@@ -238,12 +249,15 @@ class HotFixCreate(CreateView):
         tag_name = '{bld}.{tag}'.format(bld=self.build.git_name, tag=obj.name)
         tag_desc = 'HotFix {name} for build {bld}'.format(bld=self.build.full_name, name=obj.name)
         release_part = ReleasePart.objects.filter(product=self.build.release.product)
+        comment = ""
         for rec in release_part:
-            gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=self.build.full_name,
-                                         desc=tag_desc, user=obj.author)
-            gitlab.set_release_description(
-                '{tag} = for {jira}. {desc}'.format(tag=tag_name, jira=obj.jira, desc=tag_desc))
-            print gitlab, dir(gitlab)
+            create_gitlab_tag.delay(gitlab_project_id=rec.gitlab_id, tag_name=tag_name, tag_desc=tag_desc,
+                                    build_full_name=self.build.full_name, author=obj.author.username)
+            gl_project = GitLab().get_project(pid=rec.gitlab_id)
+
+            comment += "Hotfix {hf} was released - {gitlab}/tags/{hf}\n".format(hf=tag_name, gitlab=gl_project.web_url)
+        if obj.jira:
+            jira_add_comment.delay(obj.jira, comment)
         return super(HotFixCreate, self).form_valid(form)
 
     def get_success_url(self, **kwargs):
