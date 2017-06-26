@@ -22,11 +22,11 @@ def get_stand(release=None):
 
 
 @task()
-def release_stand(hash_code, force=False):
+def release_stand(hash_code, status, force=False):
     #   try get 'busy' stand by hash
     try:
         busy_stand = UsageLog.objects.get(hash=hash_code)
-        return busy_stand.release_stand(force=force)
+        return busy_stand.release_stand(force=force, status=status)
     except UsageLog.DoesNotExist:
         logger.error("Log record with hash [{h}] was not found!".format(h=hash_code))
 
@@ -50,7 +50,7 @@ def auto_release_stand():
             logger.info("End time [{ex}] for stand [{st}] is over. "
                         "The work will be abort.".format(st=stand.name,
                                                          ex=print_expire_date))
-            usage_stand.release_stand(force=True)
+            usage_stand.release_stand(force=True, status='timeout')
         else:
             logger.info("End time [{ex}] for stand [{st}] is not out. Continue work.".format(st=stand.name,
                                                                                              ex=print_expire_date))

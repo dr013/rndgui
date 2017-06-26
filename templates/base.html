@@ -83,10 +83,12 @@
                         {% endif %}
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'test-env-list' %}">List of stands</a></li>
+                        <!--
                         {% if perms.cat.can_run %}
                             <li role="separator" class="divider"></li>
                             <li><a href="{% url 'get-one-stand' %}">Manual test</a></li>
                         {% endif %}
+                        -->
                     </ul>
                 </li>
                 {% if user.is_staff %}

@@ -29,7 +29,7 @@
                                 <th>Expire time, (min)</th>
                                 <th>Statistic</th>
                                 {% if perms.cat.can_unlock %}
-                                    <th>Force release</th>
+                                    <th>Force stop</th>
                                 {% endif %}
                                 {% if perms.cat.change_testenvironment %}
                                     <th>Edit</th>
@@ -52,7 +52,7 @@
                                         {% if rec.hash %}
                                             {% buttons %}
                                                 <a href="{% url 'release-stand-param' rec.hash %}"
-                                                   class="btn btn-danger btn-sm">{% bootstrap_icon icon %}UnLock
+                                                   class="btn btn-danger btn-sm">{% bootstrap_icon icon %}Stop
                                                 </a>
                                             {% endbuttons %}
                                         {% endif %}

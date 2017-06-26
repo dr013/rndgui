@@ -105,7 +105,13 @@ def release_stand_api(request):
         if 'force' in request.GET:
             logger.info("At request find [force] key. Jenkins task will be aborted".format(h=hash_param))
             force = True
-        data = release_stand(hash_code=hash_param, force=force)
+
+        if 'status' in request.GET:
+            status = request.GET['status']
+        else:
+            status = 'completed'
+
+        data = release_stand(hash_code=hash_param, force=force, status=status)
         if data:
             return HttpResponse(data.stand)
         else:
@@ -123,7 +129,7 @@ def release_stand_hash(request, hash_code):
         :return: redirect to AutoTest list    """
 
     logger.info("Manual request release's stand by hash [{h}]".format(h=hash_code))
-    data = release_stand(hash_code=hash_code, force=True)
+    data = release_stand(hash_code=hash_code, force=True, status='abort')
     if data:
         message = 'Stand [{st}] was released!'.format(st=data.stand)
         messages.success(request, message)

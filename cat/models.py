@@ -19,6 +19,8 @@ STATUSES = (
     ('completed', 'Completed'),
     ('busy', 'Busy'),
     ('fail', 'Failed'),
+    ('abort', 'Aborted'),
+    ('timeout', 'Timeout'),
 )
 
 # Get an instance of a logger
@@ -37,6 +39,7 @@ class TestEnvironment(models.Model):
             ("can_unlock", "Can force unlock stand"),
             ("can_run", "Can manual run stand"),
         )
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -53,7 +56,7 @@ class TestEnvironment(models.Model):
     def status(self):
         data = UsageLog.objects.all().filter(stand=self).order_by('-started_at').first()
         if data:
-            if ("fail" in data.status) or ("completed" in data.status):
+            if "busy" not in data.status:
                 return 'Ready'
             else:
                 return 'Busy'
@@ -64,7 +67,7 @@ class TestEnvironment(models.Model):
     def hash(self):
         data = UsageLog.objects.all().filter(stand=self).order_by('-started_at').first()
         if data:
-            if ("fail" in data.status) or ("completed" in data.status):
+            if "busy" not in data.status:
                 return False
             else:
                 return data.hash
@@ -158,7 +161,7 @@ class UsageLog(models.Model):
     def __str__(self):
         return '{name}::{status}'.format(name=self.stand, status=self.status)
 
-    def release_stand(self, status='completed', force=False):
+    def release_stand(self, status, force=False):
         """
             Method for release (unlock) 'busy' stand
             :param status: The status of the result testing on stand
@@ -171,7 +174,6 @@ class UsageLog(models.Model):
         if force:
             jenkins = JenkinsWrapper()
             jenkins.stop_build(task_url=self.task)
-            status = 'fail'
         self.status = status
         self.save()
         logger.info("Stand [{st}] - was released".format(st=self.stand))
