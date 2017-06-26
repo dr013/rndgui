@@ -59,7 +59,7 @@ def login_view(request):
 
                 user = authenticate(request, username=username, password=password)
 
-                if user is not None:
+                if user:
                     update_user(user, user_arr)
                     login(request, user)
                 else:
