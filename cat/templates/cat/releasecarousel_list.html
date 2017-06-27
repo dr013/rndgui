@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}:Carousel releases{% endblock %}
+{% block header %}Carousel releases:{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% if perms.cat.add_testenvironment %}
+            <div class="panel panel-default">
+                <div class="panel-footer">
+                    {% buttons %}
+                    <a href="{% url 'rcarousel-add' %}" class="btn btn-primary" role="button">
+                        {% bootstrap_icon 'plus' %} Add new release to carousel
+                    </a>
+                    {% endbuttons %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="table-responsive">
+                {% for rec in object_list %}
+                    {% if forloop.first %}
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Product</th>
+                                <th>Release</th>
+                                <th>Priority</th>
+                                <th>Last used</th>
+                                <!--th>Sort</th-->
+                                {% if perms.cat.change_releasecarousel %}
+                                <th>Edit</th>
+                                {% endif %}
+                                {% if perms.cat.delete_releasecarousel %}
+                                <th>Delete</th>
+                                {% endif %}
+                            </tr>
+                    {% endif %}
+                            <tr>
+                                <td>{{ rec.release.product.title }}</td>
+                                <td><a href="{% url 'rcarousel-detail' rec.pk %}">{{ rec.release.name }}</a></td>
+                                <td>
+                                    {% if perms.cat.can_order_releasecarousel %}
+                                        {% if not rec.is_first %}
+                                            <a href="{% url 'rcarousel-up' rec.pk %}">
+                                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                            </a>
+                                        {% endif%}
+                                    {% endif%}
+                                    {{ rec.count }}
+                                    {% if perms.cat.can_order_releasecarousel %}
+                                        {% if not rec.is_last %}
+                                            <a href="{% url 'rcarousel-down' rec.pk %}">
+                                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td>{{ rec.last_used_at|date:"H:i:s m/d/y" }}</td>
+                                <!--td>{{ rec.sort }}</td-->
+                                {% if perms.cat.change_releasecarousel %}
+                                <td>
+                                    {% buttons %}
+                                    <a href="{% url 'rcarousel-update' rec.pk %}"
+                                       class="btn btn-warning btn-sm">{% bootstrap_icon "edit" %}
+                                    </a>
+                                    {% endbuttons %}
+                                </td>
+                                {% endif %}
+                                {% if perms.cat.delete_releasecarousel %}
+                                <td>
+                                    {% buttons %}
+                                    <a href="{% url 'rcarousel-delete' rec.pk %}"
+                                       class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}
+                                    </a>
+                                    {% endbuttons %}
+                                </td>
+                                {% endif %}
+                            </tr>
+                    {% if forloop.last %}
+                        </table>
+                    {% endif %}
+                {% empty %}
+                    <p>No Releases in carousel</p>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

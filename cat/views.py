@@ -4,16 +4,106 @@ from django.urls import reverse_lazy
 from django.shortcuts import HttpResponseRedirect, render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView, TemplateView
 from .models import *
-from .forms import ReleaseForm
-from .tasks import get_stand, release_stand
+from .forms import ReleaseForm, RCarouselForm
+from .tasks import get_stand, release_stand, up_release, down_release
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from envrnmnt.serializers import EnvironmentSerializer
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 
+def reset_counter():
+    """
+        Method for reset used counter at rCarousel
+    """
+    logger.info("Reset used counter in Carousel releases")
+    all_releases = ReleaseCarousel.objects.all()
+    for release in all_releases:
+        logger.info("Release [{r}] was reset".format(r=release))
+        release.count = 0
+        release.save()
+
+
+def up_release_to_test(request, pk):
+    data = up_release(pk=pk)
+    if data:
+        message = 'Release [{r}] was upped to testing!'.format(r=data)
+        messages.success(request, message)
+    else:
+        message = 'Something went wrong!'
+        messages.info(request, message)
+
+    return HttpResponseRedirect('/test-env/rcarousel-list')
+
+
+def down_release_to_test(request, pk):
+    data = down_release(pk=pk)
+    if data:
+        message = 'Release [{r}] was downed to testing!'.format(r=data)
+        messages.success(request, message)
+    else:
+        message = 'Something went wrong!'
+        messages.info(request, message)
+
+    return HttpResponseRedirect('/test-env/rcarousel-list')
+
+
 # Create your views here.
+class CreateRCarousel(CreateView):
+    model = ReleaseCarousel
+    fields = ['release', 'sort']
+    success_message = 'Release add to carousel.'
+
+    def form_valid(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(CreateRCarousel, self).form_valid(request, *args, **kwargs)
+
+
+def create_rcarousel(request):
+    if request.method == "POST":
+        form = RCarouselForm(data=request.POST)
+        if form.is_valid():
+            reset_counter()
+            rcarousel = form.save(commit=False)
+            rcarousel.last_used_at = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
+            rcarousel.save()
+            return HttpResponseRedirect('/test-env/rcarousel-list')
+    else:
+        form = RCarouselForm()
+    return render(request, 'cat/releasecarousel_form.html', locals())
+
+
+class UpdateRCarousel(UpdateView):
+    model = ReleaseCarousel
+    fields = ['release', 'count', 'sort']
+    success_message = 'Release of carousel was updated successfully.'
+
+    def form_valid(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(UpdateRCarousel, self).form_valid(request, *args, **kwargs)
+
+
+class DeleteRCarousel(DeleteView):
+    model = ReleaseCarousel
+    success_url = reverse_lazy('rcarousel-list')
+    success_message = 'Release was deleted from carousel successfully.'
+    template_name = "cat/testenvironment_confirm_delete.html"
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeleteRCarousel, self).delete(request, *args, **kwargs)
+
+
+class RCarouselDetail(DetailView):
+    model = ReleaseCarousel
+
+
+class RCarouselList(ListView):
+    model = ReleaseCarousel
+
+
 class TestEnvList(ListView):
     model = TestEnvironment
     context_object_name = 'tenv'
@@ -73,6 +163,11 @@ class CreateTestEnv(CreateView):
 
 
 def acquire_stand(request):
+    """
+        Get FREE stand for testing in manual running
+        :param request:
+        :return:
+    """
     model = TestEnvironment()
     if request.method == "POST":
         form = ReleaseForm(data=request.POST)
@@ -152,7 +247,13 @@ class UsageLogByStand(TemplateView):
         return context
 
 
-def rest_stand(request, stand_name):
+def stand_to_json(request, stand_name):
+    """
+        Method for Serializing Stand object
+        :param request:
+        :param stand_name:
+        :return:
+    """
     stand = TestEnvironment.objects.get(name=stand_name)
     env = Environment.objects.get(pk=stand.pk)
     json = EnvironmentSerializer(env)

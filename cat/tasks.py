@@ -1,5 +1,9 @@
 from celery import task
-from .models import *
+from cat.models import TestEnvironment, UsageLog, ReleaseCarousel
+import logging
+from django.shortcuts import get_object_or_404
+import datetime
+from django.utils import timezone
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -54,3 +58,70 @@ def auto_release_stand():
         else:
             logger.info("End time [{ex}] for stand [{st}] is not out. Continue work.".format(st=stand.name,
                                                                                              ex=print_expire_date))
+
+
+def up_release(pk):
+    #   getting the Release to raise
+    release = get_object_or_404(ReleaseCarousel, pk=pk)
+    logger.info("Request UP release [{r}] for testing".format(r=release))
+    #   the current positions of this "sort" for the release
+    cur_release_pos = int(release.count)
+    #   try found other releases with same "sort"
+    cnt_other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos-1).count()
+    logger.info("[{c}] - releases already in the same priority of the sort".format(c=cnt_other_releases))
+    if cnt_other_releases > 0:
+        logger.info("Getting all releases in the needed priority [{p}] and sort them".format(p=release.count-1))
+        other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos-1).order_by('last_used_at')
+        logger.info("The release [{r}] is the first at the needed priority [{p}]".format(r=other_releases[0],
+                                                                                         p=cur_release_pos-1))
+        #   get the first element from other releases and take his lastUsedTime
+        last_used_time = other_releases[0].last_used_at
+        used_time = last_used_time - datetime.timedelta(hours=1)
+        logger.info("Change priority for the release [{r}] to [{p}] and set last_used_datetime to [{t}] "
+                    "before the last_used_datetime release [{br}]".format(r=release,
+                                                                          p=release.count-1,
+                                                                          t=used_time,
+                                                                          br=other_releases[0]
+                                                                          ))
+        release.count -= 1
+        release.last_used_at = used_time
+        release.save()
+        return release.release
+    else:
+        logger.info("Change priority for the release [{r}] to [{p}]".format(r=release, p=release.count-1))
+        release.count -= 1
+        release.save()
+        return release.release
+
+
+def down_release(pk):
+    #   getting the Release to lowering
+    release = get_object_or_404(ReleaseCarousel, pk=pk)
+    logger.info("Request DOWN release [{r}] for testing".format(r=release))
+    #   the current positions of this "sort" for the release
+    cur_release_pos = int(release.count)
+    #   try found other releases with same "sort"
+    cnt_other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos+1).count()
+    logger.info("[{c}] - releases already in the same priority of the sort".format(c=cnt_other_releases))
+    if cnt_other_releases > 0:
+        logger.info("Getting all releases in the needed priority [{p}] and sort them".format(p=release.count+1))
+        other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos+1).order_by('-last_used_at')
+        logger.info("The release [{r}] is the first at the needed priority [{p}]".format(r=other_releases[0],
+                                                                                         p=cur_release_pos+1))
+        last_used_time = other_releases[0].last_used_at
+        used_time = last_used_time + datetime.timedelta(minutes=5)
+        logger.info("Change priority for the release [{r}] to [{p}] and set last_used_datetime to [{t}] "
+                    "before the last_used_datetime release [{br}]".format(r=release,
+                                                                          p=release.count+1,
+                                                                          t=used_time,
+                                                                          br=other_releases[0]
+                                                                          ))
+        release.count += 1
+        release.last_used_at = used_time
+        release.save()
+        return release.release
+    else:
+        logger.info("Change priority for the release [{r}] to [{p}]".format(r=release, p=release.count+1))
+        release.count += 1
+        release.save()
+        return release.release

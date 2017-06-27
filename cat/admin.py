@@ -15,5 +15,10 @@ class UsageLogAdmin(admin.ModelAdmin):
     list_display = ['id', 'stand', 'release', 'status', 'started_at', 'task', 'hash', 'finished_at', 'author']
 
 
+class RCarouselAdmin(admin.ModelAdmin):
+    list_filter = ['release', ]
+    list_display = ['id', 'release', 'count', 'last_used_at']
+
 admin.site.register(TestEnvironment, TestEnvironmentAdmin)
 admin.site.register(UsageLog, UsageLogAdmin)
+admin.site.register(ReleaseCarousel, RCarouselAdmin)

@@ -1,5 +1,6 @@
 from django import forms
-from .models import Release
+from .models import Release, ReleaseCarousel
+from django.forms import ModelForm
 
 
 class ReleaseForm(forms.Form):
@@ -8,3 +9,9 @@ class ReleaseForm(forms.Form):
         self.fields['release'] = forms.ChoiceField(
             choices=[(o.id, str(o)) for o in Release.objects.all()]
         )
+
+
+class RCarouselForm(ModelForm):
+    class Meta:
+        model = ReleaseCarousel
+        fields = ['release', 'sort']

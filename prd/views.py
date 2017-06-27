@@ -45,6 +45,7 @@ def jira_add_comment(jira_task, comment):
     jira = JiraProject()
     jira.add_comment(jira_task, comment)
 
+
 class BuildIssueForm(forms.Form):
     release = forms.ChoiceField(choices=CHOICE, disabled=True)
     build = forms.IntegerField(widget=forms.HiddenInput())

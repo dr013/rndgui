@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}:Details of RCarousel{% endblock %}
+{% block header %}Details of RCarousel - [{{ object.release }}]{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'rcarousel-list' %}" class="btn btn-success active" role="button">
+                        Back to releases carousel
+                    </a>
+                </div>
+            </div>
+            <table class="table table-responsive table-bordered">
+                <tr align="center" class="bg-warning">
+                    <th colspan="3" class="bg-success">RCarousel info</th>
+                </tr>
+                <tr>
+                    <th>ID: </th> <td>{{ object.pk }}</td>
+                </tr>
+                <tr>
+                    <th>Created at: </th> <td>{{ object.created_at }}</td>
+                </tr>
+                <tr>
+                    <th>Release: </th> <td>{{ object.release }}</td>
+                </tr>
+                <tr>
+                    <th>Sort: </th> <td>{{ object.sort }}</td>
+                </tr>
+                <tr>
+                    <th>Priority: </th> <td>{{ object.count }}</td>
+                </tr>
+                <tr>
+                    <th>Last used at: </th> <td>{{ object.last_used_at }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 import logging
 import datetime
 from django.utils import timezone
-import requests
 from common.jenkins_wrapper import JenkinsWrapper
 from common.func import create_hash
 from django.conf import settings
@@ -25,6 +24,25 @@ STATUSES = (
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
+
+def get_next_release(product):
+    #   get all releases from carousel
+    """
+        Get next release for testing by product
+        :param product:
+        :return: release for testing in string format
+    """
+    release = ''
+    logger.info("Get Release for testing by product [{p}]".format(p=product.name))
+    try:
+        release = ReleaseCarousel.objects.all().filter(release__product=product).order_by('count', 'last_used_at').first()
+    except ReleaseCarousel.DoesNotExist, err:
+        logger.error("Release for testing not found error - {e}".format(e=err))
+    if release:
+        logger.info("Release for testing is [{r}]".format(r=release))
+        release.use()
+        return release
 
 
 # Create your models here.
@@ -97,7 +115,11 @@ class TestEnvironment(models.Model):
                 logger.info("Stand [{st}] - free, can use it".format(st=self.name))
                 # get next release for testing by Product, if it not set in params
                 if not release:
-                    release = self.get_release_for_test(self.prd)
+                    release = get_next_release(product=self.prd)
+                    #   if releaseCarousel is empty
+                    if not release:
+                        logger.warning("Releases carousel is empty. There is nothing to test ")
+                        return False
 
                 #   run Jenkins task on "free" stand
                 task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
@@ -116,7 +138,11 @@ class TestEnvironment(models.Model):
             logger.info("Stand [{st}] - free and it can use now".format(st=self.name))
             # get next release for testing by Product, if it not set in params
             if not release:
-                release = self.get_release_for_test(self.prd)
+                release = get_next_release(product=self.prd)
+                #   if releaseCarousel is empty
+                if not release:
+                    logger.warning("Releases carousel is empty. There is nothing to test ")
+                    return False
 
             #   run Jenkins task on "free" stand
             task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
@@ -131,21 +157,6 @@ class TestEnvironment(models.Model):
             use.save()
             return self
         return False
-
-    #   TODO update method getting "Release for testing"
-    def get_release_for_test(self, product):
-        data = {}
-        logger.info("Get Release for testing by product [{p}]".format(p=product.name))
-        url = '{h}/r-carousel/api/get/?project=core&product={p}'.format(h=settings.SERVICE_HOST, p=product.name)
-        try:
-            response = requests.get(url=url)
-            data = response.json()
-        except requests.HTTPError, err:
-            logger.error("HTTP error - {e}".format(e=err))
-        if data:
-            logger.debug(str(data))
-            logger.info("Release for testing is [{r}]".format(r=data['release']))
-            return data['release']
 
 
 class UsageLog(models.Model):
@@ -178,3 +189,45 @@ class UsageLog(models.Model):
         self.save()
         logger.info("Stand [{st}] - was released".format(st=self.stand))
         return self
+
+
+class ReleaseCarousel(models.Model):
+    release = models.ForeignKey(Release, unique=True)
+    count = models.IntegerField('Count', null=True, blank=True, default=0)
+    created_at = models.DateTimeField(verbose_name='Created', auto_now_add=True)
+    last_used_at = models.DateTimeField(verbose_name='Last used')
+    sort = models.IntegerField('Sort', default=10)
+
+    class Meta:
+        ordering = ['count', 'last_used_at', 'sort']
+
+        permissions = (
+            ("can_order", "Manual order priority"),
+        )
+
+    @property
+    def is_first(self):
+        first_rec = ReleaseCarousel.objects.all().filter().order_by('count', 'last_used_at').first()
+        if self == first_rec:
+            return True
+        else:
+            return False
+
+    @property
+    def is_last(self):
+        last_rec = ReleaseCarousel.objects.all().filter().order_by('count', 'last_used_at').last()
+        if self == last_rec:
+            return True
+        else:
+            return False
+
+    def get_absolute_url(self):
+        return reverse('rcarousel-detail', kwargs={'pk': self.pk})
+
+    def __str__(self):
+        return '{r}'.format(r=self.release.name)
+
+    def use(self):
+        self.count += 1
+        self.last_used_at = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
+        self.save()
