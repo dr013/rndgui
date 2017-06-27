@@ -11,9 +11,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('acm', '0001_initial'),
         ('contenttypes', '0002_remove_content_type_name'),
-        ('prd', '__first__'),
     ]
 
     operations = [
