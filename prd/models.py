@@ -47,8 +47,7 @@ def create_jira_version(project, version, released=True, desc=None):
         version_desc = desc
     else:
         version_desc = 'New version {}'.format(version)
-
-    return jira.create_version(version_name=version, released=released, description=desc)
+    jira.create_version(version_name=version, released=released, description=desc)
 
 
 def check_jira_release(project, release):
@@ -225,9 +224,8 @@ class Release(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            s1 = create_jira_version.s(project=self.product.jira, version=self.name)
-            res = s1.delay()
-            logger.info("Jira version: {}".format(str(res.get())))
+            s1 = create_jira_version.delay(project=self.product.jira, version=self.name)
+            logger.info("Create Jira version: {}".format(self.name))
 
             if not self.jira:
                 self.jira = check_jira_release(self.product.jira, self.name)
