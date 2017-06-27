@@ -192,7 +192,7 @@ class UsageLog(models.Model):
 
 
 class ReleaseCarousel(models.Model):
-    release = models.ForeignKey(Release, unique=True)
+    release = models.OneToOneField(Release, unique=True)
     count = models.IntegerField('Count', null=True, blank=True, default=0)
     created_at = models.DateTimeField(verbose_name='Created', auto_now_add=True)
     last_used_at = models.DateTimeField(verbose_name='Last used')
