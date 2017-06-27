@@ -38,12 +38,22 @@ def gitlab_project(pid):
         return None
 
 
-def check_jira_release(project, release):
+def create_jira_version(project, version, released=True, desc=None):
+    if desc:
+        version_desc = desc
+    else:
+        version_desc = 'New version {}'.format(version)
+    jira = JiraProject(project=project)
+
+    return jira.create_version(version_name=version, released=released)
+
+
+def check_jira_release(project, release, version=None):
     jira = JiraProject(project=project)
     task_name = 'Release {}'.format(release)
     issue = jira.search_issue(task_name)
     if not issue:
-        issue = create_jira_release(project, release)
+        issue = create_jira_release(project, release, version=None)
     return issue.key
 
 
@@ -76,10 +86,10 @@ def check_jira_task_status(task):
     return jira.get_task_status(task)
 
 
-def create_jira_release(project, release):
+def create_jira_release(project, release, version=None):
     jira = JiraProject(project=project)
     logger.info("Create Jira release task for project {}.".format(project))
-    release_task = jira.create_release_task(release)
+    release_task = jira.create_release_task(release, version)
     return release_task
 
 
@@ -212,6 +222,7 @@ class Release(models.Model):
     def save(self, *args, **kwargs):
         if not self.pk:
             if not self.jira:
+                jira_version = create_jira_version(project=self.product.jira, version=self.name)
                 self.jira = check_jira_release(self.product.jira, self.name)
             super(Release, self).save(*args, **kwargs)
             bld0 = Build(name='0', release=self, author=self.author, released=True, date_released=datetime.date.today())

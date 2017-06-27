@@ -193,17 +193,17 @@ LOGGING = {
             'handlers': ['null', ],
         },
         '': {
-            'handlers': ['console', 'production_file', 'debug_file'],
+            'handlers': ['console', 'production_file', 'debug_file',],
             'level': "DEBUG",
         },
         'raven': {
             'level': 'WARNING',
-            'handlers': ['sentry'],
+            'handlers': ['sentry', 'production_file',],
             'propagate': False,
         },
         'sentry.errors': {
             'level': 'WARNING',
-            'handlers': ['sentry'],
+            'handlers': ['sentry', 'production_file'],
             'propagate': False,
         }
     }

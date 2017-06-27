@@ -151,7 +151,7 @@ class JiraProject:
         res = self.jira.create_issue(fields=params)
         return res
 
-    def create_task(self, summary, version_number):
+    def create_task(self, summary, version_number, aff_version):
         params = {
             "project": {"key": self.project.key},
             "summary": summary,
@@ -159,18 +159,18 @@ class JiraProject:
             "versions": [{"id": self.get_version_id(version_number)}]
         }
         fields = self.get_required_field(self.project.key, 'Task')
-
+        logger.debug(str(fields))
         if "customfield_10024" in fields:
             params["customfield_10024"] = {"value": "Core"}
 
         res = self.jira.create_issue(fields=params)
         return res
 
-    def create_release_task(self, release):
+    def create_release_task(self, release, version=None):
         summary = "Release {}".format(release)
         version_number = '{rel}.0'.format(rel=release)
 
-        res = self.create_task(summary, version_number)
+        res = self.create_task(summary, version_number, aff_version=version)
         return res
 
     def create_sub_task(self, parent, build):
