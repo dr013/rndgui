@@ -225,8 +225,9 @@ class Release(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            jira_version = create_jira_version(project=self.product.jira, version=self.name)
-            logger.info("Jira version: {}".format(str(jira_version)))
+            s1 = create_jira_version.s(project=self.product.jira, version=self.name)
+            res = s1.delay()
+            logger.info("Jira version: {}".format(str(res.get())))
 
             if not self.jira:
                 self.jira = check_jira_release(self.product.jira, self.name)
