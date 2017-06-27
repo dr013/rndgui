@@ -35,15 +35,15 @@ CHOICE = (
 )
 
 
-@shared_task()
+@shared_task
 def create_gitlab_tag(gitlab_project_id, tag_name, tag_desc, build_full_name, author):
     GitLab().create_tag(project_id=gitlab_project_id, tag=tag_name, ref=build_full_name, desc=tag_desc, user=author)
 
 
-@shared_task
 def jira_add_comment(jira_task, comment):
     jira = JiraProject()
     jira.add_comment(jira_task, comment)
+
 
 class BuildIssueForm(forms.Form):
     release = forms.ChoiceField(choices=CHOICE, disabled=True)
@@ -257,7 +257,8 @@ class HotFixCreate(CreateView):
 
             comment += "Hotfix {hf} was released - {gitlab}/tags/{hf}\n".format(hf=tag_name, gitlab=gl_project.web_url)
         if obj.jira:
-            jira_add_comment.delay(obj.jira, comment)
+            jira_add_comment(obj.jira, comment)
+        messages.add_message(self.request, messages.SUCCESS, 'New HotFix {} was issued!'.format(tag_name))
         return super(HotFixCreate, self).form_valid(form)
 
     def get_success_url(self, **kwargs):
@@ -300,6 +301,7 @@ class ReleaseCreate(CreateView):
     def form_valid(self, form):
         user = self.request.user
         form.instance.author = user
+        messages.add_message(self.request, messages.SUCCESS, 'New release {} was created!'.format(form.instance.name))
         return super(ReleaseCreate, self).form_valid(form)
 
 
