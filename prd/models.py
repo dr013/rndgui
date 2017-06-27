@@ -11,6 +11,7 @@ from django.core.cache import cache
 from simple_history.models import HistoricalRecords
 from acm.models import Institution
 from prd.api import GitLab, JiraProject
+from celery import shared_task
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -38,22 +39,24 @@ def gitlab_project(pid):
         return None
 
 
+@shared_task
 def create_jira_version(project, version, released=True, desc=None):
+    jira = JiraProject(project=project)
+
     if desc:
         version_desc = desc
     else:
         version_desc = 'New version {}'.format(version)
-    jira = JiraProject(project=project)
 
-    return jira.create_version(version_name=version, released=released)
+    return jira.create_version(version_name=version, released=released, description=desc)
 
 
-def check_jira_release(project, release, version=None):
+def check_jira_release(project, release):
     jira = JiraProject(project=project)
     task_name = 'Release {}'.format(release)
     issue = jira.search_issue(task_name)
     if not issue:
-        issue = create_jira_release(project, release, version=None)
+        issue = create_jira_release(project, release)
     return issue.key
 
 
@@ -86,10 +89,10 @@ def check_jira_task_status(task):
     return jira.get_task_status(task)
 
 
-def create_jira_release(project, release, version=None):
+def create_jira_release(project, release):
     jira = JiraProject(project=project)
     logger.info("Create Jira release task for project {}.".format(project))
-    release_task = jira.create_release_task(release, version)
+    release_task = jira.create_release_task(release)
     return release_task
 
 
@@ -107,6 +110,7 @@ def jira_project_list(project=None):
         project_list = JiraProject(project=project).project_list()
         project_list_lov = []
         for rec in ((x.key, "{name}({key})".format(name=x.name, key=x.key)) for x in project_list):
+            # todo skip used projects
             project_list_lov.append(rec)
         cache.set('jira_project_list', project_list_lov, 60 * 60)  # cache one hour
     return project_list_lov
@@ -221,8 +225,10 @@ class Release(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            jira_version = create_jira_version(project=self.product.jira, version=self.name)
+            logger.info("Jira version: {}".format(str(jira_version)))
+
             if not self.jira:
-                jira_version = create_jira_version(project=self.product.jira, version=self.name)
                 self.jira = check_jira_release(self.product.jira, self.name)
             super(Release, self).save(*args, **kwargs)
             bld0 = Build(name='0', release=self, author=self.author, released=True, date_released=datetime.date.today())
