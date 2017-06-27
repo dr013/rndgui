@@ -27,13 +27,13 @@ class ReleaseAdmin(SimpleHistoryAdmin):
 
 class BuildAdmin(SimpleHistoryAdmin):
     list_filter = ('release__product', 'release')
+    inlines = [
+        BuildRevisionInline,
+    ]
 
 
 class BuildRevisionAdmin(SimpleHistoryAdmin):
     list_filter = ('build__release__product',)
-    inlines = [
-        BuildRevisionInline,
-    ]
 
 
 class HotFixRevisionInline(admin.TabularInline):
