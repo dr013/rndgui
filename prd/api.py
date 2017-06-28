@@ -38,19 +38,28 @@ class GitLab:
             return False
 
     def create_tag(self, project_id, tag, ref, desc, user=None):
+        status = False
         # TODO check permission for sudo user  - add tag available only for Developer, Master and Owner role.
         logger.debug("Check Gitlab tag {}".format(tag))
         if self.check_tag(project_id, tag):
             logger.debug("Found gitlab tag {tag} in GitLab project {prd}.".format(tag=tag, prd=project_id))
+            status = True
+            result = 'Found existing tag {tag} in GitLab project {prj}'.format(tag=tag,
+                                                                               prj=self.get_project(project_id).name)
         else:
             try:
                 tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
                                                   project_id=project_id, sudo=user)
                 tag.set_release_description(desc)
+                status = True
+                result = "Create new tag {tag} in GitLab project {prd}.".format(tag=str(tag),
+                                                                                prd=self.get_project(project_id).name)
+
             except gitlab.GitlabCreateError as errm:
                 logger.error(str(errm))
-
-            logger.info("Create new tag {tag} in GitLab project {prd}.".format(tag=str(tag), prd=project_id))
+                status = False
+                result = str(errm)
+        return status, result
 
     def get_revision_list(self, project_id, ref_name, since):
         project = self.gl.projects.get(project_id)

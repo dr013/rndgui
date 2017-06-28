@@ -37,7 +37,11 @@ CHOICE = (
 
 @shared_task
 def create_gitlab_tag(gitlab_project_id, tag_name, tag_desc, build_full_name, author):
-    GitLab().create_tag(project_id=gitlab_project_id, tag=tag_name, ref=build_full_name, desc=tag_desc, user=author)
+    status, result = GitLab().create_tag(project_id=gitlab_project_id, tag=tag_name, ref=build_full_name, desc=tag_desc,
+                                         user=author)
+    if not status:
+        logger.error(result)
+        raise
 
 
 def jira_add_comment(jira_task, comment):
@@ -88,7 +92,7 @@ def create_build(request, product):
                              'revision_list': revision_list,
                              'count': len(revision_list)})
     elif request.method == "POST":
-
+        res = True
         build = Build.objects.get(pk=request.POST['build'])
         release = build.release
         product = release.product
@@ -104,24 +108,31 @@ def create_build(request, product):
                 bld_revision.release_part = rel_part
                 bld_revision.revision = revision
                 bld_revision.save()
-                gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=build.git_name, ref=revision,
-                                             desc=build.git_name, user=request.user)
-        messages.add_message(request, messages.INFO, '1. Git tags in GitLab was created successufily.')
-        build.date_released = datetime.date.today()
-        build.author = request.user
-        build.released = True
-        build.save()
-        messages.add_message(request, messages.INFO, '2.1 Jira task for issued build was closed.')
-        messages.add_message(request, messages.INFO, '2.2 Jira task for new build was created.')
-        # todo release_author
+                status, result = GitLab().create_tag(project_id=rec.gitlab_id, tag=build.git_name, ref=revision,
+                                                     desc=build.git_name, user=request.user)
+                if status:
+                    messages.add_message(request, messages.SUCCESS, result)
+                else:
+                    res = False
+                    messages.add_message(request, messages.ERROR, result)
 
-        build_new = Build(name=str(int(build.name) + 1), release=release)
-        build_new.author = request.user
+        if res:
+            messages.add_message(request, messages.INFO, '1. Git tags in GitLab was created successufily.')
+            build.date_released = datetime.date.today()
+            build.author = request.user
+            build.released = True
+            build.save()
+            messages.add_message(request, messages.INFO, '2.1 Jira task for issued build was closed.')
+            messages.add_message(request, messages.INFO, '2.2 Jira task for new build was created.')
+            # todo release_author
 
-        build_new.save()
-        messages.add_message(request, messages.SUCCESS, 'New buiild name: {}'.format(build_new.full_name))
-        messages.add_message(request, messages.WARNING, '3. Dictionary report - task not found!')
-        messages.add_message(request, messages.WARNING, '4. Specification repostiory - need permissions!')
+            build_new = Build(name=str(int(build.name) + 1), release=release)
+            build_new.author = request.user
+
+            build_new.save()
+            messages.add_message(request, messages.SUCCESS, 'New buiild name: {}'.format(build_new.full_name))
+            messages.add_message(request, messages.WARNING, '3. Dictionary report - task not found!')
+            messages.add_message(request, messages.WARNING, '4. Specification repostiory - need permissions!')
         return HttpResponseRedirect(reverse('build-list-by-release', kwargs={'pk': release.pk}))
 
     return render(request, 'create_build.html', locals())
