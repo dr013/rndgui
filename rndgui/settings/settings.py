@@ -121,6 +121,8 @@ RAVEN_CONFIG = {
     'release': get_version(),
 }
 
+CELERYD_HIJACK_ROOT_LOGGER = False
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -151,6 +153,10 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
+        },
+        'celery_sentry_handler': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.celery.SentryCeleryHandler'
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -193,12 +199,17 @@ LOGGING = {
             'handlers': ['null', ],
         },
         '': {
-            'handlers': ['console', 'production_file', 'debug_file',],
+            'handlers': ['console', 'production_file', 'debug_file', ],
             'level': "DEBUG",
         },
         'raven': {
             'level': 'WARNING',
-            'handlers': ['sentry', 'production_file',],
+            'handlers': ['sentry', 'production_file', ],
+            'propagate': False,
+        },
+        'celery': {
+            'handlers': ['celery_sentry_handler'],
+            'level': 'ERROR',
             'propagate': False,
         },
         'sentry.errors': {
