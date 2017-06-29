@@ -248,6 +248,7 @@ class HotFixCreate(CreateView):
         obj = form.save(commit=False)
         obj.author = self.request.user
         obj.date_released = datetime.date.today()
+        obj.save()
         # set tag
         tag_name = '{bld}.{tag}'.format(bld=self.build.git_name, tag=obj.name)
         tag_desc = 'HotFix {name} for build {bld}'.format(bld=self.build.full_name, name=obj.name)
