@@ -66,9 +66,12 @@ def create_zero_tag(product, release, tag, author):
     if not release_module:
         release_module = ReleasePart.objects.filter(product__jira=product)
     for rec in release_module:
-        status, result = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag, ref=release.dev_branch, user=author.username,
-                            desc=desc)
-
+        revision = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag, ref=release.dev_branch, user=author.username,
+                                       desc=desc, ref_type='branch')
+        if revision:
+            build = Build.objects.get(release=release, name='0')
+            build_revision = BuildRevision(release_part=rec, revision=revision, build=build)
+            build_revision.save()
 
 
 def check_jira_build(project, release, build):
