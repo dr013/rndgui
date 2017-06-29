@@ -44,7 +44,7 @@
                                 <td>{{ rec.env }}</td>
                                 <td>{{ rec.is_active }}</td>
                                 <td>{{ rec.prd }}</td>
-                                <td>{{ rec.status }}</td>
+                                <td>{{ rec.status }} {% if rec.release_testing %} (Release {{ rec.release_testing }}) {% endif %}</td>
                                 <td>{{ rec.expire }}</td>
                                 <td><a href="{% url 'usage-stand-log' rec.name %}">View stat</a></td>
                                 {% if perms.cat.can_unlock %}
@@ -52,7 +52,7 @@
                                         {% if rec.hash %}
                                             {% buttons %}
                                                 <a href="{% url 'release-stand-param' rec.hash %}"
-                                                   class="btn btn-danger btn-sm">{% bootstrap_icon icon %}Stop
+                                                   class="btn btn-danger btn-sm">{% bootstrap_icon icon %}Stop testing
                                                 </a>
                                             {% endbuttons %}
                                         {% endif %}

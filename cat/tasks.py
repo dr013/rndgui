@@ -12,17 +12,13 @@ logger = logging.getLogger(__name__)
 @task()
 def get_stand(release=None):
     #   get all exists stands from the db
-    all_stands = TestEnvironment.objects.all()
+    all_stands = TestEnvironment.objects.all().filter(is_active=True)
     for stand in all_stands:
         logger.info("Check stand [{st}]:".format(st=stand.name))
-        #   if the stand is not active
-        if stand.is_active:
-            #  try acquire stand
-            res = stand.acquire(release=release)
-            if res:
-                return res.name
-        else:
-            logger.info("Stand [{st}] - is disabled".format(st=stand.name))
+        #  try acquire stand
+        res = stand.acquire(release=release)
+        if res:
+            return res.name
 
 
 @task()
@@ -67,11 +63,11 @@ def up_release(pk):
     #   the current positions of this "sort" for the release
     cur_release_pos = int(release.count)
     #   try found other releases with same "sort"
-    cnt_other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos-1).count()
+    cnt_other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos-1, is_active=True).count()
     logger.info("[{c}] - releases already in the same priority of the sort".format(c=cnt_other_releases))
     if cnt_other_releases > 0:
         logger.info("Getting all releases in the needed priority [{p}] and sort them".format(p=release.count-1))
-        other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos-1).order_by('last_used_at')
+        other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos-1, is_active=True).order_by('last_used_at')
         logger.info("The release [{r}] is the first at the needed priority [{p}]".format(r=other_releases[0],
                                                                                          p=cur_release_pos-1))
         #   get the first element from other releases and take his lastUsedTime
@@ -101,11 +97,11 @@ def down_release(pk):
     #   the current positions of this "sort" for the release
     cur_release_pos = int(release.count)
     #   try found other releases with same "sort"
-    cnt_other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos+1).count()
+    cnt_other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos+1, is_active=True).count()
     logger.info("[{c}] - releases already in the same priority of the sort".format(c=cnt_other_releases))
     if cnt_other_releases > 0:
         logger.info("Getting all releases in the needed priority [{p}] and sort them".format(p=release.count+1))
-        other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos+1).order_by('-last_used_at')
+        other_releases = ReleaseCarousel.objects.all().filter(count=cur_release_pos+1, is_active=True).order_by('-last_used_at')
         logger.info("The release [{r}] is the first at the needed priority [{p}]".format(r=other_releases[0],
                                                                                          p=cur_release_pos+1))
         last_used_time = other_releases[0].last_used_at

@@ -80,3 +80,6 @@ JENKINS_PASS = '3WqOGzrj9G'
 JENKINS_BUILD_TASK = 'rnd.core.host.deploy.smart'
 
 SERVICE_HOST = 'http://sv2.bpc.in'
+
+# MongoDB base
+DB_MONGO = MONGO_CLIENT['ci']

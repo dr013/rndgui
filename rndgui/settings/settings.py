@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+from pymongo import MongoClient
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from rndgui.context_processors import get_version
 
@@ -225,3 +225,6 @@ REST_FRAMEWORK = {
     ],
     'PAGE_SIZE': 10
 }
+
+# Init MongoDB client
+MONGO_CLIENT = MongoClient("mongodb://sv2-web.bt.bpc.in:27017,sv2.bpc.in:27017,sv2-web2.bt.bpc.in:27017", connect=False)

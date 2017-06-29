@@ -73,3 +73,6 @@ JENKINS_PASS = '3WqOGzrj9G'
 JENKINS_BUILD_TASK = 'test.host.deploy'
 
 SERVICE_HOST = 'http://sv2.bpc.in'
+
+# MongoDB base
+DB_MONGO = MONGO_CLIENT['ci']

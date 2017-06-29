@@ -50,17 +50,6 @@ def down_release_to_test(request, pk):
     return HttpResponseRedirect('/test-env/rcarousel-list')
 
 
-# Create your views here.
-class CreateRCarousel(CreateView):
-    model = ReleaseCarousel
-    fields = ['release', 'sort']
-    success_message = 'Release add to carousel.'
-
-    def form_valid(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super(CreateRCarousel, self).form_valid(request, *args, **kwargs)
-
-
 def create_rcarousel(request):
     if request.method == "POST":
         form = RCarouselForm(data=request.POST)
@@ -77,7 +66,7 @@ def create_rcarousel(request):
 
 class UpdateRCarousel(UpdateView):
     model = ReleaseCarousel
-    fields = ['release', 'count', 'sort']
+    fields = ['release', 'count', 'sort', 'is_active']
     success_message = 'Release of carousel was updated successfully.'
 
     def form_valid(self, request, *args, **kwargs):
@@ -132,7 +121,7 @@ class TestEnvDetail(DetailView):
 
 class UpdateTestEnv(UpdateView):
     model = TestEnvironment
-    fields = ['name', 'env', 'prd', 'expire']
+    fields = ['name', 'env', 'prd', 'is_active', 'expire']
     success_message = 'Test stand was updated successfully.'
     template_name = "cat/testenvironment_form.html"
 
@@ -148,7 +137,7 @@ class UpdateTestEnv(UpdateView):
 
 class CreateTestEnv(CreateView):
     model = TestEnvironment
-    fields = ['name', 'env', 'prd', 'expire']
+    fields = ['name', 'env', 'prd', 'is_active', 'expire']
     success_message = 'Test stand was created successfully.'
     template_name = "cat/testenvironment_form.html"
 

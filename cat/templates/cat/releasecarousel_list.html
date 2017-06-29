@@ -23,37 +23,40 @@
                             <tr>
                                 <th>Product</th>
                                 <th>Release</th>
-                                <th>Priority</th>
+                                {% if perms.cat.can_order_releasecarousel %}
+                                    <th>Priority</th>
+                                {% endif %}
+                                <th>Status of testing</th>
                                 <th>Last used</th>
                                 <!--th>Sort</th-->
                                 {% if perms.cat.change_releasecarousel %}
-                                <th>Edit</th>
+                                    <th>Edit</th>
                                 {% endif %}
                                 {% if perms.cat.delete_releasecarousel %}
-                                <th>Delete</th>
+                                    <th>Delete</th>
                                 {% endif %}
+                                <th>Active</th>
                             </tr>
                     {% endif %}
-                            <tr>
+                            <tr {% if rec.is_active == False %} style="color:#d3d3d3;" {% endif %}>
                                 <td>{{ rec.release.product.title }}</td>
                                 <td><a href="{% url 'rcarousel-detail' rec.pk %}">{{ rec.release.name }}</a></td>
+
+                                {% if perms.cat.can_order_releasecarousel %}
                                 <td>
-                                    {% if perms.cat.can_order_releasecarousel %}
-                                        {% if not rec.is_first %}
+                                        {% if not rec.is_first and rec.is_active %}
                                             <a href="{% url 'rcarousel-up' rec.pk %}">
                                                 <span class="glyphicon glyphicon-arrow-up"></span>
                                             </a>
-                                        {% endif%}
-                                    {% endif%}
-                                    {{ rec.count }}
-                                    {% if perms.cat.can_order_releasecarousel %}
-                                        {% if not rec.is_last %}
+                                        {% endif %}
+                                        {% if not rec.is_last and rec.is_active %}
                                             <a href="{% url 'rcarousel-down' rec.pk %}">
                                                 <span class="glyphicon glyphicon-arrow-down"></span>
                                             </a>
                                         {% endif %}
-                                    {% endif %}
                                 </td>
+                                {% endif %}
+                                <td>{% if rec.testing_on %} Testing on stand <br/> {{ rec.testing_on }} {% endif %}</td>
                                 <td>{{ rec.last_used_at|date:"H:i:s m/d/y" }}</td>
                                 <!--td>{{ rec.sort }}</td-->
                                 {% if perms.cat.change_releasecarousel %}
@@ -74,6 +77,7 @@
                                     {% endbuttons %}
                                 </td>
                                 {% endif %}
+                                <td>{{ rec.is_active }}</td>
                             </tr>
                     {% if forloop.last %}
                         </table>

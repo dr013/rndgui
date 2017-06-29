@@ -14,4 +14,4 @@ class ReleaseForm(forms.Form):
 class RCarouselForm(ModelForm):
     class Meta:
         model = ReleaseCarousel
-        fields = ['release', 'sort']
+        fields = ['release', 'sort', 'is_active']
