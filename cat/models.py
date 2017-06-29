@@ -202,7 +202,7 @@ def get_project(release, envrnmnt):
     #   generate JSON data by RELEASE and Env
     json_data = make_json(release, envrnmnt)
     exist_data = db['resource_data'].find_one({'name': json_data['name']})
-    if 'name' in exist_data:
+    if exist_data and 'name' in exist_data:
         logger.info("Project for release [{p}] and stand [{e}] already exists - [{pr}]".format(p=release.name,
                                                                                                e=envrnmnt.name,
                                                                                                pr=json_data['name']))
