@@ -64,7 +64,7 @@ class GitLab:
             if revision:
                 try:
                     tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
-                                                      project_id=project_id, sudo=user)
+                                                      project_id=project_id)
                     tag.set_release_description(desc)
                     result = "Create new tag {tag} in GitLab project {prd}.".format(tag=str(tag),
                                                                                     prd=self.get_project(
