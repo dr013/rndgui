@@ -326,7 +326,7 @@ class TestEnvironment(models.Model):
                         return False
 
                 #   generate resource_file for Jenkins task
-                env = Environment.objects.get(name=self)
+                env = Environment.objects.get(name=self.env)
                 prj = get_project(release=get_object_or_404(Release, name=release),
                                   envrnmnt=env)
                 logger.info("Project name is [{pr}]".format(pr=prj))

@@ -26,7 +26,7 @@
                                 {% if perms.cat.can_order_releasecarousel %}
                                     <th>Priority</th>
                                 {% endif %}
-                                <th>Status of testing</th>
+                                <!--th>Status of testing</th-->
                                 <th>Last used</th>
                                 <!--th>Sort</th-->
                                 {% if perms.cat.change_releasecarousel %}
@@ -56,7 +56,7 @@
                                         {% endif %}
                                 </td>
                                 {% endif %}
-                                <td>{% if rec.testing_on %} Testing on stand <br/> {{ rec.testing_on }} {% endif %}</td>
+                                <!--td>{% if rec.testing_on %} Testing on stand <br/> {{ rec.testing_on }} {% endif %}</td-->
                                 <td>{{ rec.last_used_at|date:"H:i:s m/d/y" }}</td>
                                 <!--td>{{ rec.sort }}</td-->
                                 {% if perms.cat.change_releasecarousel %}
