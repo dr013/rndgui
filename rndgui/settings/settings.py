@@ -154,10 +154,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
-        'celery_sentry_handler': {
-            'level': 'ERROR',
-            'class': 'raven.contrib.celery.SentryCeleryHandler'
-        },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -205,11 +201,6 @@ LOGGING = {
         'raven': {
             'level': 'WARNING',
             'handlers': ['sentry', 'production_file', ],
-            'propagate': False,
-        },
-        'celery': {
-            'handlers': ['celery_sentry_handler'],
-            'level': 'ERROR',
             'propagate': False,
         },
         'sentry.errors': {
