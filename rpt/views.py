@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import JiraFilter
 from prd.api import JiraProject
 
-logger = logging.getLogger('rpt')
+logger = logging.getLogger(__name__)
 
 
 class JiraFilterList(ListView):

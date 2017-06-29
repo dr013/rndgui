@@ -5,11 +5,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# Create your models here.
 class JiraFilter(models.Model):
     empl = models.ForeignKey(User)
     jira_filter = models.IntegerField(_("Jira  filter"))
-
 
 
 class JiraReportField(models.Model):
