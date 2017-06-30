@@ -104,3 +104,9 @@ def excel_by_filter(filter_id, user, passwd, fields=None):
 
     workbook.close()
     return filename
+
+
+def send_excel(user, filename, jql):
+    jira = JiraProject().get_jira()
+    issues = jira.search_issues(jql)
+    pass

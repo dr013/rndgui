@@ -3,21 +3,15 @@ from __future__ import unicode_literals
 import logging
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
-from .models import JiraFilter
+from .models import JiraFilter, INTERVAL_CHOICE
 from prd.api import JiraProject
 from django import forms
 from django.contrib.auth.decorators import login_required
 from rpt.api import excel_by_filter
 
 logger = logging.getLogger(__name__)
-
-INTERVAL_CHOICE = [
-    ('0', 'Every work day'),
-    ('1', 'On Monday'),
-    ('2', 'On Friday'),
-]
 
 
 class JiraFilterForm(forms.Form):
@@ -27,7 +21,6 @@ class JiraFilterForm(forms.Form):
 
 @login_required
 def create_filter(request):
-
     if request.method == "GET":
         form = JiraFilterForm()
         jira_list = JiraProject(user=request.user.username, password=request.session["secret"]).get_favorive_filter()
@@ -36,7 +29,11 @@ def create_filter(request):
         jira_choice.extend([(x.id, x.name) for x in jira_list if x.id not in jira_used_list])
         form.fields['jira_filter'].choices = jira_choice
     elif request.method == "POST":
-        jf = JiraFilter(empl=request.user, jira_filter=request.POST['jira_filter'])
+        filter_id = request.POST['jira_filter']
+        jira = JiraProject(user=request.user.username, password=request.session["secret"]).get_jira()
+        flt = jira.filter(filter_id)
+        jf = JiraFilter(empl=request.user, jira_filter=filter_id, interval=request.POST['interval'])
+        jf.jql = flt.jql
         jf.save()
         return HttpResponseRedirect(reverse('jira-filter-list'))
 
@@ -53,7 +50,8 @@ class JiraFilterList(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(JiraFilterList, self).get_context_data(**kwargs)
-        jira_list = JiraProject(user=self.request.user.username, password=self.request.session["secret"]).get_favorive_filter()
+        jira_list = JiraProject(user=self.request.user.username,
+                                password=self.request.session["secret"]).get_favorive_filter()
         context['jira_list'] = [(int(x.id), x.name) for x in jira_list]
 
         return context
@@ -69,10 +67,11 @@ class JiraFilterModify(UpdateView):
 
 class JiraFilterDelete(DeleteView):
     model = JiraFilter
+    template_name = 'jirafilter_confirm_delete.html'
+    success_url = reverse_lazy('jira-filter-list')
 
 
 def download_excel(request, filter_id):
-
     filename = excel_by_filter(filter_id=filter_id, user=request.user, passwd=request.session["secret"])
     response = HttpResponse(file(filename))
     response['Content-Type'] = 'application/vnd.ms-excel'

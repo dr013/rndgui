@@ -28,12 +28,10 @@
                     {% endif %}
                     <tr>
                         <td>|
-                            <a href="{% url 'jira-filter-modify' rec.pk %}">Edit</a> |
                             <a href="{% url 'jira-filter-delete' rec.pk %}">Remove</a> |
-                            Setup Fields |
                         </td>
                         <td>{% for rec2 in jira_list %}{% if rec2.0 == rec.jira_filter %}<a href="{{ rec.jira_url|safe }}">{{ rec2.1 }}({{ rec2.0 }})</a>{% endif %}{% endfor %}</td>
-                        <td></td>
+                        <td>{{ rec.get_interval_display }}</td>
                         <td><a href="{% url 'download-excel' rec.jira_filter %}">Download</a></td>
                     </tr>
                 {% empty %}
