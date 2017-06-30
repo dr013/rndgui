@@ -296,7 +296,7 @@ class Build(models.Model):
 
         if not self.jira:
             self.jira = check_jira_build(self.release.product.name, self.release.name, self.full_name)
-
+        super(Build, self).save(*args, **kwargs)
         if self.released:
             # close jira task
             status = check_jira_task_status(self.jira)
@@ -314,8 +314,7 @@ class Build(models.Model):
             # create gitlab tag
             if self.name == '0':
                 create_zero_tag(self.release.product.jira, self.release, self.git_name, self.author)
-
-        super(Build, self).save(*args, **kwargs)
+            super(Build, self).save(*args, **kwargs)
 
 
 class HotFix(models.Model):
