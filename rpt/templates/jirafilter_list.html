@@ -23,6 +23,7 @@
                             <th>Jira Filter</th>
                             <th>Interval</th>
                             <th>Download</th>
+                            <th>Send email</th>
                         </tr>
                         </thead>
                     {% endif %}
@@ -33,6 +34,8 @@
                         <td>{% for rec2 in jira_list %}{% if rec2.0 == rec.jira_filter %}<a href="{{ rec.jira_url|safe }}">{{ rec2.1 }}({{ rec2.0 }})</a>{% endif %}{% endfor %}</td>
                         <td>{{ rec.get_interval_display }}</td>
                         <td><a href="{% url 'download-excel' rec.jira_filter %}">Download</a></td>
+                        <td><a href="{% url 'email-excel' rec.jira_filter %}">Send</a></td>
+
                     </tr>
                 {% empty %}
                     Not yet saved Jira Filters

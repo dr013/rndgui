@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import logging
+
+from django.conf import settings
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
@@ -10,6 +13,7 @@ from prd.api import JiraProject
 from django import forms
 from django.contrib.auth.decorators import login_required
 from rpt.api import excel_by_filter
+from django.core.mail import send_mail, EmailMessage
 
 logger = logging.getLogger(__name__)
 
@@ -77,3 +81,15 @@ def download_excel(request, filter_id):
     response['Content-Type'] = 'application/vnd.ms-excel'
     response['Content-Disposition'] = 'attachment; filename=%s' % filename.split('/')[-1]
     return response
+
+
+def email_excel(request, filter_id):
+    filename = excel_by_filter(filter_id=filter_id, user=request.user, passwd=request.session["secret"])
+    subject = 'Jira report by filter {}'.format(filter_id)
+    text = 'See attach.'
+    mail = EmailMessage(subject, text, settings.DEFAULT_FROM_EMAIL, [request.user.email, ])
+    mail.content_subtype = "html"
+    mail.attach_file(filename)
+    mail.send()
+    messages.add_message(request, messages.SUCCESS, 'Email to {} was send!'.format(request.user.email))
+    return HttpResponseRedirect(reverse_lazy('jira-filter-list'))
