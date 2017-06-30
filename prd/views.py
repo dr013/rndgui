@@ -14,7 +14,7 @@ from prd.forms import ProductForm
 from .models import *
 
 # Get an instance of a logger
-logger = logging.getLogger("prd")
+logger = logging.getLogger(__name__)
 
 
 class ReleaseList(ListView):
@@ -112,7 +112,7 @@ def create_build(request, product):
 
         if res:
             messages.add_message(request, messages.INFO, '1. Git tags in GitLab was created successufily.')
-            build.date_released = datetime.date.today()
+            build.date_released = datetime.datetime.today()
             build.author = request.user
             build.released = True
             build.save()
@@ -280,7 +280,7 @@ class ReleaseCreate(CreateView):
 
     def get_initial(self):
         self.product = get_object_or_404(Product, jira=self.kwargs.get('product').upper())
-        self.release_list = Release.objects.all().filter(product=self.product).order_by('-name')
+        self.release_list = Release.objects.all().filter(product=self.product).order_by('-created')
         if self.release_list.count() == 0:
             release_name = '1.0'
         else:
@@ -319,3 +319,53 @@ def rest_product(request, product):
     qs_json = {"title": data.title, 'jira': data.jira, 'owner': data.owner.username, 'desc': data.desc}
 
     return JsonResponse(qs_json)
+
+
+@login_required
+def release_issue(request, pk):
+    release = Release.objects.get(pk=pk)
+    release_part = ReleasePart.objects.filter(product=release.product)
+    logger.info("Start issue release {}".format(release.name))
+    if 'future' in release.dev_branch:
+        new_dev_branch = '{}-develop'.format(release.name)
+        new_master_branch = '{}-master'.format(release.name)
+        rls_arr = release.name.split('.')
+        if len(rls_arr)==2:
+            next_release = '{v}.{r}'.format(v=rls_arr[0], r=str(int(rls_arr)+1))
+        elif len(rls_arr) ==1:
+            next_release = str(int(rls_arr)+1)
+        else:
+            next_release = '1'
+
+        # create new branches
+        for part in release_part:
+            gl = GitLab().get_gl()
+            gl.project_branches.create({'branch_name': new_dev_branch,
+                                        'ref': 'future'},
+                                       project_id=part.gitlab_id)
+
+            gl.project_branches.create({'branch_name': new_master_branch,
+                                        'ref': 'future'},
+                                       project_id=part.gitlab_id)
+
+            data = {
+                'branch_name': 'future',
+                'commit_message': '{} - bump release file.'.format(release.jira),
+                'actions': [
+                    {
+                        'action': 'modify',
+                        'file_path': 'RELEASE',
+                        'content': next_release
+                    }
+                ]
+            }
+
+            commit = gl.project_commits.create(data, project_id=part.gitlab_id)
+            logger.info(str(commit))
+            logger.info("Bump release for {}".format(next_release))
+        release.released = True
+        release.date_released = datetime.datetime.today()
+        release.save()
+        messages.add_message(request, messages.SUCCESS, 'Release {} was issued!'.format(release.name))
+
+    return HttpResponseRedirect(reverse('release-list-by-product', args=(release.product.name)))

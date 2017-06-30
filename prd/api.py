@@ -28,6 +28,9 @@ class GitLab:
         obj = self.gl.projects.get(pid)
         return obj
 
+    def get_gl(self):
+        return self.gl
+
     def check_tag(self, project_id, tag):
         project_obj = self.get_project(project_id)
         tags = project_obj.tags.list(all=True)

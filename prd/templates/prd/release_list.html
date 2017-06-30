@@ -43,6 +43,9 @@
                     {% else %}
                         <img src="{% static "img/ico/icon-no.svg" %}">
                     {% endif %}</td>
+                    <td>{% if not release.released and perms.prd.add_release %}
+                        <a href="{% url 'release-issue' release.pk %}" class="btn btn-success btn-sm"
+                               role="button">{% bootstrap_icon 'plus' %}Issue release</a>{% endif %}</td>
                 </tr>
                 {% if forloop.last %}
                     </table>
