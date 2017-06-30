@@ -112,6 +112,9 @@ class JiraProject:
             self.logger.error(str(msg))
             return
 
+    def get_jira(self):
+        return self.jira
+
     def project_list(self):
         project_list = self.jira.projects()
         return project_list
@@ -347,4 +350,6 @@ class JiraProject:
     def get_favorive_filter(self):
         return self.jira.favourite_filters()
 
+    def get_filter(self, filter_id):
+        return self.jira.filter(filter_id)
 

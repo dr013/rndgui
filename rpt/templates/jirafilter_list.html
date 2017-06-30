@@ -4,30 +4,43 @@
 {% block header %}Jira task list filters{% endblock %}
 {% block content %}
     <div class="container">
-    <div class="row">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            {% if perms.rpt.add_jirafilter %}
-                <a href="{% url 'jira-filter-add' %}" class="btn btn-primary"
-                   role="button">{% bootstrap_icon 'plus' %}Add new Jira Filter</a>
-            {% endif %}
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if perms.rpt.add_jirafilter %}
+                        <a href="{% url 'jira-filter-add' %}" class="btn btn-primary"
+                           role="button">{% bootstrap_icon 'plus' %}Add new Jira Filter</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="table-responsive">
+                {% for rec in object_list %}
+                    {% if forloop.first %}
+                        <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Jira Filter</th>
+                            <th>Interval</th>
+                            <th>Download</th>
+                        </tr>
+                        </thead>
+                    {% endif %}
+                    <tr>
+                        <td>|
+                            <a href="{% url 'jira-filter-modify' rec.pk %}">Edit</a> |
+                            <a href="{% url 'jira-filter-delete' rec.pk %}">Remove</a> |
+                            Setup Fields |
+                        </td>
+                        <td>{% for rec2 in jira_list %}{% if rec2.0 == rec.jira_filter %}<a href="{{ rec.jira_url|safe }}">{{ rec2.1 }}({{ rec2.0 }})</a>{% endif %}{% endfor %}</td>
+                        <td></td>
+                        <td><a href="{% url 'download-excel' rec.jira_filter %}">Download</a></td>
+                    </tr>
+                {% empty %}
+                    Not yet saved Jira Filters
+                {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
-    <div class="table-responsive">
-    {% for rec in object_list %}
-        {% if forloop.first %}
-            <table class="table">
-            <thead>
-            <tr>
-                <th>Action</th>
-                <th>Name</th>
-                <th>Build Jira Task</th>
-                <th>Release Date</th>
-                <th>Author</th>
-            </tr>
-            </thead>
-        {% endif %}
-    {% empty %}
-        Not yet saved Jira Filters
-    {% endfor %}
 {% endblock %}
