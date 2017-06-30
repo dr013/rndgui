@@ -42,8 +42,8 @@
                                 <td>{{ rec.release.product.title }}</td>
                                 <td><a href="{% url 'rcarousel-detail' rec.pk %}">{{ rec.release.name }}</a></td>
 
-                                {% if perms.cat.can_order_releasecarousel %}
-                                <td>
+                                {% if perms.cat.can_order %}
+                                    <td>
                                         {% if not rec.is_first and rec.is_active %}
                                             <a href="{% url 'rcarousel-up' rec.pk %}">
                                                 <span class="glyphicon glyphicon-arrow-up"></span>
@@ -54,7 +54,7 @@
                                                 <span class="glyphicon glyphicon-arrow-down"></span>
                                             </a>
                                         {% endif %}
-                                </td>
+                                    </td>
                                 {% endif %}
                                 <!--td>{% if rec.testing_on %} Testing on stand <br/> {{ rec.testing_on }} {% endif %}</td-->
                                 <td>{{ rec.last_used_at|date:"H:i:s m/d/y" }}</td>

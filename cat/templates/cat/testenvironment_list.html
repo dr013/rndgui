@@ -44,7 +44,10 @@
                                 <td>{{ rec.env }}</td>
                                 <td>{{ rec.is_active }}</td>
                                 <td>{{ rec.prd }}</td>
-                                <td>{{ rec.status }} {% if rec.release_testing %} (Release {{ rec.release_testing }}) {% endif %}</td>
+                                <td {% if rec.status == 'Busy' %} class="bg-info" {% endif %}
+                                    {% if rec.status == 'Ready' %} class="bg-success" {% endif %} >
+                                    {{ rec.status }} {% if rec.release_testing %} (Release {{ rec.release_testing }}) {% endif %}
+                                </td>
                                 <td>{{ rec.expire }}</td>
                                 <td><a href="{% url 'usage-stand-log' rec.name %}">View stat</a></td>
                                 {% if perms.cat.can_unlock %}

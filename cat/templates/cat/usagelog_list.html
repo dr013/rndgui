@@ -22,16 +22,20 @@
                             <th>Start time</th>
                             <th>Status</th>
                             <th>Finish time</th>
-                            <th>Author</th>
+                            <!--th>Author</th-->
                         </tr>
                 {% endif %}
-                <tr {%if rec.status == 'fail'%} class="bg-danger" {% endif %} >
+                <tr {%if rec.status == 'busy'%} class="bg-info" {% endif %}
+                    {%if rec.status == 'fail'%} class="bg-danger" {% endif %}
+                    {%if rec.status == 'abort'%} class="bg-danger" {% endif %}
+                    {%if rec.status == 'timeout'%} class="bg-warning" {% endif %}
+                    {%if rec.status == 'completed'%} class="bg-success" {% endif %} >
                     <td>{{ rec.release.name }}</td>
                     <td><a href="{{ rec.task }}">{{ rec.task }}</a></td>
                     <td>{{ rec.started_at }}</td>
                     <td>{{ rec.get_status_display }}</td>
                     <td>{{ rec.finished_at }}</td>
-                    <td>{{ rec.author.get_full_name }}</td>
+                    <!--td>{{ rec.author.get_full_name }}</td-->
 
                 </tr>
             {% if forloop.last %}
