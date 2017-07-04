@@ -78,7 +78,7 @@ def make_json(release, envrnmnt):
         db_instance = "{u}/{p}@{h}:{port}/{s}".format(u=backoffice_instance.login,
                                                       p=backoffice_instance.passwd,
                                                       h=backoffice_instance.host,
-                                                      port= backoffice_instance.port,
+                                                      port=backoffice_instance.port,
                                                       s=backoffice_instance.sid)
     else:
         test_db = False
@@ -114,10 +114,10 @@ def make_json(release, envrnmnt):
     if camel_instance:
         camel = {
             'name': 'camel',
-            "TARGET_HOST": svweb_instance.host,
-            "HOST_LOGIN": svweb_instance.login,
-            "WL_ADMIN": "t3://{h}:{p}".format(p=svweb_instance.port, h=svweb_instance.host),
-            "WL_TGT_SERV": svweb_instance.target_server,
+            "TARGET_HOST": camel_instance.host,
+            "HOST_LOGIN": camel_instance.login,
+            "WL_ADMIN": "t3://{h}:{p}".format(p=camel_instance.port, h=camel_instance.host),
+            "WL_TGT_SERV": camel_instance.target_server,
             "SOURCE_REPO": ReleasePart.objects.get(name='camel').gitlab_repo_html,
             "SOURCE_CHECKOUT": release.dev_branch
         }
