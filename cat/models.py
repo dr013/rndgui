@@ -69,7 +69,7 @@ def make_json(release, envrnmnt):
             "INSTANCE_NAME": "Test {r}".format(r=release.name),
             "SOURCE_CHECKOUT": release.dev_branch,
             "BUILD_MODE": "stand",
-            "SOURCE_REPO": ReleasePart.objects.get(name='backoffice').gitlab_project_url,
+            "SOURCE_REPO": ReleasePart.objects.get(name='backoffice').gitlab_repo_html,
             "SYSTEM_LOGIN": backoffice_instance.sys_user,
             "SYSTEM_PASSWD": backoffice_instance.sys_passwd
             }
@@ -96,7 +96,7 @@ def make_json(release, envrnmnt):
             "HOST_LOGIN": svweb_instance.login,
             "WL_ADMIN": "t3://{h}:{p}".format(p=svweb_instance.port, h=svweb_instance.host),
             "WL_TGT_SERV": svweb_instance.target_server,
-            "SOURCE_REPO": ReleasePart.objects.get(name='svweb').gitlab_project_url,
+            "SOURCE_REPO": ReleasePart.objects.get(name='svweb').gitlab_repo_html,
             "SOURCE_CHECKOUT": release.dev_branch
         }
         component.append(svweb)
@@ -118,7 +118,7 @@ def make_json(release, envrnmnt):
             "HOST_LOGIN": svweb_instance.login,
             "WL_ADMIN": "t3://{h}:{p}".format(p=svweb_instance.port, h=svweb_instance.host),
             "WL_TGT_SERV": svweb_instance.target_server,
-            "SOURCE_REPO": ReleasePart.objects.get(name='camel').gitlab_project_url,
+            "SOURCE_REPO": ReleasePart.objects.get(name='camel').gitlab_repo_html,
             "SOURCE_CHECKOUT": release.dev_branch
         }
         component.append(camel)
@@ -358,7 +358,7 @@ class TestEnvironment(models.Model):
                 logger.info("Releases [{r}] is set in params".format(r=release))
 
             #   get Env by Stand
-            env = Environment.objects.get(name=self)
+            env = Environment.objects.get(name=self.env)
             #   generate resource_file for Jenkins task
             prj = get_project(release=get_object_or_404(Release, name=release),
                               envrnmnt=env)
