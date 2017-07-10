@@ -333,7 +333,7 @@ class TestEnvironment(models.Model):
 
                 #   run Jenkins task on "free" stand
                 task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                         param={'PROJECT': prj, 'HASH': stand_hash})
+                                         param={'RESOURCE_FILE': prj, 'HASH': stand_hash})
                 #   save selected stand to database, and mark as 'busy'
                 use = UsageLog(stand=self,
                                release=get_object_or_404(Release, name=release),
@@ -366,7 +366,7 @@ class TestEnvironment(models.Model):
 
             #   run Jenkins task on "free" stand
             task = jenkins.run_build(task=settings.JENKINS_BUILD_TASK,
-                                     param={'PROJECT': prj, 'HASH': stand_hash})
+                                     param={'RESOURCE_FILE': prj, 'HASH': stand_hash})
             #   save selected stand to database, and mark as 'busy'
             use = UsageLog(stand=self,
                            release=get_object_or_404(Release, name=release),

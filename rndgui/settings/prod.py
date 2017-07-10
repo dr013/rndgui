@@ -77,7 +77,7 @@ CACHES = {
 JENKINS_HOST = 'http://jenkins2.bt.bpc.in:8080/'
 JENKINS_USER = 'jira-system'
 JENKINS_PASS = '3WqOGzrj9G'
-JENKINS_BUILD_TASK = 'rnd.core.host.deploy.smart'
+JENKINS_BUILD_TASK = 'rnd.core.auto_test.deploy.smart'
 
 SERVICE_HOST = 'http://sv2.bpc.in'
 
