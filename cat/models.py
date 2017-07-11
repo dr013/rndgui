@@ -162,14 +162,14 @@ def make_json(release, envrnmnt):
         test_fe = False
         fe_instance = ''
 
+    test = list()
     #   TEST part
-    test = {
+    test_items = {
         "TL_PROJ": "SmartVista Core",
         "TL_APIKEY": "b2a87d044aa1c5ab282f314bd051c9e3",
         "WI_TEST_HOST": wi_test_host,
         "JMETER_BRANCH": release.name,
         "TARGET_HOST": envrnmnt.name,
-        "TEST_BUILD": release.name,
         "FE_INSTANCE": fe_instance,
         "WL_INSTANCE": wl_instance,
         "WI_TEST_TARGET": wi_test_host,
@@ -184,6 +184,8 @@ def make_json(release, envrnmnt):
         "TEST_WS": test_web_service,
         "UPLOAD_TARGET": wl_instance
     }
+
+    test.append(test_items)
 
     #   MAIN part
     data['name'] = '{r}_{e}_auto_test'.format(r=release.name, e=envrnmnt.name)
