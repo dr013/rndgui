@@ -31,33 +31,61 @@ class GitLab:
     def check_tag(self, project_id, tag):
         project_obj = self.get_project(project_id)
         tags = project_obj.tags.list(all=True)
-        tag_list = [x.name for x in tags]
-        if tag in tag_list:
-            return True
-        else:
-            return False
+        for rec in tags:
+            if tag in rec.name:
+                return rec.commit.id
 
-    def create_tag(self, project_id, tag, ref, desc, user=None):
-        # TODO check permission for sudo user  - add tag available only for Developer, Master and Owner role.
+        return None
+
+    def check_ref(self, project_id, ref, ref_type='branch'):
+        revision = None
+        project_obj = self.get_project(project_id)
+        if 'branch' in ref_type:
+            branches = project_obj.branches.list()
+            for rec in branches:
+                if ref in rec.name:
+                    return rec.commit['id']
+        else:
+            revision = ref
+        return revision
+
+    def create_tag(self, project_id, tag, ref, desc, user=None, ref_type='branch'):
+        revision = None
+        result = ''
         logger.debug("Check Gitlab tag {}".format(tag))
-        if self.check_tag(project_id, tag):
+        revision = self.check_tag(project_id, tag)
+        if revision:
             logger.debug("Found gitlab tag {tag} in GitLab project {prd}.".format(tag=tag, prd=project_id))
+
+            result = 'Found existing tag {tag} in GitLab project {prj}'.format(tag=tag,
+                                                                               prj=self.get_project(project_id).name)
         else:
-            try:
-                tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
-                                                  project_id=project_id, sudo=user)
-                tag.set_release_description(desc)
-            except gitlab.GitlabCreateError as errm:
-                logger.error(str(errm))
+            revision = self.check_ref(project_id=project_id, ref=ref, ref_type=ref_type)
+            if revision:
+                try:
+                    tag = self.gl.project_tags.create({'tag_name': tag, 'ref': ref},
+                                                      project_id=project_id)
+                    tag.set_release_description(desc)
+                    result = "Create new tag {tag} in GitLab project {prd}.".format(tag=str(tag),
+                                                                                    prd=self.get_project(
+                                                                                        project_id).name)
+                except gitlab.GitlabCreateError as errm:
+                    logger.error(str(errm))
+                    result = str(errm)
+            else:
+                result = 'Ref {ref} not found in project {prj}. Skip create tag {tag}.'
+        logger.info(result)
+        return revision
 
-            logger.info("Create new tag {tag} in GitLab project {prd}.".format(tag=str(tag), prd=project_id))
-
-    def get_revision_list(self, project_id, ref_name, since):
+    def get_revision_list(self, project_id, ref_name, since=None):
         project = self.gl.projects.get(project_id)
         logger.info("Project_id:{}".format(project_id))
         logger.info('Ref name: {}'.format(ref_name))
         logger.info(str(since))
-        commits = project.commits.list(ref_name=ref_name, since=str(since), all=True)
+        if since:
+            commits = project.commits.list(ref_name=ref_name, since=str(since), all=True)
+        else:
+            commits = project.commits.list(ref_name=ref_name, all=True)
         if not commits:
             commits = project.commits.list(ref_name=ref_name)[0:1]
 
@@ -160,17 +188,24 @@ class JiraProject:
         }
         fields = self.get_required_field(self.project.key, 'Task')
 
+        logger.debug(str(fields))
+
         if "customfield_10024" in fields:
             params["customfield_10024"] = {"value": "Core"}
 
+        if "customfield_10067" in fields:  # Affects to Release Notes
+            params["customfield_10067"] = {"value": "No"}
+
+        print '#' * 40
+        print params
         res = self.jira.create_issue(fields=params)
+
         return res
 
     def create_release_task(self, release):
         summary = "Release {}".format(release)
-        version_number = '{rel}.0'.format(rel=release)
 
-        res = self.create_task(summary, version_number)
+        res = self.create_task(summary, release)
         return res
 
     def create_sub_task(self, parent, build):

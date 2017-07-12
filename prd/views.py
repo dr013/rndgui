@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 # from django.forms import formset_factory
-from celery import shared_task
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -35,12 +34,6 @@ CHOICE = (
 )
 
 
-@shared_task()
-def create_gitlab_tag(gitlab_project_id, tag_name, tag_desc, build_full_name, author):
-    GitLab().create_tag(project_id=gitlab_project_id, tag=tag_name, ref=build_full_name, desc=tag_desc, user=author)
-
-
-@shared_task
 def jira_add_comment(jira_task, comment):
     jira = JiraProject()
     jira.add_comment(jira_task, comment)
@@ -89,7 +82,7 @@ def create_build(request, product):
                              'revision_list': revision_list,
                              'count': len(revision_list)})
     elif request.method == "POST":
-
+        res = True
         build = Build.objects.get(pk=request.POST['build'])
         release = build.release
         product = release.product
@@ -100,29 +93,38 @@ def create_build(request, product):
             if post_part in request.POST:
                 revision = request.POST[post_part]
                 rel_part = ReleasePart.objects.get(pk=rec.pk)
-                bld_revision = BuildRevision()
-                bld_revision.build = build
-                bld_revision.release_part = rel_part
-                bld_revision.revision = revision
-                bld_revision.save()
-                gitlab = GitLab().create_tag(project_id=rec.gitlab_id, tag=build.git_name, ref=revision,
-                                             desc=build.git_name, user=request.user)
-        messages.add_message(request, messages.INFO, '1. Git tags in GitLab was created successufily.')
-        build.date_released = datetime.date.today()
-        build.author = request.user
-        build.released = True
-        build.save()
-        messages.add_message(request, messages.INFO, '2.1 Jira task for issued build was closed.')
-        messages.add_message(request, messages.INFO, '2.2 Jira task for new build was created.')
-        # todo release_author
+                revision = GitLab().create_tag(project_id=rec.gitlab_id, tag=build.git_name, ref=revision,
+                                               desc=build.git_name, user=request.user, ref_type='revision')
+                if revision:
+                    bld_revision = BuildRevision()
+                    bld_revision.build = build
+                    bld_revision.release_part = rel_part
+                    bld_revision.revision = revision
+                    bld_revision.save()
+                    result = 'Tag {tag} was successful created for module {module}'.format(tag=build.full_name,
+                                                                                           module=rec.name)
+                    messages.add_message(request, messages.SUCCESS, result)
+                else:
+                    res = False
+                    result = "Tag {tag} wasn't created for module {module}.".format(tag=build.full_name,
+                                                                                    module=rec.name)
+                    messages.add_message(request, messages.ERROR, result)
 
-        build_new = Build(name=str(int(build.name) + 1), release=release)
-        build_new.author = request.user
-
-        build_new.save()
-        messages.add_message(request, messages.SUCCESS, 'New buiild name: {}'.format(build_new.full_name))
-        messages.add_message(request, messages.WARNING, '3. Dictionary report - task not found!')
-        messages.add_message(request, messages.WARNING, '4. Specification repostiory - need permissions!')
+        if res:
+            messages.add_message(request, messages.INFO, '1. Git tags in GitLab was created successufily.')
+            build.date_released = datetime.date.today()
+            build.author = request.user
+            build.released = True
+            build.save()
+            messages.add_message(request, messages.INFO, '2.1 Jira task for issued build was closed.')
+            messages.add_message(request, messages.INFO, '2.2 Jira task for new build was created.')
+            # todo release_author
+            build_new = Build(name=str(int(build.name) + 1), release=release)
+            build_new.author = request.user
+            build_new.save()
+            messages.add_message(request, messages.SUCCESS, 'New buiild name: {}'.format(build_new.full_name))
+            messages.add_message(request, messages.WARNING, '3. Dictionary report - task not found!')
+            messages.add_message(request, messages.WARNING, '4. Specification repostiory - need permissions!')
         return HttpResponseRedirect(reverse('build-list-by-release', kwargs={'pk': release.pk}))
 
     return render(request, 'create_build.html', locals())
@@ -246,19 +248,25 @@ class HotFixCreate(CreateView):
         obj = form.save(commit=False)
         obj.author = self.request.user
         obj.date_released = datetime.date.today()
+        obj.save()
         # set tag
         tag_name = '{bld}.{tag}'.format(bld=self.build.git_name, tag=obj.name)
         tag_desc = 'HotFix {name} for build {bld}'.format(bld=self.build.full_name, name=obj.name)
         release_part = ReleasePart.objects.filter(product=self.build.release.product)
         comment = ""
         for rec in release_part:
-            create_gitlab_tag.delay(gitlab_project_id=rec.gitlab_id, tag_name=tag_name, tag_desc=tag_desc,
-                                    build_full_name=self.build.full_name, author=obj.author.username)
-            gl_project = GitLab().get_project(pid=rec.gitlab_id)
-
-            comment += "Hotfix {hf} was released - {gitlab}/tags/{hf}\n".format(hf=tag_name, gitlab=gl_project.web_url)
+            revision = GitLab().create_tag(project_id=rec.gitlab_id, tag=tag_name, ref=self.build.full_name,
+                                           desc=tag_desc,
+                                           user=obj.author.username, ref_type='branch')
+            if revision:
+                hotfix_rev = HotFixRevision(hotfix=obj, release_part=rec, revision=revision)
+                hotfix_rev.save()
+                gl_project = GitLab().get_project(pid=rec.gitlab_id)
+                comment += "Hotfix {hf} was released - {gitlab}/tags/{hf}\n".format(hf=tag_name,
+                                                                                    gitlab=gl_project.web_url)
         if obj.jira:
-            jira_add_comment.delay(obj.jira, comment)
+            jira_add_comment(obj.jira, comment)
+        messages.add_message(self.request, messages.SUCCESS, 'New HotFix {} was issued!'.format(tag_name))
         return super(HotFixCreate, self).form_valid(form)
 
     def get_success_url(self, **kwargs):
@@ -301,6 +309,7 @@ class ReleaseCreate(CreateView):
     def form_valid(self, form):
         user = self.request.user
         form.instance.author = user
+        messages.add_message(self.request, messages.SUCCESS, 'New release {} was created!'.format(form.instance.name))
         return super(ReleaseCreate, self).form_valid(form)
 
 

@@ -9,6 +9,10 @@ class BuildInline(admin.TabularInline):
     model = Build
 
 
+class BuildRevisionInline(admin.TabularInline):
+    model = BuildRevision
+
+
 class ProductAdmin(SimpleHistoryAdmin):
     list_filter = ('inst',)
 
@@ -23,6 +27,9 @@ class ReleaseAdmin(SimpleHistoryAdmin):
 
 class BuildAdmin(SimpleHistoryAdmin):
     list_filter = ('release__product', 'release')
+    inlines = [
+        BuildRevisionInline,
+    ]
 
 
 class BuildRevisionAdmin(SimpleHistoryAdmin):

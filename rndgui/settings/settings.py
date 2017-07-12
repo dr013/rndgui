@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
-    # 'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'rndgui.urls'
@@ -121,6 +121,8 @@ RAVEN_CONFIG = {
     # release based on the git info.
     'release': get_version(),
 }
+
+CELERYD_HIJACK_ROOT_LOGGER = False
 
 LOGGING = {
     'version': 1,
@@ -194,17 +196,17 @@ LOGGING = {
             'handlers': ['null', ],
         },
         '': {
-            'handlers': ['console', 'production_file', 'debug_file'],
+            'handlers': ['console', 'production_file', 'debug_file', ],
             'level': "DEBUG",
         },
         'raven': {
             'level': 'WARNING',
-            'handlers': ['sentry'],
+            'handlers': ['sentry', 'production_file', ],
             'propagate': False,
         },
         'sentry.errors': {
             'level': 'WARNING',
-            'handlers': ['sentry'],
+            'handlers': ['sentry', 'production_file'],
             'propagate': False,
         }
     }

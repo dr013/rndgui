@@ -1,0 +1,6 @@
+1.6.45:
+    - Create release - to async task
+1.6.43:
+    - Restart web server
+1.6.42:
+    - Admin model for Build - add inline Revision Form

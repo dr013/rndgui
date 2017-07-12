@@ -31,11 +31,15 @@ project = gl.projects.get(project_id)
 # tags = project.tags.list()
 # tag_list = [x.name for x in tags]
 # for rec in tags:
-#     print rec
+#     print rec.commit.id
+
+branches = project.branches.list()
+for rec in branches:
+    print rec.commit['id'], rec.name
 
 # create tag function
 # tag_create = project.tags.create({'tag_name': new_tag, 'ref': 'future'}, sudo='kazakov')
 
 # commits
-commits = project.commits.list(ref_name='2.5-develop')[0:1]
-print commits
+# commits = project.commits.list(ref_name='2.5-develop')[0:1]
+# print commits
