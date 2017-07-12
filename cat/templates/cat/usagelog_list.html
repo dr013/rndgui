@@ -22,6 +22,7 @@
                             <th>Start time</th>
                             <th>Status</th>
                             <th>Finish time</th>
+                            <th>Duration</th>
                             <!--th>Author</th-->
                         </tr>
                 {% endif %}
@@ -35,6 +36,7 @@
                     <td>{{ rec.started_at }}</td>
                     <td>{{ rec.get_status_display }}</td>
                     <td>{{ rec.finished_at }}</td>
+                    <td>{{ rec.duration }}</td>
                     <!--td>{{ rec.author.get_full_name }}</td-->
 
                 </tr>

@@ -14,6 +14,7 @@ from common.func import create_hash
 from django.conf import settings
 import pymongo
 
+#   Env statuses
 STATUSES = (
     ('completed', 'Completed'),
     ('busy', 'Busy'),
@@ -184,11 +185,12 @@ def make_json(release, envrnmnt):
         "TEST_WS": test_web_service,
         "UPLOAD_TARGET": wl_instance
     }
-
     test.append(test_items)
 
     #   MAIN part
-    data['name'] = '{r}_{e}_auto_test'.format(r=release.name, e=envrnmnt.name)
+    data['name'] = '{r}_{p}_{e}_auto_test'.format(r=release.name,
+                                                  e=envrnmnt.name,
+                                                  p=Product.objects.get(release=release).title)
     data['host'] = envrnmnt.name
     data['project'] = Product.objects.get(release=release).jira
     data['is_active'] = True
@@ -200,15 +202,31 @@ def make_json(release, envrnmnt):
 
 
 def get_project(release, envrnmnt):
+    """
+        Method for store RESOURCE_FILE in MongoDB
+        :param release: Model Instance
+        :param envrnmnt: Model Instance
+        :return: name of RESOURCE_FILE
+    """
     db = settings.DB_MONGO
     #   generate JSON data by RELEASE and Env
     json_data = make_json(release, envrnmnt)
     exist_data = db['resource_data'].find_one({'name': json_data['name']})
+    #   if RESOURCE_FILE already exist at MongoDB - delete them and create
     if exist_data and 'name' in exist_data:
-        logger.info("Project for release [{p}] and stand [{e}] already exists - [{pr}]".format(p=release.name,
-                                                                                               e=envrnmnt.name,
-                                                                                               pr=json_data['name']))
+        logger.info("Project for release [{p}] and stand [{e}] already exists - [{pr}]. \n Recreate them".format(
+            p=release.name, e=envrnmnt.name, pr=json_data['name']))
+        try:
+            logger.info("Delete exists - [{pr}] with id [{id}]".format(id=exist_data['_id'], pr=exist_data['name']))
+            db['resource_data'].delete_one({"_id": exist_data['_id']})
+            logger.info("Create it - [{n}]".format(n=json_data['name']))
+            res = db['resource_data'].insert(json_data)
+            if res:
+                return json_data['name']
+        except pymongo.errors.OperationFailure, e:
+            logger.error(e)
         return json_data['name']
+    #   if RESOURCE_FILE not exist at MongoDB - create them
     else:
         logger.info("Project for release [{p}] and stand [{e}] NOT exists, create it".format(p=release.name,
                                                                                              e=envrnmnt.name))
@@ -221,7 +239,6 @@ def get_project(release, envrnmnt):
 
 
 def get_next_release(product):
-    #   get all releases from carousel
     """
         Get next release for testing by product
         :param product:
@@ -393,6 +410,12 @@ class UsageLog(models.Model):
 
     def __str__(self):
         return '{name}::{status}'.format(name=self.stand, status=self.status)
+
+    @property
+    def duration(self):
+        if self.finished_at:
+            diff = self.finished_at - self.started_at
+            return diff
 
     def release_stand(self, status, force=False):
         """
