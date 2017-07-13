@@ -46,21 +46,22 @@
                             <tr {% if rec.is_active == False %} style="color:#d3d3d3;" {% endif %}>
                                 <td>{{ rec.release.product.title }}</td>
                                 <td><a href="{% url 'rcarousel-detail' rec.pk %}">{{ rec.release.name }}</a></td>
-
-                                {% if perms.cat.can_order %}
                                     <td>
-                                        {% if not rec.is_first and rec.is_active %}
-                                            <a href="{% url 'rcarousel-up' rec.pk %}">
-                                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                        {% if perms.cat.can_order %}
+                                            {% if not rec.is_first and rec.is_active %}
+                                                <a href="{% url 'rcarousel-up' rec.pk %}">
+                                                    <span class="glyphicon glyphicon-arrow-up"></span>
+                                                </a>
+                                            {% endif %}
+                                            {% if not rec.is_last and rec.is_active %}
+                                            <a href="{% url 'rcarousel-down' rec.pk %}">
+                                                <span class="glyphicon glyphicon-arrow-down"></span>
                                             </a>
-                                        {% endif %}
-                                        {% if not rec.is_last and rec.is_active %}
-                                        <a href="{% url 'rcarousel-down' rec.pk %}">
-                                            <span class="glyphicon glyphicon-arrow-down"></span>
-                                        </a>
+                                            {% endif %}
+                                        {% else %}
+                                            N/A
                                         {% endif %}
                                     </td>
-                                {% endif %}
                                 <td style="text-align:center;IMPORTANT;">  {{ rec.count }}</td>
                                 <td>{{ rec.last_used_at|date:"H:i:s m/d/y" }}</td>
 
@@ -77,13 +78,13 @@
                                 </td>
                                 {% endif %}
                                 {% if perms.cat.delete_releasecarousel %}
-                                <td>
-                                    {% buttons %}
-                                    <a href="{% url 'rcarousel-delete' rec.pk %}"
-                                       class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}
-                                    </a>
-                                    {% endbuttons %}
-                                </td>
+                                    <td>
+                                        {% buttons %}
+                                        <a href="{% url 'rcarousel-delete' rec.pk %}"
+                                           class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}
+                                        </a>
+                                        {% endbuttons %}
+                                    </td>
                                 {% endif %}
                                 <td>{{ rec.is_active }}</td>
                             </tr>
