@@ -190,11 +190,11 @@ def make_json(release, envrnmnt):
     #   MAIN part
     data['name'] = '{r}_{p}_{e}_auto_test'.format(r=release.name,
                                                   e=envrnmnt.name,
-                                                  p=Product.objects.get(release=release).title)
+                                                  p=Product.objects.get(release=release).system_name)
     data['host'] = envrnmnt.name
-    data['project'] = Product.objects.get(release=release).jira
+    data['project'] = Product.objects.get(release=release).name
     data['is_active'] = True
-    data['product'] = Product.objects.get(release=release).title
+    data['product'] = Product.objects.get(release=release).system_name
     data['release'] = release.name
     data['component'] = component
     data['test'] = test

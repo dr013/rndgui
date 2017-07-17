@@ -368,6 +368,9 @@ class ReleasePart(models.Model):
     class Meta:
         unique_together = ('name', 'product',)
 
+    def get_absolute_url(self):
+        return reverse('product-detail', kwargs={'pk': self.product.pk})
+
     def __str__(self):
         return '{product}::{name}'.format(product=self.product.name, name=self.name)
 

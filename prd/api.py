@@ -187,7 +187,6 @@ class JiraProject:
             "versions": [{"id": self.get_version_id(version_number)}]
         }
         fields = self.get_required_field(self.project.key, 'Task')
-
         logger.debug(str(fields))
 
         if "customfield_10024" in fields:
@@ -340,3 +339,8 @@ class JiraProject:
     def get_task_status(self, task):
         status = str(self.jira.issue(task).fields.status)
         return status
+
+    def get_all_issue_type(self):
+        obj_list = self.jira.createmeta(projectKeys=self.project, expand='projects.issuetypes')
+        issue_type = [x['name'] for x in obj_list['projects'][0]['issuetypes']]
+        return issue_type
