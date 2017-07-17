@@ -125,6 +125,7 @@ class Product(models.Model):
     wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
     jira = models.CharField(_("Jira project code"), max_length=20, choices=jira_project_list(), unique=True,
                             help_text="Jira project key")
+    system_name = models.CharField(_("Product system name"), max_length=20, null=True, blank=True)
     inst = models.ForeignKey(Institution, verbose_name='Group')
     owner = models.ForeignKey(User)
     created = models.DateField(auto_now_add=True)
