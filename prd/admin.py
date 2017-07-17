@@ -15,6 +15,7 @@ class BuildRevisionInline(admin.TabularInline):
 
 class ProductAdmin(SimpleHistoryAdmin):
     list_filter = ('inst',)
+    list_display = ['title', 'desc', 'jira', 'system_name']
 
 
 class ReleaseAdmin(SimpleHistoryAdmin):
