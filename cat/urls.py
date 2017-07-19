@@ -1,4 +1,4 @@
-
+from django.views.decorators.cache import never_cache
 from django.conf.urls import url
 
 from envrnmnt.views import EnvDetail
@@ -20,11 +20,10 @@ urlpatterns = [
     url(r'^usage-stand-log/(?P<stand_name>[a-zA-Z0-9-]+)$', views.UsageLogByStand.as_view(), name='usage-stand-log'),
     #   ReleaseCarousel
     url(r'^rcarousel-add$', views.create_rcarousel, name='rcarousel-add'),
-    url(r'^rcarousel-list$', views.RCarouselList.as_view(), name='rcarousel-list'),
+    url(r'^rcarousel-list$', never_cache(views.RCarouselList.as_view()), name='rcarousel-list'),
     url(r'^rcarousel-detail/(?P<pk>[0-9]+)/$', views.RCarouselDetail.as_view(), name='rcarousel-detail'),
     url(r'^rcarousel-update/(?P<pk>[0-9]+)/$', views.UpdateRCarousel.as_view(), name='rcarousel-update'),
     url(r'^rcarousel-delete/(?P<pk>[0-9]+)/$', views.DeleteRCarousel.as_view(), name='rcarousel-delete'),
     url(r'^rcarousel-up/(?P<pk>[0-9]+)/$', views.up_release_to_test, name='rcarousel-up'),
     url(r'^rcarousel-down/(?P<pk>[0-9]+)/$', views.down_release_to_test, name='rcarousel-down'),
 ]
-
