@@ -56,7 +56,7 @@ def deploy():
     """
     require('environment', provided_by=[production1, production2, dev])
     print(red("Beginning Deploy:"))
-    backup_db()
+    # backup_db()
     update_from_git()
     install_requirements()
     if 'develop' in env.environment:
