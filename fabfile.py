@@ -56,6 +56,7 @@ def deploy():
     """
     require('environment', provided_by=[production1, production2, dev])
     print(red("Beginning Deploy:"))
+    backup_db()
     update_from_git()
     install_requirements()
     if 'develop' in env.environment:
@@ -111,12 +112,16 @@ def touch_reload():
     with cd(env.path):
         run("git show > uwsgi")
 
+def backup_db():
+    print(green('Backup database'))
+    with virtualenv():
+        run('python manage.py dumpdata --indent=4 > /srv/backup/`date +"%Y_%m_%d"`_prod.json')
+
 
 def migrate():
     require('environment', provided_by=[production1, production2, dev])
     print(green('Migrate database'))
     with virtualenv():
-        run('python manage.py dumpdata --indent=4 > /srv/backup/`date +"%Y_%m_%d"`_prod.json')
         run("python manage.py migrate")
 
 
