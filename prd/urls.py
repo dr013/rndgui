@@ -13,10 +13,12 @@ urlpatterns = [
     url(r'^product-delete/(?P<pk>[0-9]+)/$', login_required(views.DeleteProduct.as_view()), name='product-delete'),
     url(r'^restapi/(?P<product>[\w-]+)/$', views.rest_product, name='product-restapi'),
     # Release
-    url(r'^release-list/$', views.ReleaseList.as_view(), name='release-list'),
-    url(r'^release-detail/$', views.ReleaseDetail.as_view(), name='release-detail'),
-    url(r'^release/([\w-]+)/$', views.ProductReleaseList.as_view(), name='release-list-by-product'),
-    url(r'^release-create/(?P<product>[\w-]+)/$', login_required(views.ReleaseCreate.as_view()), name='release-create'),
+    url(r'^release-list/$', never_cache(views.ReleaseList.as_view()), name='release-list'),
+    url(r'^release-detail/$', never_cache(views.ReleaseDetail.as_view()), name='release-detail'),
+    url(r'^release/([\w-]+)/$', never_cache(views.ProductReleaseList.as_view()), name='release-list-by-product'),
+    url(r'^release-create/(?P<product>[\w-]+)/$', never_cache(login_required(views.ReleaseCreate.as_view())),
+        name='release-create'),
+    url(r'^release-issue/(?P<pk>[0-9]+)/$', login_required(views.release_issue), name='release-issue'),
     # Release part
     url(r'^releasepart-add/(?P<product>[\w-]+)$', views.ReleasePartCreate.as_view(), name='releasepart-create'),
     url(r'^releasepart-update/(?P<pk>[0-9]+)/$', login_required(views.ReleasePartUpdate.as_view()),

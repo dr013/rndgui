@@ -8,13 +8,14 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from prd.forms import ProductForm
 from .models import *
 
 # Get an instance of a logger
-logger = logging.getLogger("prd")
+logger = logging.getLogger(__name__)
 
 
 class ReleaseList(ListView):
@@ -112,7 +113,7 @@ def create_build(request, product):
 
         if res:
             messages.add_message(request, messages.INFO, '1. Git tags in GitLab was created successufily.')
-            build.date_released = datetime.date.today()
+            build.date_released = timezone.now()
             build.author = request.user
             build.released = True
             build.save()
@@ -139,7 +140,7 @@ class ProductReleaseList(ListView):
 
     def get_queryset(self):
         self.product = get_object_or_404(Product, jira=self.args[0].upper())
-        return Release.objects.filter(product=self.product).order_by('-date_released')
+        return Release.objects.filter(product=self.product).order_by('-created')
 
     def get_context_data(self, **kwargs):
         context = super(ProductReleaseList, self).get_context_data(**kwargs)
@@ -150,7 +151,7 @@ class ProductReleaseList(ListView):
 class ReleaseBuildList(ListView):
     def get_queryset(self):
         self.release = get_object_or_404(Release, pk=self.kwargs['pk'])
-        return Build.objects.filter(release=self.release).order_by('-date_released')
+        return Build.objects.filter(release=self.release).order_by('-created')
 
     def get_context_data(self, **kwargs):
         context = super(ReleaseBuildList, self).get_context_data(**kwargs)
@@ -249,6 +250,8 @@ class HotFixCreate(CreateView):
         obj.author = self.request.user
         obj.date_released = datetime.date.today()
         obj.save()
+        obj.date_released = timezone.now()
+
         # set tag
         tag_name = '{bld}.{tag}'.format(bld=self.build.git_name, tag=obj.name)
         tag_desc = 'HotFix {name} for build {bld}'.format(bld=self.build.full_name, name=obj.name)
@@ -280,7 +283,7 @@ class ReleaseCreate(CreateView):
 
     def get_initial(self):
         self.product = get_object_or_404(Product, jira=self.kwargs.get('product').upper())
-        self.release_list = Release.objects.all().filter(product=self.product).order_by('-name')
+        self.release_list = Release.objects.all().filter(product=self.product).order_by('-created')
         if self.release_list.count() == 0:
             release_name = '1.0'
         else:
@@ -319,3 +322,66 @@ def rest_product(request, product):
     qs_json = {"title": data.title, 'jira': data.jira, 'owner': data.owner.username, 'desc': data.desc}
 
     return JsonResponse(qs_json)
+
+
+@login_required
+def release_issue(request, pk):
+    release = Release.objects.get(pk=pk)
+    release_part = ReleasePart.objects.filter(product=release.product)
+    logger.info("Start issue release {}".format(release.name))
+    if 'future' in release.dev_branch:
+        logger.info("Split GitLab branches")
+        new_dev_branch = '{}-develop'.format(release.name)
+        logger.info("New branch {}".format(new_dev_branch))
+        new_master_branch = '{}-master'.format(release.name)
+        logger.info("New branch {}".format(new_master_branch))
+        rls_arr = release.name.split('.')
+        if len(rls_arr) == 2:
+            next_release = '{v}.{r}'.format(v=rls_arr[0], r=str(int(rls_arr[1]) + 1))
+        elif len(rls_arr) == 1:
+            next_release = str(int(rls_arr[0]) + 1)
+        else:
+            next_release = '1'
+        logger.info("Calculate next release {}".format(next_release))
+
+        # create new branches
+        for part in release_part:
+            gl = GitLab().get_gl()
+            revision = GitLab().check_ref(project_id=part.gitlab_id, ref=new_dev_branch)
+            if not revision:
+                a = gl.project_branches.create({'branch_name': new_dev_branch,
+                                            'ref': 'future'},
+                                           project_id=part.gitlab_id)
+                logger.debug("Create new branch")
+                logger.debug(str(a))
+            else:
+                logger.info("Found branch - skip create")
+            revision = GitLab().check_ref(project_id=part.gitlab_id, ref=new_master_branch)
+            if not revision:
+                a = gl.project_branches.create({'branch_name': new_master_branch,
+                                                'ref': 'future'},
+                                               project_id=part.gitlab_id)
+                logger.debug("Create new branch")
+                logger.debug(str(a))
+            data = {
+                'branch_name': 'future',
+                'commit_message': '{} - bump release file.'.format(release.jira),
+                'actions': [
+                    {
+                        'action': 'update',
+                        'file_path': 'RELEASE',
+                        'content': next_release
+                    }
+                ]
+            }
+
+            commit = gl.project_commits.create(data, project_id=part.gitlab_id)
+            logger.info("Bump RELEASE")
+            logger.info(str(commit))
+            logger.info("Bump release for {}".format(next_release))
+        release.released = True
+        release.date_released = timezone.now()
+        release.save()
+        messages.add_message(request, messages.SUCCESS, 'Release {} was issued!'.format(release.name))
+
+    return HttpResponseRedirect(reverse('release-list-by-product', args=(release.product.name,)))

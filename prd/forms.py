@@ -1,7 +1,5 @@
 from django import forms
-from django.forms import Textarea
-from .models import Release, Product, jira_project_list
-from django.utils.translation import ugettext_lazy as _
+from .models import Release, Product
 
 
 class ReleaseForm(forms.Form):

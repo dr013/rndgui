@@ -28,6 +28,9 @@ class GitLab:
         obj = self.gl.projects.get(pid)
         return obj
 
+    def get_gl(self):
+        return self.gl
+
     def check_tag(self, project_id, tag):
         project_obj = self.get_project(project_id)
         tags = project_obj.tags.list(all=True)
@@ -94,10 +97,10 @@ class GitLab:
 
 # noinspection PyCompatibility
 class JiraProject:
-    def __init__(self, project=None):
+    def __init__(self, project=None, user=settings.JIRA_USER, password=settings.JIRA_PASS):
         self.logger = logging.getLogger('jira')
-        self.user = settings.JIRA_USER
-        self.password = settings.JIRA_PASS
+        self.user = user
+        self.password = password
         self.jira = None
         self.project = project
         self.connect_jira()
@@ -111,6 +114,9 @@ class JiraProject:
             self.logger.error('Error connect')
             self.logger.error(str(msg))
             return
+
+    def get_jira(self):
+        return self.jira
 
     def project_list(self):
         project_list = self.jira.projects()
@@ -195,16 +201,15 @@ class JiraProject:
         if "customfield_10067" in fields:  # Affects to Release Notes
             params["customfield_10067"] = {"value": "No"}
 
-        print '#' * 40
-        print params
         res = self.jira.create_issue(fields=params)
 
         return res
 
     def create_release_task(self, release):
         summary = "Release {}".format(release)
+        version_number = '{rel}.0'.format(rel=release)
 
-        res = self.create_task(summary, release)
+        res = self.create_task(summary, version_number)
         return res
 
     def create_sub_task(self, parent, build):
@@ -344,3 +349,10 @@ class JiraProject:
         obj_list = self.jira.createmeta(projectKeys=self.project, expand='projects.issuetypes')
         issue_type = [x['name'] for x in obj_list['projects'][0]['issuetypes']]
         return issue_type
+
+    def get_favorive_filter(self):
+        return self.jira.favourite_filters()
+
+    def get_filter(self, filter_id):
+        return self.jira.filter(filter_id)
+

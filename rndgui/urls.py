@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^jra/', include('jra.urls')),
     url(r'^acm/', include('acm.urls')),
+    url(r'^rpt/', include('rpt.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

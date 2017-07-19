@@ -1,0 +1,95 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+import logging
+
+from django.conf import settings
+from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from .models import JiraFilter, INTERVAL_CHOICE
+from prd.api import JiraProject
+from django import forms
+from django.contrib.auth.decorators import login_required
+from rpt.api import excel_by_filter
+from django.core.mail import send_mail, EmailMessage
+
+logger = logging.getLogger(__name__)
+
+
+class JiraFilterForm(forms.Form):
+    jira_filter = forms.ChoiceField(choices=[], label='Jira filter')
+    interval = forms.ChoiceField(choices=INTERVAL_CHOICE, label='Send interval')
+
+
+@login_required
+def create_filter(request):
+    if request.method == "GET":
+        form = JiraFilterForm()
+        jira_list = JiraProject(user=request.user.username, password=request.session["secret"]).get_favorive_filter()
+        jira_choice = [('-1', '---------')]
+        jira_used_list = JiraFilter.objects.filter(empl=request.user).values_list('jira_filter')
+        jira_choice.extend([(x.id, x.name) for x in jira_list if x.id not in jira_used_list])
+        form.fields['jira_filter'].choices = jira_choice
+    elif request.method == "POST":
+        filter_id = request.POST['jira_filter']
+        jira = JiraProject(user=request.user.username, password=request.session["secret"]).get_jira()
+        flt = jira.filter(filter_id)
+        jf = JiraFilter(empl=request.user, jira_filter=filter_id, interval=request.POST['interval'])
+        jf.jql = flt.jql
+        jf.save()
+        return HttpResponseRedirect(reverse('jira-filter-list'))
+
+    return render(request, 'jirafilter_form.html', locals())
+
+
+class JiraFilterList(ListView):
+    model = JiraFilter
+    template_name = 'jirafilter_list.html'
+
+    def get_queryset(self):
+        self.user = self.request.user
+        return JiraFilter.objects.filter(empl=self.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(JiraFilterList, self).get_context_data(**kwargs)
+        jira_list = JiraProject(user=self.request.user.username,
+                                password=self.request.session["secret"]).get_favorive_filter()
+        context['jira_list'] = [(int(x.id), x.name) for x in jira_list]
+
+        return context
+
+
+class JiraFilterDetail(DetailView):
+    model = JiraFilter
+
+
+class JiraFilterModify(UpdateView):
+    model = JiraFilter
+
+
+class JiraFilterDelete(DeleteView):
+    model = JiraFilter
+    template_name = 'jirafilter_confirm_delete.html'
+    success_url = reverse_lazy('jira-filter-list')
+
+
+def download_excel(request, filter_id):
+    filename = excel_by_filter(filter_id=filter_id, user=request.user, passwd=request.session["secret"])
+    response = HttpResponse(file(filename))
+    response['Content-Type'] = 'application/vnd.ms-excel'
+    response['Content-Disposition'] = 'attachment; filename=%s' % filename.split('/')[-1]
+    return response
+
+
+def email_excel(request, filter_id):
+    filename = excel_by_filter(filter_id=filter_id, user=request.user, passwd=request.session["secret"])
+    subject = 'Jira report by filter {}'.format(filter_id)
+    text = 'See attach.'
+    mail = EmailMessage(subject, text, settings.DEFAULT_FROM_EMAIL, [request.user.email, ])
+    mail.content_subtype = "html"
+    mail.attach_file(filename)
+    mail.send()
+    messages.add_message(request, messages.SUCCESS, 'Email to {} was send!'.format(request.user.email))
+    return HttpResponseRedirect(reverse_lazy('jira-filter-list'))
