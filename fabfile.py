@@ -112,6 +112,7 @@ def touch_reload():
     with cd(env.path):
         run("git show > uwsgi")
 
+
 def backup_db():
     print(green('Backup database'))
     with virtualenv():
@@ -169,4 +170,5 @@ def run_dev_server():
     print (green('Run dev server'))
     with virtualenv():
         run(
-            '[ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || nohup /srv/rndgui/venv/bin/python manage.py runserver sv2.bpc.in:8000 &')
+            '[ `pgrep -f "/srv/rndgui"` ] && echo "already worked" || '
+            'nohup /srv/rndgui/venv/bin/python manage.py runserver sv2.bpc.in:8000 &')
