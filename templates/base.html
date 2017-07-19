@@ -63,15 +63,34 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false"> Environments <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        {% if perms.prd.add_product %}
+                        {% if perms.envrnmnt.add_environment %}
                             <li><a href="{% url 'env-create' %}">Add new environment</a></li>
                         {% endif %}
                         <li role="separator" class="divider"></li>
                         <li><a href="{% url 'env-list' %}">Environments</a></li>
-                        <li role="separator" class="divider"></li>
+                        <!--li role="separator" class="divider"></li>
                         <li><a href="{% url 'dbinstance-list' %}">DataBase Instance(Oracle)</a></li>
                         <li><a href="{% url 'webinstance-list' %}">Weblogic Instance</a></li>
-                        <li><a href="{% url 'stlninstance-list' %}">Standalone Instance</a></li>
+                        <li><a href="{% url 'stlninstance-list' %}">Standalone Instance</a></li-->
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Stands<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% if perms.cat.add_testenvironment %}
+                            <li><a href="{% url 'test-env-add' %}">Add new stand</a></li>
+                        {% endif %}
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{% url 'test-env-list' %}">List of stands</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{% url 'rcarousel-list' %}">Carousel releases</a></li>
+                        <!--
+                        {% if perms.cat.can_run %}
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'get-one-stand' %}">Manual test</a></li>
+                        {% endif %}
+                        -->
                     </ul>
                 </li>
                 {% if user.is_staff %}

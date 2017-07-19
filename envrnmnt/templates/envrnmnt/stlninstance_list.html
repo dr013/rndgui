@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% if perms.cat.add_stlninstance %}
+            {% if perms.envrnmnt.add_stlninstance %}
                 <div class="panel panel-default">
                     <div class="panel-footer">
                         {% buttons %}
@@ -24,10 +24,10 @@
                                 <th>Port</th>
                                 <th>User</th>
                                 <th>Password</th>
-                                {% if perms.cat.change_stlninstance %}
+                                {% if perms.envrnmnt.change_stlninstance %}
                                     <th>Edit</th>
                                 {% endif %}
-                                {% if perms.cat.delete_stlninstance %}
+                                {% if perms.envrnmnt.delete_stlninstance %}
                                     <th>Delete</th>
                                 {% endif %}
                             </tr>
@@ -37,7 +37,7 @@
                                 <td>{{ rec.port}}</td>
                                 <td>{{ rec.user}}</td>
                                 <td>{{ rec.passwd}}</td>
-                                {% if perms.cat.change_stlninstance %}
+                                {% if perms.envrnmnt.change_stlninstance %}
                                     <td>
                                         {% buttons %}
                                             <a href="{% url 'stlninstance-update' rec.pk %}"
@@ -46,7 +46,7 @@
                                         {% endbuttons %}
                                     </td>
                                 {% endif %}
-                                {% if perms.cat.delete_stlninstance %}
+                                {% if perms.envrnmnt.delete_stlninstance %}
                                     <td>
                                         {% buttons %}
                                             <a href="{% url 'stlninstance-delete' rec.pk %}"

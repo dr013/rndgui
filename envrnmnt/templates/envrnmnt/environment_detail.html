@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-{% block title %}:Instance detail {{ object.title }}{% endblock %}
-{% block header %}{{ object.title }}{% endblock %}
+{% block title %}:Details of environments{% endblock %}
+{% block header %}Details of environments - [{{ object.name }}]{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <a href="{% url 'env-list' %}" class="btn btn-success active" role="button">Back to environment
-                        list</a>
+                    <a href="{% url 'env-list' %}" class="btn btn-success active" role="button">
+                        Back to list of environments
+                    </a>
                 </div>
             </div>
             <table class="table table-responsive table-bordered">
@@ -33,6 +34,8 @@
                         <tr><th>SID:</th><td>{{ rec.sid }}</td></tr>
                         <tr><th>System Login:</th><td>{{ rec.sys_user }}</td></tr>
                         <tr><th>System Password:</th><td>{{ rec.sys_passwd }}</td></tr>
+                        <tr><th>Release part:</th><td>{{ rec.release_part }}</td></tr>
+
                     {% endfor %}
                 {% endif  %}
                 {% if env.webinstances.all %}
@@ -45,6 +48,8 @@
                         <tr><th>Managed server:</th><td>{{ rec.target_server }}</td></tr>
                         <tr><th>Login:</th><td>{{ rec.login }}</td></tr>
                         <tr><th>Password:</th><td>{{ rec.passwd }}</td></tr>
+                        <tr><th>Release part:</th><td>{{ rec.release_part }}</td></tr>
+                        <tr><td></td></tr>
                     {% endfor %}
                 {% endif  %}
                 {% if env.stlninstances.all %}
@@ -56,6 +61,7 @@
                     <tr><th>Port:</th><td>{{ rec.port }}</td></tr>
                     <tr><th>User:</th><td>{{ rec.user }}</td></tr>
                     <tr><th>Password:</th><td>{{ rec.passwd }}</td></tr>
+                    <tr><th>Release part:</th><td>{{ rec.release_part }}</td></tr>
                     {% endfor %}
                 {% endif  %}
             </table>

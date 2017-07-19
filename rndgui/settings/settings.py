@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+from pymongo import MongoClient
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from rndgui.context_processors import get_version
 
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'envrnmnt',
     'django_celery_results',
     'django_celery_beat',
-    'jra'
+    'jra',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -93,7 +94,7 @@ WSGI_APPLICATION = 'rndgui.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -219,3 +220,13 @@ JIRA_PASS = '3WqOGzrj9G'
 CELERY_RESULT_BACKEND = 'django-db'
 
 ADMINS = [('Sergey Dorontsov', 'dorontcov@bpcbt.com'), ('Evgeniy Kryukov', 'krukov@bpcbt.com')]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
+    'PAGE_SIZE': 10
+}
+
+# Init MongoDB client
+MONGO_CLIENT = MongoClient("mongodb://sv2-web.bt.bpc.in:27017,sv2.bpc.in:27017,sv2-web2.bt.bpc.in:27017", connect=False)

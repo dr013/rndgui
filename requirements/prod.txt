@@ -19,3 +19,6 @@ gunicorn
 setproctitle
 six
 flower
+python-jenkins==0.4.14
+requests==2.17.3
+djangorestframework==3.6.3

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
-{% block title %}:Environment list{% endblock %}
-{% block header %}Environment list{% endblock %}
+{% block title %}:List of Environments{% endblock %}
+{% block header %}List of Environments:{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
-            {% if perms.cat.add_stlninstance %}
+            {% if perms.envrnmnt.add_stlninstance %}
                 <div class="panel panel-default">
                     <div class="panel-footer">
                         {% buttons %}
@@ -25,15 +25,15 @@
                                 <th>Oracle DB Instance</th>
                                 <th>Weblogic Instance</th>
                                 <th>Standalone Instance</th>
-                                {% if perms.cat.change_environment %}
+                                {% if perms.envrnmnt.change_environment %}
                                     <th>Edit</th>
                                 {% endif %}
-                                {% if perms.cat.delete_environment%}
+                                {% if perms.envrnmnt.delete_environment%}
                                     <th>Delete</th>
                                 {% endif %}
                             </tr>
                     {% endif %}
-                            <tr>
+                            <tr {% if rec.is_active == False %} style="color:#d3d3d3;" {% endif %}>
                                 <td><a href="{% url 'env-detail' rec.pk %}">{{ rec.name }}</a></td>
                                 <td>{{ rec.is_active}}</td>
                                 <td>
@@ -63,7 +63,7 @@
                                         N/A
                                     {% endif %}
                                 </td>
-                                {% if perms.cat.change_environment %}
+                                {% if perms.envrnmnt.change_environment %}
                                     <td>
                                         {% buttons %}
                                             <a href="{% url 'env-update' rec.pk %}"
@@ -72,11 +72,11 @@
                                         {% endbuttons %}
                                     </td>
                                 {% endif %}
-                                {% if perms.cat.delete_environment %}
+                                {% if perms.envrnmnt.delete_environment %}
                                     <td>
                                         {% buttons %}
                                             <a href="{% url 'env-delete' rec.pk %}"
-                                               class="btn btn-warning btn-sm">{% bootstrap_icon "remove" %}
+                                               class="btn btn-danger btn-sm">{% bootstrap_icon "remove" %}
                                             </a>
                                         {% endbuttons %}
                                     </td>
