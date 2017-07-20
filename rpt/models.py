@@ -16,7 +16,7 @@ class JiraFilter(models.Model):
     empl = models.ForeignKey(User)
     jira_filter = models.IntegerField(_("Jira  filter"))
     interval = models.IntegerField(_("Interval"), null=True, blank=True, choices=INTERVAL_CHOICE)
-    jql = models.CharField(_("JQL jira query"), max_length=255, null=True, blank=True)
+    jql = models.CharField(_("JQL jira query"), max_length=2000, null=True, blank=True)
 
     @property
     def jira_url(self):
