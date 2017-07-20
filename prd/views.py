@@ -142,11 +142,9 @@ class ProductReleaseList(ListView):
         self.product = get_object_or_404(Product, jira=self.args[0].upper())
 
         if 'filter' in self.request.GET and 'all' in self.request.GET['filter']:
-            rls = Release.objects.filter(product=self.product)
+            rls = Release.objects.filter(product=self.product).order_by('-created')
         else:
-            rls = Release.objects.filter(product=self.product, is_active=True)
-
-        rls.order_by('-created')
+            rls = Release.objects.filter(product=self.product, is_active=True).order_by('-created')
 
         return rls
 
