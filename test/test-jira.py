@@ -19,21 +19,23 @@ jira = JIRA(options=JIRA_OPTIONS, basic_auth=(JIRA_USER, JIRA_PASS))
 # for rec in issue.raw['fields']:
 #     print ("Field:", rec, "Value:", issue.raw['fields'][rec])
 
-# project = 'SVCI'
-# task_type = 'Task'
+project = 'SVCI'
+task_type = 'Task'
 # obj_list = jira.createmeta(projectKeys=project, issuetypeNames=task_type,
 #                            expand='projects.issuetypes.fields')
-#
-# fields = []
-# field_dict = obj_list['projects'][0]['issuetypes'][0]['fields']
-# for key, value in field_dict.iteritems():
-#     if value['required'] and not value['hasDefaultValue']:
-#         print key, value
-#         print
-#         print
-#         fields.append(key)
+obj_list = jira.createmeta(projectKeys=project, expand='projects.issuetypes')
+print obj_list
+fields = []
+field_dict = obj_list['projects'][0]['issuetypes'][0]['fields']
+for key, value in field_dict.iteritems():
+    if value['required'] and not value['hasDefaultValue']:
+        print key, value
+        print
+        print
+        fields.append(key)
 
-# project = jira.project('CORE')
+project = jira.project('CORE')
+print project
 # version = jira.project_versions(project)
 # print [x.name for x in version]
 # # for rec in version:
