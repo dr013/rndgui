@@ -47,7 +47,7 @@ def create_jira_version(project, version, released=True, desc=None):
         version_desc = desc
     else:
         version_desc = 'New version {}'.format(version)
-    jira.create_version(version_name=version, released=released, description=desc)
+    jira.create_version(version_name=version, released=released, description=version_desc)
 
 
 def check_jira_release(project, release):
@@ -110,6 +110,7 @@ def create_jira_build(project, release, build):
 def jira_project_list(project=None):
     project_list_lov = cache.get('jira_project_list')
     if not project_list_lov:
+        logger.info("Update Jira project list")
         project_list = JiraProject(project=project).project_list()
         project_list_lov = []
         for rec in ((x.key, "{name}({key})".format(name=x.name, key=x.key)) for x in project_list):

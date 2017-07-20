@@ -12,6 +12,11 @@
                         <a href="{% url 'release-create' product.name %}" class="btn btn-primary"
                            role="button">{% bootstrap_icon 'plus' %}Add new release</a>
                     {% endif %}
+					{% if request.GET.filter %}
+						<a href="{% url  'release-list-by-product' product.name %}" class="btn btn-info" role="button">Only active releases</a>
+					{% else %}
+						<a href="{% url  'release-list-by-product' product.name %}?filter=all" class="btn btn-info" role="button">All releases</a>
+					{% endif %}
                     <a href="{% url 'product-list' %}" class="btn btn-success active" role="button">Back to product
                         list</a>
                 </div>
