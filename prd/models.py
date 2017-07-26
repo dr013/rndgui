@@ -16,6 +16,12 @@ from celery import shared_task
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+PART_TYPE = (
+    ('sql', 'Database part'),
+    ('java', 'Java part for application server'),
+    ('standalone', 'Standalone module - java/c/c++'),
+)
+
 
 def getkey(item):
     return item[1]
@@ -126,7 +132,7 @@ class Product(models.Model):
     wiki_url = models.URLField("Wiki/Confluence URL", null=True, blank=True)
     jira = models.CharField(_("Jira project code"), max_length=20, choices=jira_project_list(), unique=True,
                             help_text="Jira project key")
-    system_name = models.CharField(_("Product system name"), max_length=20, null=True, blank=True)
+    system_name = models.CharField(_("Product system name"), max_length=20, unique=True)
     inst = models.ForeignKey(Institution, verbose_name='Group')
     owner = models.ForeignKey(User)
     created = models.DateField(auto_now_add=True)
@@ -230,7 +236,7 @@ class Release(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            s1 = create_jira_version.delay(project=self.product.jira, version=self.name)
+            create_jira_version.delay(project=self.product.jira, version=self.name)
             logger.info("Create Jira version: {}".format(self.name))
 
             if not self.jira:
@@ -364,6 +370,7 @@ class ReleasePart(models.Model):
                                 help_text="Specific release number. Skip if all releases have one configurations")
     gitlab_id = models.IntegerField(_("Gitlab project"), null=True, blank=True, choices=gitlab_project_list())
     history = HistoricalRecords()
+    part_type = models.CharField(_("Release part type"), blank=True, null=True, max_length=50, choices=PART_TYPE)
 
     class Meta:
         unique_together = ('name', 'product',)
@@ -399,15 +406,41 @@ class BuildRevision(models.Model):
     build = models.ForeignKey(Build)
     release_part = models.ForeignKey(ReleasePart)
     revision = models.CharField(_("Git revision"), max_length=40, null=True, blank=True)
+    is_changed = models.BooleanField(_("Check if new version"), default=True)
 
     def __str__(self):
         return '{build}={release_part}'.format(build=self.build, release_part=self.release_part)
+
+    def save(self, *args, **kwargs):
+        build_name = int(self.build.name)
+
+        if build_name > 0:
+            prev_build_number = str(build_name - 1)
+            prev_build = Build.objects.filter(name=prev_build_number, release=self.build.release)[0]
+            prev_revision = \
+            self.objects.filter(build=prev_build, release_part=self.release_part).values_list('revision', flat=True)[0]
+            if prev_revision == self.revision:
+                self.is_changed = False
+        super(BuildRevision, self).save(*args, **kwargs)
 
 
 class HotFixRevision(models.Model):
     hotfix = models.ForeignKey(HotFix)
     release_part = models.ForeignKey(ReleasePart)
     revision = models.CharField(_("Git revision"), max_length=40, null=True, blank=True)
+    is_changed = models.BooleanField(_("Check if new version"), default=True)
 
     def __str__(self):
         return '{hotfix}={release_part}'.format(hotfix=self.hotfix, release_part=self.release_part)
+
+    def save(self, *args, **kwargs):
+        hotfix_name = int(self.hotfix.name)
+        if hotfix_name > 1:
+            prev_hotfix_number = str(hotfix_name - 1)
+            prev_hotfix = HotFix.objects.filter(name=prev_hotfix_number, build=self.hotfix.build)
+        super(HotFixRevision, self).save(*args, **kwargs)
+
+
+def is_new_module_version(product, hotfix_number, release_part):
+    result = True
+    return result
